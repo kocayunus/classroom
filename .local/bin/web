@@ -97,7 +97,11 @@ module Page
     end
 
     def generate(outdir, filename = INDEX_HTML)
-      FileUtils.mkdir_p File.dirname(file = File.join(outdir, slug, filename)), mode: 0777
+      dir = File.dirname(file = File.join(outdir, slug, filename))
+
+      FileUtils.mkdir_p dir
+      FileUtils.chmod 0777, dir
+
       File.write file, render
     end
 
