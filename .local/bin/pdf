@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mkdir -p .local/tmp/bilprg1
+pandoc -t beamer -o .local/tmp/bilprg1/slides.pdf bilprg1/slides.md

@@ -1,0 +1,208 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'ostruct'
+require 'erb'
+require 'singleton'
+require 'fileutils'
+require 'kramdown'
+require 'htmlbeautifier'
+
+BEGIN { Dir.chdir "#{__dir__}/../.." } # rubocop:disable Style/BeginBlock
+
+module Page
+  Error = Class.new StandardError
+
+  class Config < OpenStruct
+    include Singleton
+
+    FILE = ".local/etc/#{File.basename($PROGRAM_NAME)}.yml"
+
+    def initialize
+      File.directory?(dir = File.dirname(FILE)) or (raise Error, "Config directory not found: #{dir}")
+      File.exist?(FILE)                         or (raise Error, "Config file not found: #{FILE}")
+
+      super YAML.load_file(FILE)
+    end
+  end
+
+  class Base
+    FRONTMATTER_PATTERN = /---(.|\n)*---/.freeze
+    INDEX_HTML          = 'index.html'
+
+    class << self
+      def match?(path)
+        path =~ pattern && File.exist?(File.join(path, indexfile))
+      end
+
+      def pattern
+        /^[^.]/.freeze
+      end
+
+      def indexfile
+        'index.md'
+      end
+
+      def template
+        Config.instance.public_send name.split('::').last.downcase
+      end
+    end
+
+    attr_reader :slug, :var, :children
+
+    def initialize(dir)
+      @slug     = dir.delete_prefix('./')
+      @children = []
+
+      load
+    end
+
+    def load
+      @static, @var =
+        case (hash = YAML.safe_load(content = File.read(self.class.indexfile)))
+        when ::Hash then [content.gsub(FRONTMATTER_PATTERN, '').strip, OpenStruct.new(hash)]
+        else             [content, OpenStruct.new]
+        end
+
+      @dynamic = self.class.template
+
+      scan
+    end
+
+    def title
+      @title ||= var.title || static.split("\n").first.chomp.gsub(/^#+\s+/, '')
+    end
+
+    def name
+      @name ||= File.basename slug
+    end
+
+    def html
+      content = [static, dynamic].join("\n\n")
+      Kramdown::Document.new(erb(content)).to_html
+    rescue Kramdown::Error => e
+      raise Error, "Markdown error: #{e.message}"
+    end
+
+    def css
+      Config.instance.respond_to?(:css) ? Config.instance.css : ''
+    end
+
+    def render
+      HtmlBeautifier.beautify(erb(Config.instance.layout))
+    end
+
+    def renderable?
+      true
+    end
+
+    def generate(outdir, filename = INDEX_HTML)
+      FileUtils.mkdir_p File.dirname(file = File.join(outdir, slug, filename))
+      File.write file, render
+    end
+
+    private
+
+    attr_reader :static, :dynamic
+
+    def scan
+      return unless self.class.respond_to?(:child) && (child = self.class.child)
+
+      Dir['*'].each do |dir|
+        next unless File.directory?(dir) && child.match?(dir)
+
+        Dir.chdir(dir) { children << child.new(File.join(slug, dir)) }
+      end
+    end
+
+    def erb(content)
+      ERB.new(content, trim_mode: '-', eoutvar: '_erbout').result(binding)
+    rescue StandardError => e
+      raise Error, "Template render error: #{e.message}"
+    end
+  end
+
+  class Root < Base
+    def self.child
+      Course
+    end
+  end
+
+  class Course < Base
+    PDF = 'slides.pdf'
+
+    def self.child
+      Lecture
+    end
+
+    def pdf
+      PDF
+    end
+
+    def audience
+      var.audience
+    end
+  end
+
+  class Lecture < Base
+    INDEX = 'README.md'
+
+    def self.pattern
+      /^[1-2]\d{3}[ _-]+/.freeze
+    end
+
+    def self.indexfile
+      INDEX
+    end
+
+    def title
+      name.tr('_', ' ')
+    end
+
+    def date
+      title
+    end
+
+    def notes
+      File.join Config.instance.repository, 'tree', 'HEAD', slug
+    end
+
+    def recording
+      var.respond_to?(:recording) and var.recording
+    end
+
+    def renderable?
+      false
+    end
+  end
+
+  class << self
+    def generate(root = '.', outdir = '.local/tmp')
+      visit Page::Root.new(root) do |page|
+        next unless page.renderable?
+
+        page.generate(outdir)
+      end
+
+      FileUtils.touch File.join(outdir, '.nojekyll')
+    end
+
+    private
+
+    def visit(root, &block)
+      yield(root)
+
+      root.children.each do |child|
+        visit(child, &block)
+      end
+    end
+  end
+end
+
+def main
+  Page.generate
+rescue Page::Error => e
+  abort e.message
+end
+
+main

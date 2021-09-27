@@ -1,0 +1,49 @@
+repository: https://github.com/roktas/classroom
+
+layout: |
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/roktas/assets@main/css/min.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <% unless css.empty? %>
+    <style>
+    <%= css %>
+    </style>
+    <% end %>
+  </head>
+  <body>
+    <div class="container">
+    <%= html %>
+    </div>
+    <script>
+      feather.replace()
+    </script>
+  </body>
+  </html>
+
+css: |
+  svg { display: inline-block; vertical-align: middle; }
+
+root: |
+  ### Dersler
+  
+  <%- children.each do |course| %>
+  - [<%= course.title %> / <%= course.audience %>](<%= course.slug %>/)
+  <%- end %>
+
+course: |
+  ### Materyal
+  
+  - Ders sunumu [<i data-feather="file"></i>](<%= pdf %>)
+  
+  ### Oturum
+
+  | Tarih | Notlar | Kayıt |
+  |:----- |:------ |:----- |
+  <%- children.each do |lecture| -%>
+  | <%= lecture.date %> | [<i data-feather="github"></i>](<%= lecture.notes %>) | <% if lecture.recording %>[<i data-feather="video"></i>](<%= lecture.recording %>)<% else %><i data-feather="x"></i><% end %> |
+  <%- end %>
