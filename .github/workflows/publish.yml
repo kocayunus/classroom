@@ -14,15 +14,15 @@ jobs:
         run: |
           sudo .local/bin/bootstrap
 
+      - name: Web
+        run: |
+          .local/bin/web tmp
+
       - name: Pdf
         uses: docker://pandoc/latex:2.9
         with:
           entrypoint: /bin/sh
           args: .local/bin/pdf tmp
-
-      - name: Web
-        run: |
-          .local/bin/web tmp
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
