@@ -97,7 +97,7 @@ module Page
     end
 
     def generate(outdir, filename = INDEX_HTML)
-      FileUtils.mkdir_p File.dirname(file = File.join(outdir, slug, filename))
+      FileUtils.mkdir_p File.dirname(file = File.join(outdir, slug, filename)), mode: 0777
       File.write file, render
     end
 
@@ -177,7 +177,7 @@ module Page
   end
 
   class << self
-    def generate(root = '.', outdir = '.local/tmp')
+    def generate(root: '.', outdir: '.local/tmp')
       visit Page::Root.new(root) do |page|
         next unless page.renderable?
 
@@ -200,7 +200,7 @@ module Page
 end
 
 def main
-  Page.generate
+  Page.generate outdir: ARGV.first || 'tmp'
 rescue Page::Error => e
   abort e.message
 end
