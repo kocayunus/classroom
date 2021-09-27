@@ -1,4 +1,10 @@
 #!/bin/sh
 
-mkdir -p .local/tmp/bilprg1
-pandoc -t beamer -o .local/tmp/bilprg1/slides.pdf bilprg1/slides.md
+main() {
+	local dir=$1
+
+	mkdir -p "$dir"/bilprg1
+	pandoc -t beamer -o "$dir"/bilprg1/slides.pdf bilprg1/slides.md
+}
+
+main "$@"

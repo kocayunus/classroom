@@ -18,7 +18,7 @@ jobs:
         uses: docker://pandoc/latex:2.9
         with:
           entrypoint: /bin/sh
-          args: .local/bin/pdf
+          args: .local/bin/pdf tmp
 
       - name: Web
         run: |
