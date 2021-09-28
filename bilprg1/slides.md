@@ -23,11 +23,11 @@ Giriş
 ---
 
 ```ruby
-~~~kod-
-hello_world.rb
-~~~
+module HelloWorld
+  def self.call
+    puts 'Hello, World!'
+  end
+end
 
 HelloWorld.call
 ```
-
-Hash

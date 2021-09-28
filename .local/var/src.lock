@@ -1,0 +1,16 @@
+[
+  {
+    "source": "bilprg1/slides.md",
+    "series": [
+      {
+        "directive": "... github.com/roktas/education/doc ruby/giriş\n",
+        "insertion": {
+          "before": 10,
+          "after": 12,
+          "signature": "- **1** `puts` bir Kernel metodu\n",
+          "digest": "72a642eabefeba023c2c74c480d6644ec3cf06fdaefc54bf53018b8b0c9bea42"
+        }
+      }
+    ]
+  }
+]
