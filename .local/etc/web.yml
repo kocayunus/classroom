@@ -34,7 +34,7 @@ root: |
   ### Dersler
   
   <%- children.each do |course| %>
-  - <%= Utils.icon('home', course.slug, course.to_s) %>
+  - [<%= course.to_s %>](<%= course.slug %>)
   <%- end %>
 
 course: |
