@@ -5,6 +5,7 @@ require 'ostruct'
 require 'erb'
 require 'singleton'
 require 'fileutils'
+
 require 'kramdown'
 require 'htmlbeautifier'
 
@@ -23,6 +24,18 @@ module Page
       File.exist?(FILE)                         or (raise Error, "Config file not found: #{FILE}")
 
       super YAML.load_file(FILE)
+    end
+  end
+
+  module Utils
+    module_function
+
+    def icon(icon, url, text = nil)
+      prefix = text ? "#{text} " : ''
+
+      return %{#{prefix}[<i data-feather="#{icon}"></i>](#{url})} if url && !url.empty?
+
+      %(#{prefix}<i data-feather="x"></i>)
     end
   end
 
@@ -58,19 +71,17 @@ module Page
     end
 
     def load
-      @static, @var =
-        case (hash = YAML.safe_load(content = File.read(self.class.indexfile)))
-        when ::Hash then [content.gsub(FRONTMATTER_PATTERN, '').strip, OpenStruct.new(hash)]
-        else             [content, OpenStruct.new]
+      @body, @var =
+        case (hash = YAML.safe_load(body = File.read(self.class.indexfile)))
+        when ::Hash then [body.gsub(FRONTMATTER_PATTERN, '').strip, OpenStruct.new(hash)]
+        else             [body, OpenStruct.new]
         end
-
-      @dynamic = self.class.template
 
       scan
     end
 
     def title
-      @title ||= var.title || static.split("\n").first.chomp.gsub(/^#+\s+/, '')
+      @title ||= var.title || body.split("\n").first.chomp.gsub(/^#+\s+/, '')
     end
 
     def name
@@ -78,8 +89,7 @@ module Page
     end
 
     def html
-      content = [static, dynamic].join("\n\n")
-      Kramdown::Document.new(erb(content)).to_html
+      Kramdown::Document.new(erb(self.class.template)).to_html
     rescue Kramdown::Error => e
       raise Error, "Markdown error: #{e.message}"
     end
@@ -103,7 +113,7 @@ module Page
 
     private
 
-    attr_reader :static, :dynamic
+    attr_reader :body
 
     def scan
       return unless self.class.respond_to?(:child) && (child = self.class.child)
@@ -115,10 +125,14 @@ module Page
       end
     end
 
-    def erb(content)
-      ERB.new(content, trim_mode: '-', eoutvar: '_erbout').result(binding)
+    def erb(template)
+      ERB.new(template, trim_mode: '-', eoutvar: '_erbout').result(_binding)
     rescue StandardError => e
       raise Error, "Template render error: #{e.message}"
+    end
+
+    def _binding
+      binding
     end
   end
 
@@ -141,6 +155,10 @@ module Page
 
     def audience
       var.audience
+    end
+
+    def to_s
+      "#{title} / #{audience}"
     end
   end
 

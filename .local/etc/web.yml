@@ -29,23 +29,27 @@ css: |
   svg { display: inline-block; vertical-align: middle; }
 
 root: |
+  <%= body %>
+
   ### Dersler
   
   <%- children.each do |course| %>
-  - [<%= course.title %> / <%= course.audience %>](<%= course.slug %>/)
+  - <%= Utils.icon('home', course.slug, course.to_s) %>
   <%- end %>
 
 course: |
+  <%= body %>
+
   ### Materyal
 
   | Tür   | Materyal |
   |:----- |:-------- |
-  | Sunum | [<i data-feather="file"></i>](<%= pdf %>) |
+  | Sunum | <%= Utils.icon('file', pdf) %> |
   
   ### Oturum
 
   | Tarih | Notlar | Kayıt |
   |:----- |:------ |:----- |
   <%- children.each do |lecture| -%>
-  | <%= lecture.date %> | [<i data-feather="github"></i>](<%= lecture.notes %>) | <% if lecture.recording %>[<i data-feather="video"></i>](<%= lecture.recording %>)<% else %><i data-feather="x"></i><% end %> |
+  | <%= lecture.date %> | <%= Utils.icon('github', lecture.notes) %> | <%= Utils.icon('youtube', lecture.recording) %> |
   <%- end %>
