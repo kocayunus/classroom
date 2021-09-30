@@ -5,8 +5,6 @@ require 'foreslash'
 
 include Foreslash
 
-BEGIN { Dir.chdir "#{__dir__}/../.." } # rubocop:disable Style/BeginBlock
-
 class Root < Index
   def self.child
     Course
