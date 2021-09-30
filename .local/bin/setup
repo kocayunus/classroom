@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail; shopt -s nullglob; unset CDPATH; IFS=$' \t\n'; cd "${0%/*}"/../.. || exit
+
+main() {
+	.local/bin/bootstrap
+}
+
+main

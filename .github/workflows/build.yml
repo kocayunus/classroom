@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup
         run: |
@@ -19,7 +19,7 @@ jobs:
           .local/bin/build
 
       - name: Build (pdf)
-        uses: docker://pandoc/latex:2.9
+        uses: docker://pandoc/latex:2.14.1
         with:
           entrypoint: /bin/sh
           args: .local/bin/build
