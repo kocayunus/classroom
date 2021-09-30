@@ -15,7 +15,7 @@ class Root < Index
       <%= body %>
 
       ### Dersler
-      
+
       <%- children.each do |course| %>
       - [<%= course.identifier %>](<%= course.slug %>)
       <%- end %>
@@ -37,7 +37,7 @@ class Course < Index
       | Tür   | Materyal |
       |:----- |:-------- |
       | Sunum | <%= Support.icon('file', pdf) %> |
-      
+
       ### Oturum
 
       | Tarih | Notlar | Kayıt |
@@ -92,7 +92,7 @@ class Lecture < Index
 end
 
 def main(argv)
-  abort "Usage: $PROGRAM_NAME <input directory> <output directory>" unless argv.size == 2
+  abort 'Usage: $PROGRAM_NAME <input directory> <output directory>' unless argv.size == 2
 
   Foreslash.run(Root, indir: argv.shift, outdir: argv.shift) do |global|
     global.repository = 'https://github.com/roktas/classroom'
