@@ -1,3 +1,37 @@
 #!/usr/bin/env bash
 
-gem install kramdown htmlbeautifier
+set -Eeuo pipefail; shopt -s nullglob; unset CDPATH; IFS=$' \t\n'; cd "${0%/*}"/../.. || exit
+
+inrepo() {
+	local url="${1?${FUNCNAME[0]}:    missing argument}"; shift
+	local branch="${1?${FUNCNAME[0]}: missing argument}"; shift
+
+	[[ $# -gt 0 ]] || return 0
+
+	local repo=$url; repo=${repo##*/}; repo=${repo%.git}
+
+	local tmp
+	tmp=$(mktemp -p "${TMPDIR:-/tmp}" -d "${PROGNAME:-sh}".XXXXXXXX) || exit
+
+	local err; (
+		builtin cd "$tmp"
+		git clone --quiet --depth 1 --single-branch --branch "$branch" "$url"
+		builtin cd "$repo"
+
+		"$@"
+	) && err=$? || err=$?
+
+	rm -rf "$tmp"
+
+	if [[ $(type -t "$1" || true) == function ]] && [[ $1 =~ [.]$ ]]; then
+		unset -f "$1"
+	fi
+
+	return $err
+}
+
+main() {
+	inrepo https://github.com/alaturka/foreslash main .local/bin/install
+}
+
+main

@@ -1,0 +1,104 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'foreslash'
+
+include Foreslash
+
+BEGIN { Dir.chdir "#{__dir__}/../.." } # rubocop:disable Style/BeginBlock
+
+class Root < Index
+  def self.child
+    Course
+  end
+
+  def self.template
+    <<~EOF
+      <%= body %>
+
+      ### Dersler
+      
+      <%- children.each do |course| %>
+      - [<%= course.identifier %>](<%= course.slug %>)
+      <%- end %>
+    EOF
+  end
+end
+
+class Course < Index
+  def self.child
+    Lecture
+  end
+
+  def self.template
+    <<~EOF
+      <%= body %>
+
+      ### Materyal
+
+      | Tür   | Materyal |
+      |:----- |:-------- |
+      | Sunum | <%= Support.icon('file', pdf) %> |
+      
+      ### Oturum
+
+      | Tarih | Notlar | Kayıt |
+      |:----- |:------ |:----- |
+      <%- children.each do |lecture| -%>
+      | <%= lecture.date %> | <%= Support.icon('github', lecture.notes) %> | <%= Support.icon('youtube', lecture.recording) %> |
+      <%- end %>
+    EOF
+  end
+
+  def pdf
+    'slides.pdf'
+  end
+
+  def audience
+    local.audience
+  end
+
+  def identifier
+    "#{title} / #{audience}"
+  end
+end
+
+class Lecture < Index
+  def self.pattern
+    /^[1-2]\d{3}[ _-]+/.freeze
+  end
+
+  def self.indexfile
+    'README.md'
+  end
+
+  def title
+    name.tr('_', ' ')
+  end
+
+  def date
+    title
+  end
+
+  def notes
+    File.join global.repository, 'tree', 'HEAD', slug
+  end
+
+  def recording
+    get(:recording)
+  end
+
+  def renderable?
+    false
+  end
+end
+
+def main(argv)
+  abort "Usage: $PROGRAM_NAME <input directory> <output directory>" unless argv.size == 2
+
+  Foreslash.run(Root, indir: argv.shift, outdir: argv.shift) do |global|
+    global.repository = 'https://github.com/roktas/classroom'
+  end
+end
+
+main ARGV if __FILE__ == $PROGRAM_NAME

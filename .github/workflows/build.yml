@@ -12,21 +12,21 @@ jobs:
 
       - name: Setup
         run: |
-          sudo .local/bin/bootstrap
+          sudo .local/bin/setup
 
-      - name: Web
+      - name: Build (web)
         run: |
-          .local/bin/web tmp
+          .local/bin/build
 
-      - name: Pdf
+      - name: Build (pdf)
         uses: docker://pandoc/latex:2.9
         with:
           entrypoint: /bin/sh
-          args: .local/bin/pdf tmp
+          args: .local/bin/build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           branch: gh-pages
-          folder: tmp
+          folder: .local/srv
           clean: true

@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Keep this POSIX
+
+set -e; cd "${0%/*}"/../.. || exit
+
+INDIR=.
+OUTDIR=.local/srv
+SLIDES=slides
+
+init() {
+	OUTDIR=$(readlink -m "$OUTDIR")
+
+	if git rev-parse --git-dir >/dev/null 2>&1; then
+		git clean -fx "$OUTDIR"
+	else
+		rm -rf -- "$OUTDIR"/*
+	fi
+}
+
+web() {
+	! command -v ruby >/dev/null || ! command -v foreslash >/dev/null || {
+		echo '==> Generating Web files' >&2
+
+		.local/libexec/build "$INDIR" "$OUTDIR"
+	}
+}
+
+pdf() {
+	! command -v pandoc >/dev/null || (
+		echo '==> Generating PDF slides' >&2
+
+		cd "$INDIR" && find . -type f -name "${SLIDES}.md" -not -wholename '*/.*' | while read -r infile; do
+			outfile=${OUTDIR}/${infile%.*}.pdf
+			outdir=${outfile%/*}
+
+			echo "--> $infile" >&2 && mkdir -p "$outdir" && pandoc -t beamer -o "$outfile" "$infile"
+		done
+	)
+}
+
+main() {
+	init
+	web
+	pdf
+}
+
+main
