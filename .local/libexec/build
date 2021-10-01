@@ -38,6 +38,7 @@ class Course < Index
       |:----- |:-------- |
       | Sunum | <%= Support.icon('file', pdf) %> |
 
+      <%- unless children.empty? %>
       ### Oturum
 
       | Tarih | Notlar | Kayıt |
@@ -45,6 +46,7 @@ class Course < Index
       <%- children.each do |lecture| -%>
       | <%= lecture.date %> | <%= Support.icon('github', lecture.notes) %> | <%= Support.icon('youtube', lecture.recording) %> |
       <%- end %>
+      <% end -%>
     EOF
   end
 
