@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'foreslash'
+require 'indexen'
 
-include Foreslash
+include Indexen
 
 class Root < Index
   def self.child
@@ -94,7 +94,7 @@ end
 def main(argv)
   abort 'Usage: $PROGRAM_NAME <input directory> <output directory>' unless argv.size == 2
 
-  Foreslash.run(Root, indir: argv.shift, outdir: argv.shift) do |global|
+  Indexen.run(Root, indir: argv.shift, outdir: argv.shift) do |global|
     global.repository = 'https://github.com/roktas/classroom'
   end
 end

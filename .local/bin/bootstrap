@@ -31,7 +31,7 @@ inrepo() {
 }
 
 main() {
-	inrepo https://github.com/alaturka/foreslash main .local/bin/install
+	inrepo https://github.com/alaturka/indexen main .local/bin/install
 }
 
 main

@@ -23,7 +23,7 @@ clean() {
 }
 
 web() {
-	! command -v ruby >/dev/null || ! command -v foreslash >/dev/null || {
+	! command -v ruby >/dev/null || ! command -v index >/dev/null || {
 		echo '==> Generating Web files' >&2
 
 		.local/libexec/build "$INDIR" "$OUTDIR"
