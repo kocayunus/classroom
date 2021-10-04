@@ -41,9 +41,10 @@ Aşağıdaki liste ders dışında ilave bir pekiştirici kaynak beklentisini ka
 ### İşleyiş
 
 - Dersle ilgili tüm duyurular (bu sayfa değil) Google Classroom üzerinden yapılacaktır.  Derse ait Google Classroom
-  sayfalarına Üniversite tarafından size verilen `öğrenci_no@stu.omu.edu.tr` hesabıyla
-  [classroom.google.com](https://classroom.google.com) adresinden erişebilirsiniz.  Hesap parolanız [üniversite öğrenci
-  otomasyonu](https://ubs.omu.edu.tr) servisindeki hesap parolasıyla aynıdır.  Girişte sorun yaşıyorsanız
+  sayfalarına Üniversite tarafından size verilen "`öğrenci_no@stu.omu.edu.tr`" hesabıyla
+  [classroom.google.com](https://classroom.google.com) adresinden erişebilirsiniz (Dikkat!  "`@gmail.com`" ile biten
+  normal bir Google hesabıyla giriş yapmayın, STU hesabınızı kullanmanız gerekiyor).  Hesap parolanız [üniversite
+  öğrenci otomasyonu](https://ubs.omu.edu.tr) servisindeki hesap parolasıyla aynıdır.  Girişte sorun yaşıyorsanız
   [EvdeKal](https://evdekal.omu.edu.tr) yardım sayfalarından yararlanabilirsiniz.
 
 - Çevrimiçi dersler, bağlantısına Google Classroom sayfası üzerinden erişebileceğiniz, Google Meet ile
