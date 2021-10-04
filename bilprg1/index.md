@@ -27,8 +27,8 @@ içinde netleşecektir.  Bu sayfaları düzenli olarak kontrol etmeyi unutmayın
 
 ### Kaynaklar
 
-Derslerde rijit olarak izleyeceğimiz bir kaynak kitap bulunmuyor.  Var olan kaynakların da büyük bir bölümü İngilizce.
-Aşağıdaki kaynak listesi ders dışında ilave bir pekiştirici kaynak beklentisini karşılamak üzere verilmiştir.
+Derslerde sayfa sayfa izleyeceğimiz bir kaynak kitap bulunmuyor.  Var olan kaynakların da büyük bir bölümü İngilizce.
+Aşağıdaki liste ders dışında ilave bir pekiştirici kaynak beklentisini karşılamak üzere verilmiştir.
 
 - The Well-Grounded Rubyist; David A. Black, Joseph Leo III; 2019
 
@@ -75,8 +75,8 @@ Aşağıdaki kaynak listesi ders dışında ilave bir pekiştirici kaynak beklen
 
 ### Kurallar
 
-1. Dersle ilgili tüm duyuruların yapıldığı Google Classroom sayfalarını (bu sayfa değil) düzenli takip etmekle ve size
-   iletilen talepleri yerine getirmekle sorumlusunuz.
+1. Dersle ilgili tüm duyuruların yapıldığı Google Classroom sayfalarını (bu sayfa değil) düzenli takip etmekle ve sizden
+   istenilenleri yerine getirmekle sorumlusunuz.
 
 2. Uygulama saatlerinde Bölüm Bilgisayar laboratuvarlarında geçirdiğiniz süre başta olmak üzere ders saatlerinde sadece
    dersle ilgilenmelisiniz.   Bilgisayar laboratuvarında size ayrılan bilgisayarı uygulama süresince sadece ders için
@@ -101,7 +101,7 @@ Aşağıdaki kaynak listesi ders dışında ilave bir pekiştirici kaynak beklen
 7. Zamanında teslim edilmeyen veya sizden istenen biçimin dışında teslim edilen ödevler değerlendirmeye alınmayacaktır.
    Lütfen bu konuda herhangi bir talepte bulunmayın.
 
-8. Ders süresince verilen ödevlerde öncelikle dikkate alınan husus sizin öğrenme konusunda çaba gösterip
+8. Ders süresince verilen ödevlerde öncelikle dikkate alınan husus sizin öğrenme konusunda samimi çaba gösterip
    göstermediğinizdir.  Ödevde hata veya eksiklikler olsa bile aslolan sizin kişisel çabanızdır ve bu çaba mutlaka
    dikkate alınacaktır.  Herhangi bir çaba sarfetmeden Genel ağdan (İnternet) veya bir başka arkadaşınızdan kopyalama
    yoluyla yapılan ödevler değerlendirmeye alınmayacağı gibi bu kişilere eksi ödev puanı vermekle başlamak üzere
