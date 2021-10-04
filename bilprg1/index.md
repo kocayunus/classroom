@@ -67,7 +67,7 @@ Aşağıdaki kaynak listesi ders dışında ilave bir pekiştirici kaynak beklen
 - Ödevler başta olmak üzere çalışmalarınızı [Github'ta hesap açarak](https://github.com/signup) gerçekleştirmeniz
   beklenmektedir.  Önceki maddeyle ilişkili olarak, dileyenler ders süresince Github'ın sunduğu [Github
   Codespace](https://github.com/features/codespaces) sanal ortamında çalışmalarını yürütebilir.  (Bu konular derste
-  şifahen anlatılacak ve daha sonra bu sayfalarda "Materyal" bölümünde dokümante edilecektir.)
+  şifahen anlatılacak ve daha sonra bu sayfalarda "MATERYAL" bölümünde dokümante edilecektir.)
 
 - Derste düzenli yoklama alınmayacaktır.  (Fakat derse katılım sağlamayan öğrencilerin sayısının arttığı gözlenirse bu
   karar değişebilir.)
