@@ -43,9 +43,9 @@ Aşağıdaki liste ders dışında ilave bir pekiştirici kaynak beklentisini ka
 - Dersle ilgili tüm duyurular (bu sayfa değil) Google Classroom üzerinden yapılacaktır.  Derse ait Google Classroom
   sayfalarına Üniversite tarafından size verilen "`öğrenci_no@stu.omu.edu.tr`" hesabıyla
   [classroom.google.com](https://classroom.google.com) adresinden erişebilirsiniz (Dikkat!  "`@gmail.com`" ile biten
-  normal bir Google hesabıyla giriş yapmayın, STU hesabınızı kullanmanız gerekiyor).  Hesap parolanız [üniversite
-  öğrenci otomasyonu](https://ubs.omu.edu.tr) servisindeki hesap parolasıyla aynıdır.  Girişte sorun yaşıyorsanız
-  Üniversitenin [Evde Kal](https://evdekal.omu.edu.tr) yardım sayfalarından yararlanabilirsiniz.
+  normal bir Google hesabıyla giriş yapmayın, STU hesabınızı kullanmanız gerekiyor).  Hesap parolanız [Öğrenci Otomasyon
+  servisindeki](https://ubs.omu.edu.tr) hesap parolasıyla aynıdır.  Girişte sorun yaşıyorsanız Üniversitenin [Evde
+  Kal](https://evdekal.omu.edu.tr) yardım sayfalarından yararlanabilirsiniz.
 
 - Çevrimiçi dersler, Google Classroom sayfası üzerinde bulacağınız "Meet bağlantısı" linkine tıklayarak Google Meet ile
   gerçekleştirilecektir.  Dersin etkileşimini artırmak için çevrimiçi ders süresince çekinmeden soru sorabilirsiniz.
@@ -80,15 +80,16 @@ Aşağıdaki liste ders dışında ilave bir pekiştirici kaynak beklentisini ka
 
 ### Kurallar
 
-1. Dersle ilgili tüm duyuruların yapıldığı Google Classroom sayfalarını (bu sayfa değil) düzenli takip etmekle ve sizden
-   istenilenleri yerine getirmekle sorumlusunuz.
+1. Dersle ilgili tüm duyuruların yapıldığı [Google Classroom](https://classroom.google.com) sayfalarını düzenli takip
+   etmekle ve sizden istenilenleri yerine getirmekle sorumlusunuz.
 
 2. Uygulama saatlerinde Bölüm Bilgisayar laboratuvarlarında geçirdiğiniz süre başta olmak üzere ders saatlerinde sadece
    dersle ilgilenmelisiniz.   Bilgisayar laboratuvarında size ayrılan bilgisayarı uygulama süresince sadece ders için
    kullanın.  Laboratuvardan ayrılırken masanızı düzenleyin ve geride **asla** çöp bırakmayın.
 
-3. Derste anlatılan konularla ilgili sorularınızı ders saatleri dışında özelden yazmak veya konuşmak yerine lütfen dersin
-   [Soru-Cevap forumunda](https://github.com/roktas/classroom/discussions/categories/programlamaya-giri%C5%9F-om%C3%BC-bilgisayar-m%C3%BChendisli%C4%9Fi-b%C3%B6l%C3%BCm%C3%BC)
+3. Derste anlatılan konularla ilgili **teknik sorularınızı** ders saatleri dışında özelden yazmak veya konuşmak yerine
+   lütfen dersin [Soru-Cevap
+   forumunda](https://github.com/roktas/classroom/discussions/categories/programlamaya-giri%C5%9F-om%C3%BC-bilgisayar-m%C3%BChendisli%C4%9Fi-b%C3%B6l%C3%BCm%C3%BC)
    yazılı olarak sorun.  Bu sayede verilen cevaplardan herkes yararlanabilecektir.
 
 4. Derste zaten açık şekilde değinilmiş konular hakkında lütfen iletişim kurmayın.  Derste sunulan içeriğe ait
