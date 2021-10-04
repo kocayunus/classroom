@@ -6,42 +6,85 @@ numerology: BIL103
 
 # Programlamaya Giriş
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Bu derste, Bilgisayar Mühendisliği mesleğinin en temel becerisi olan "Programlama"yı giriş seviyesinde öğrenmeniz
+hedeflenmektedir.  Bir programlama dilinin öğrenilmesiyle, olağan bir yabancı dilin öğrenilmesi arasında paralellikler
+bulunur.  Ancak bol pratik yaparak öğrenilebilecek yeni bir yabancı dilde ilk hedef o dilde aklınızda olanı ifade
+edebilme yani "meramı ifade" ("derdini/isteğini anlatma") olduğu gibi programlama dillerinde de durum budur:
+karşılaştığınız "hesaplama" probleminin kafanızdaki çözümünü bilgisayara anlatabilmek için bilgisayarın anladığı bir
+dilin, bir programlama dilinin kurallarını ve sözcüklerini öğrenmek ve kullanmak.  Yeni bir dili öğrenmek o dilde
+ustalaşmak, dili edebi anlamda en doğru ve güzel şekilde kullanmak anlamına gelmediği gibi bu derste de hedefimiz
+seçilen dilde her yönüyle ustalaşmak olmayacak.  Ama ders boyunca ustalaşmanın ipuçlarına da yeri geldikçe değineceğiz.
+
+## İzlence
+
+Derste 2021-2022 eğitim/öğretim yarıyılı itibarıyla çeşitli revizyonlar planlandığından ders izlencesi (Syllabus) zaman
+içinde netleşecektir.  Bu sayfaları düzenli olarak kontrol etmeyi unutmayın.
+
+### Dersin İşleyişi
+
+- Dersle ilgili tüm duyurular (bu sayfa değil) Google Classroom üzerinden yapılacaktır.
+
+- Çevrimiçi dersler, bağlantısına Google Classroom sayfası üzerinden erişebileceğiniz, Google Meet ile
+  gerçekleştirilecektir. Dersin etkileşimini artırmak için çevrimiçi ders süresince çekinmeden soru sorabilirsiniz.
+
+- Derste sunulan içeriğin büyük bir bölümü: çevrimiçi ders kayıtları, slaytlar, derste verilen örnekler bu sayfalarda
+  "MATERYAL" başlığı altında listelenecektir.
+
+- Dersin teorik saatlerinde Bölüm Bilgisayar laboratuvarları açık halde tutulacaktır.  Çevrimiçi derse bir nedenle
+  erişim olanağı olmayan öğrenciler dersi Laboratuvarda takip edebilir.
+
+- Dersin uygulama saatlerinde Bölüm Bilgisayar laboratuvarları açık halde tutulacaktır.  Ödevler başta olmak üzere
+  takıldığınız hususlarda asistan hocalarınızdan yüz yüze yardım alabilirsiniz.
+
+- Programlama sadece ve sadece bizzat programlama yapmakla öğrenilen bir beceridir.  Bu nedenle size çeşitli aralıklarla
+  ödevler verilerek somut programlama yapmanız beklenecektir.  Ödevlerin başarı notunuza katkısı büyüktür.  Kesin katkı
+  oranı Google Classroom duyurularında daha sonra ilan edilecektir.
+
+- Ders kapsamında [Ruby](https://www.ruby-lang.org/tr/) programlama dili yorumlayıcısını ve bir programlama editörü
+  olarak tercihen [Visual Studio Code](https://code.visualstudio.com/) programını kişisel bilgisayarınıza kurmanız
+  beklenmektedir.  Kişisel bilgisayarınız yoksa veya bilgisayarınız yeterli kaynaklara sahip değilse Bilgisayar
+  Laboratuvarı olanaklarından yararlanabilirsiniz (bu konuda zorluk yaşayan arkadaşlar lütfen özelden benimle temasa
+  geçsinler).
+
+- Ödevler başta olmak üzere çalışmalarınızı [Github'ta hesap açarak](https://github.com/signup) gerçekleştirmeniz
+  beklenmektedir.  Önceki maddeyle ilişkili olarak, dileyenler ders süresince Github'ın sunduğu [Github
+  Codespace](https://github.com/features/codespaces) sanal ortamında çalışmalarını yürütebilir.  (Bu konular derste
+  şifahen anlatılacak ve daha sonra bu sayfalarda "Materyal" bölümünde dokümante edilecektir.)
+
+- Derste düzenli yoklama alınmayacaktır.  (Fakat derse katılım sağlamayan öğrencilerin sayısının arttığı gözlenirse bu
+  karar değişebilir.)
+
+- Dönem içi ve dönem sınavına ilave olarak bazı derslerde önceden duyuru yapılmadan kısa sınavlar gerçekleştirilebilir.
 
 ### Davranış Kuralları
 
-1. Dersle ilgili tüm duyurular (bu sayfa değil) Google Classroom üzerinden yapılacaktır.  Google Classroom sayfalarını
-   düzenli takip etmekle sorumlusunuz.
+1. Dersle ilgili tüm duyuruların yapıldığı (bu sayfa değil) Google Classroom sayfalarını düzenli takip etmekle
+   ve size iletilen talepleri yerine getirmekle sorumlusunuz.
 
-2. Dersin teorik saatlerinde Bölüm Bilgisayar laboratuvarları açık halde tutulacaktır.  Çevrimiçi derse bir nedenle
-   erişim olanağı olmayan öğrenciler dersi Laboratuvarda takip edebilir.
+2. Uygulama saatlerinde Bölüm Bilgisayar laboratuvarlarında geçirdiğiniz süre başta olmak üzere ders saatlerinde sadece
+   dersle ilgilenmelisiniz.   Bilgisayar laboratuvarında size ayrılan bilgisayarı uygulama süresince sadece ders için
+   kullanın.  Laboratuvardan ayrılırken masanızı düzenleyin ve geride **asla** çöp bırakmayın.
 
-3. Dersin uygulama saatlerinde Bölüm Bilgisayar laboratuvarları açık halde tutulacaktır.  Ödevler başta olmak üzere
-   takıldığınız hususlarda asistan hocalarınızdan yüz yüze yardım alabilirsiniz.
-
-4. Dersle anlatılan konularla ilgili sorularınızı ders saatleri dışında özelden yazmak veya konuşmak yerine lütfen dersin
+3. Dersle anlatılan konularla ilgili sorularınızı ders saatleri dışında özelden yazmak veya konuşmak yerine lütfen dersin
    [Soru-Cevap forumunda](https://github.com/roktas/classroom/discussions/categories/programlamaya-giri%C5%9F-om%C3%BC-bilgisayar-m%C3%BChendisli%C4%9Fi-b%C3%B6l%C3%BCm%C3%BC)
    yazılı olarak sorun.  Bu sayede verilen cevaplardan herkes yararlanabilecektir.
 
-5. Derste zaten açık şekilde değinilmiş konular hakkında lütfen iletişim kurmayın.  Derste sunulan içeriğe ait
+4. Derste zaten açık şekilde değinilmiş konular hakkında lütfen iletişim kurmayın.  Derste sunulan içeriğe ait
    materyalleri bu sitede bulabilirsiniz (derslerin büyük bir çoğunluğunun çevrimiçi kaydı da zaten sunulmaktadır).
    İletişime girmeden önce bu materyalleri dikkatli şekilde inceleyin, gerekirse arkadaşlarınıza sorun.
 
-6. Yukarıda değinilen konular dışında dersin işleyişiyle alakalı **teknik olmayan soruları** özelden asistan hocalarınıza
+5. Yukarıda değinilen konular dışında dersin işleyişiyle alakalı **teknik olmayan soruları** özelden asistan hocalarınıza
    veya bana eposta yoluyla iletebilirsiniz.  Fakat lütfen "not pazarlığı" anlamına gelen diplomatik yazışmalar yapmayın.
    Bu tür iletilere geri dönüş yapılmayacaktır.
 
-7. Gerek dersin işleyişinde gerekse ödevlerde bazı bulut servislerinde (ör. Github) hesap açmanız ve kullandığınız
+6. Gerek dersin işleyişinde gerekse ödevlerde bazı bulut servislerinde (ör. Github) hesap açmanız ve kullandığınız
    bilgisayarda çeşitli kurulumlar ve ayarlar yapmanız beklenmektedir.  Bu koşulları ivedi şekilde sağlamadan derse
    devam etmeye çalışmayın.
 
-8. Zamanında teslim edilmeyen veya sizden istenen biçimin dışında teslim edilen ödevler değerlendirmeye alınmayacaktır.
+7. Zamanında teslim edilmeyen veya sizden istenen biçimin dışında teslim edilen ödevler değerlendirmeye alınmayacaktır.
    Lütfen bu konuda herhangi bir talepte bulunmayın.
 
-9. Ders süresince verilen ödevlerde öncelikle dikkate alınan husus sizin öğrenme konusunda çaba gösterip
+8. Ders süresince verilen ödevlerde öncelikle dikkate alınan husus sizin öğrenme konusunda çaba gösterip
    göstermediğinizdir.  Ödevde hata veya eksiklikler olsa bile aslolan sizin kişisel çabanızdır ve bu çaba mutlaka
    dikkate alınacaktır.  Herhangi bir çaba sarfetmeden Genel ağdan (İnternet) veya bir başka arkadaşınızdan kopyalama
    yoluyla yapılan ödevler değerlendirmeye alınmayacağı gibi bu kişilere eksi ödev puanı vermekle başlamak üzere
