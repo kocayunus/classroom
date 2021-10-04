@@ -76,14 +76,14 @@ Aşağıdaki kaynak listesi ders dışında ilave bir pekiştirici kaynak beklen
 
 ### Kurallar
 
-1. Dersle ilgili tüm duyuruların yapıldığı (bu sayfa değil) Google Classroom sayfalarını düzenli takip etmekle
-   ve size iletilen talepleri yerine getirmekle sorumlusunuz.
+1. Dersle ilgili tüm duyuruların yapıldığı Google Classroom sayfalarını (bu sayfa değil) düzenli takip etmekle ve size
+   iletilen talepleri yerine getirmekle sorumlusunuz.
 
 2. Uygulama saatlerinde Bölüm Bilgisayar laboratuvarlarında geçirdiğiniz süre başta olmak üzere ders saatlerinde sadece
    dersle ilgilenmelisiniz.   Bilgisayar laboratuvarında size ayrılan bilgisayarı uygulama süresince sadece ders için
    kullanın.  Laboratuvardan ayrılırken masanızı düzenleyin ve geride **asla** çöp bırakmayın.
 
-3. Dersle anlatılan konularla ilgili sorularınızı ders saatleri dışında özelden yazmak veya konuşmak yerine lütfen dersin
+3. Derste anlatılan konularla ilgili sorularınızı ders saatleri dışında özelden yazmak veya konuşmak yerine lütfen dersin
    [Soru-Cevap forumunda](https://github.com/roktas/classroom/discussions/categories/programlamaya-giri%C5%9F-om%C3%BC-bilgisayar-m%C3%BChendisli%C4%9Fi-b%C3%B6l%C3%BCm%C3%BC)
    yazılı olarak sorun.  Bu sayede verilen cevaplardan herkes yararlanabilecektir.
 
