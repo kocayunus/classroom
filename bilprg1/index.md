@@ -38,7 +38,7 @@ Aşağıdaki kaynak listesi ders dışında ilave bir pekiştirici kaynak beklen
 
 - [Standart Ruby Kitaplığı](https://ruby-doc.org/)
 
-### Dersin İşleyişi
+### İşleyiş
 
 - Dersle ilgili tüm duyurular (bu sayfa değil) Google Classroom üzerinden yapılacaktır.
 
@@ -74,7 +74,7 @@ Aşağıdaki kaynak listesi ders dışında ilave bir pekiştirici kaynak beklen
 
 - Dönem içi ve dönem sınavına ilave olarak bazı derslerde önceden duyuru yapılmadan kısa sınavlar gerçekleştirilebilir.
 
-### Davranış Kuralları
+### Kurallar
 
 1. Dersle ilgili tüm duyuruların yapıldığı (bu sayfa değil) Google Classroom sayfalarını düzenli takip etmekle
    ve size iletilen talepleri yerine getirmekle sorumlusunuz.
