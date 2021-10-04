@@ -47,8 +47,8 @@ Aşağıdaki liste ders dışında ilave bir pekiştirici kaynak beklentisini ka
   öğrenci otomasyonu](https://ubs.omu.edu.tr) servisindeki hesap parolasıyla aynıdır.  Girişte sorun yaşıyorsanız
   Üniversitenin [Evde Kal](https://evdekal.omu.edu.tr) yardım sayfalarından yararlanabilirsiniz.
 
-- Çevrimiçi dersler, bağlantısına Google Classroom sayfası üzerinden erişebileceğiniz, Google Meet ile
-  gerçekleştirilecektir. Dersin etkileşimini artırmak için çevrimiçi ders süresince çekinmeden soru sorabilirsiniz.
+- Çevrimiçi dersler, Google Classroom sayfası üzerinde bulacağınız "Meet bağlantısı" linkine tıklayarak Google Meet ile
+  gerçekleştirilecektir.  Dersin etkileşimini artırmak için çevrimiçi ders süresince çekinmeden soru sorabilirsiniz.
 
 - Derste sunulan içeriğin büyük bir bölümü: çevrimiçi ders kayıtları, slaytlar, derste verilen örnekler bu sayfalarda
   "MATERYAL" başlığı altında listelenecektir.
