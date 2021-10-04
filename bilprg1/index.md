@@ -59,10 +59,9 @@ Aşağıdaki kaynak listesi ders dışında ilave bir pekiştirici kaynak beklen
   oranı Google Classroom duyurularında daha sonra ilan edilecektir.
 
 - Ders kapsamında [Ruby](https://www.ruby-lang.org/tr/) programlama dili yorumlayıcısını ve bir programlama editörü
-  olarak tercihen [Visual Studio Code](https://code.visualstudio.com/) programını kişisel bilgisayarınıza kurmanız
-  beklenmektedir.  Kişisel bilgisayarınız yoksa veya bilgisayarınız yeterli kaynaklara sahip değilse Bilgisayar
-  Laboratuvarı olanaklarından yararlanabilirsiniz (bu konuda zorluk yaşayan arkadaşlar lütfen özelden benimle temasa
-  geçsinler).
+  olarak tercihen [Visual Studio Code](https://code.visualstudio.com/) uygulamasını kişisel bilgisayarınıza kurmanız
+  beklenmektedir.  Bilgisayarınız yoksa veya yeterli kaynaklara sahip değilse Bilgisayar Laboratuvarı olanaklarından
+  yararlanabilirsiniz (bu konuda zorluk yaşayan arkadaşlar lütfen özelden benimle temasa geçsinler).
 
 - Ödevler başta olmak üzere çalışmalarınızı [Github'ta hesap açarak](https://github.com/signup) gerçekleştirmeniz
   beklenmektedir.  Önceki maddeyle ilişkili olarak, dileyenler ders süresince Github'ın sunduğu [Github
