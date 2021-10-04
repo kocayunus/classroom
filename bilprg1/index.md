@@ -10,7 +10,7 @@ Bu derste, Bilgisayar Mühendisliği mesleğinin en temel becerisi olan "Program
 hedeflenmektedir.  Bir programlama dilinin öğrenilmesiyle, olağan bir yabancı dilin öğrenilmesi arasında paralellikler
 bulunur.  Ancak bol pratik yaparak öğrenilebilecek yeni bir yabancı dilde ilk hedef o dilde aklınızda olanı ifade
 edebilme yani "meramı ifade" ("derdini/isteğini anlatma") olduğu gibi programlama dillerinde de durum budur:
-karşılaştığınız "hesaplama" probleminin kafanızdaki çözümünü bilgisayara anlatabilmek için bilgisayarın anladığı bir
+karşılaştığınız "hesaplama" probleminin zihninizdeki çözümünü bilgisayara anlatabilmek için bilgisayarın anladığı bir
 dilin, bir programlama dilinin kurallarını ve sözcüklerini öğrenmek ve kullanmak.  Yeni bir dili öğrenmek o dilde
 ustalaşmak, dili edebi anlamda en doğru ve güzel şekilde kullanmak anlamına gelmediği gibi bu derste de hedefimiz
 seçilen dilde her yönüyle ustalaşmak olmayacak.  Ama ders boyunca ustalaşmanın ipuçlarına da yeri geldikçe değineceğiz.
@@ -40,7 +40,11 @@ Aşağıdaki liste ders dışında ilave bir pekiştirici kaynak beklentisini ka
 
 ### İşleyiş
 
-- Dersle ilgili tüm duyurular (bu sayfa değil) Google Classroom üzerinden yapılacaktır.
+- Dersle ilgili tüm duyurular (bu sayfa değil) Google Classroom üzerinden yapılacaktır.  Derse ait Google Classroom
+  sayfalarına Üniversite tarafından size verilen `öğrenci_no@stu.omu.edu.tr` hesabıyla
+  [classroom.google.com](https://classroom.google.com) adresinden erişebilirsiniz.  Hesap parolanız [üniversite öğrenci
+  otomasyonu](https://ubs.omu.edu.tr) servisindeki hesap parolasıyla aynıdır.  Girişte sorun yaşıyorsanız
+  [EvdeKal](https://evdekal.omu.edu.tr) yardım sayfalarından yararlanabilirsiniz.
 
 - Çevrimiçi dersler, bağlantısına Google Classroom sayfası üzerinden erişebileceğiniz, Google Meet ile
   gerçekleştirilecektir. Dersin etkileşimini artırmak için çevrimiçi ders süresince çekinmeden soru sorabilirsiniz.
