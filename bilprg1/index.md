@@ -15,10 +15,28 @@ dilin, bir programlama dilinin kurallarını ve sözcüklerini öğrenmek ve kul
 ustalaşmak, dili edebi anlamda en doğru ve güzel şekilde kullanmak anlamına gelmediği gibi bu derste de hedefimiz
 seçilen dilde her yönüyle ustalaşmak olmayacak.  Ama ders boyunca ustalaşmanın ipuçlarına da yeri geldikçe değineceğiz.
 
-## İzlence
+"Programlamaya Giriş"i somut olarak [Ruby](https://www.ruby-lang.org/tr/) programlama dili özelinde yapacağız. Github,
+Shopify, Basecamp, (ilk günleri itibarıyla) Twitter gibi büyük firmalarda yaygın şekilde kullanılan tam nesne yönelimli,
+Japon orijinli bu dil günümüzde "start-up" dediğimiz genç girişim firmaları tarafından kısa sürede bir fikri hayata
+geçirmek amacıyla yaygın şekilde tercih edilmektedir.
+
+### İzlence
 
 Derste 2021-2022 eğitim/öğretim yarıyılı itibarıyla çeşitli revizyonlar planlandığından ders izlencesi (Syllabus) zaman
 içinde netleşecektir.  Bu sayfaları düzenli olarak kontrol etmeyi unutmayın.
+
+### Kaynaklar
+
+Derslerde rijit olarak izleyeceğimiz bir kaynak kitap bulunmuyor.  Var olan kaynakların da büyük bir bölümü İngilizce.
+Aşağıdaki kaynak listesi ders dışında ilave bir pekiştirici kaynak beklentisini karşılamak üzere verilmiştir.
+
+- The Well-Grounded Rubyist; David A. Black, Joseph Leo III; 2019
+
+- The Ruby Programming Language: Everything You Need to Know; David Flanagan, Yukihiro Matsumoto; 2008 (eski bir kaynak)
+
+- Practical Object-Oriented Design: An Agile Primer Using Ruby; Sandi Metz; 2018 (ileri seviye bir kaynak)
+
+- [Standart Ruby Kitaplığı](https://ruby-doc.org/)
 
 ### Dersin İşleyişi
 
@@ -89,9 +107,3 @@ içinde netleşecektir.  Bu sayfaları düzenli olarak kontrol etmeyi unutmayın
    dikkate alınacaktır.  Herhangi bir çaba sarfetmeden Genel ağdan (İnternet) veya bir başka arkadaşınızdan kopyalama
    yoluyla yapılan ödevler değerlendirmeye alınmayacağı gibi bu kişilere eksi ödev puanı vermekle başlamak üzere
    hocalarınız tarafından takdir edilen müeyyideler uygulanacaktır.
-
-
-
-
-
-
