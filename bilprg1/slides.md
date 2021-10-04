@@ -2,9 +2,6 @@ Ruby
 ====
 
 - Giriş
-- Programlama
-- Değişkenler
-- İfadeler
 
 ---
 
@@ -18,7 +15,7 @@ Giriş
      2	puts 'Merhaba, Dünya!'
 ```
 
-- **1** `puts` bir Kernel metodu
+- **1** `puts` bir metoddur
 
 ---
 

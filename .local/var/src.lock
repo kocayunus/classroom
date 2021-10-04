@@ -5,10 +5,10 @@
       {
         "directive": "... github.com/roktas/education/doc ruby/giriş\n",
         "insertion": {
-          "before": 10,
-          "after": 12,
-          "signature": "- **1** `puts` bir Kernel metodu\n",
-          "digest": "72a642eabefeba023c2c74c480d6644ec3cf06fdaefc54bf53018b8b0c9bea42"
+          "before": 7,
+          "after": 15,
+          "signature": "     2\tputs 'Merhaba, Dünya!'\n",
+          "digest": "277347a2bc417581728c144cd6cf0116925f4106c8b70be16d7708ba8384f33d"
         }
       }
     ]
