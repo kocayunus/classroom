@@ -5,10 +5,10 @@
       {
         "directive": "... github.com/roktas/education/doc _/programlama\n",
         "insertion": {
-          "before": 226,
+          "before": 228,
           "after": 81,
           "signature": "- Ör. Ruby, Python, Javascript yorumlanarak çalıştırılması öngörülen diller\n",
-          "digest": "9b8d6b2b5e4c70702b215ac3bbd7b071e5f030fb3fdc404db52534450e23ee08"
+          "digest": "daaa13b6c67ecdefcdef92e79a05a8e1a9481b5f8b3c7664cd25b4cfbb77a24a"
         }
       },
       {

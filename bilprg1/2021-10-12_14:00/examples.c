@@ -9,4 +9,6 @@ int main()
 	result = this + that;
 
 	printf("%d\n", result);
+
+	return 0;
 }
