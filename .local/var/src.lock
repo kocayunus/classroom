@@ -3,12 +3,21 @@
     "source": "bilprg1/slides.md",
     "series": [
       {
+        "directive": "... github.com/roktas/education/doc _/programlama\n",
+        "insertion": {
+          "before": 226,
+          "after": 81,
+          "signature": "- Ör. Ruby, Python, Javascript yorumlanarak çalıştırılması öngörülen diller\n",
+          "digest": "9b8d6b2b5e4c70702b215ac3bbd7b071e5f030fb3fdc404db52534450e23ee08"
+        }
+      },
+      {
         "directive": "... github.com/roktas/education/doc ruby/giriş\n",
         "insertion": {
-          "before": 7,
-          "after": 15,
-          "signature": "     2\tputs 'Merhaba, Dünya!'\n",
-          "digest": "277347a2bc417581728c144cd6cf0116925f4106c8b70be16d7708ba8384f33d"
+          "before": 311,
+          "after": 82,
+          "signature": "- Yine de ASCII tabloya hakim olmalısınız (örneğin UTF-8 ASCII'nin bir tür üst sürümü)\n",
+          "digest": "0421cce1e7aa2a3014ca5b3bc98cb5bdec37fdc09b7b22da1d5f17e851d4ad25"
         }
       }
     ]
