@@ -3,36 +3,850 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ruby</title>
+    <title>Giriş</title>
     <link rel="stylesheet" href="https://gitcdn.link/repo/alaturka/indexen/main/lib/stylesheet/min.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <style></style>
   </head>
   <body>
     <div class="container">
-      <h1 id="ruby">Ruby</h1>
+      <h1 id="giri">Giriş</h1>
+      <hr />
+      <p><code>ruby
+          puts 'Merhaba Dünya'
+        </code></p>
+      <hr />
+      <h2 id="programlama">Programlama</h2>
       <ul>
-        <li>Giriş</li>
+        <li>
+          <p>MİB</p>
+        </li>
+        <li>
+          <p>Bellek</p>
+        </li>
+        <li>
+          <p>Giriş/Çıkış</p>
+        </li>
       </ul>
       <hr />
-      <h2 id="giri">Giriş</h2>
-      <h3 id="hello-world">Hello, World!</h3>
-      <p><code>ruby
-          1	puts 'Hello, World!'
-          2	puts 'Merhaba, Dünya!'
-        </code></p>
       <ul>
-        <li><strong>1</strong> <code>puts</code> bir metoddur</li>
+        <li>
+          <p>Programı belleğe yükle (İşletim Sistemi)</p>
+        </li>
+        <li>
+          <p>Denetimi programa ver (İşletim Sistemi)</p>
+        </li>
+        <li>
+          <p>Bellekte sırayla çalışan buyruklar</p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Sınırlı sayıda buyruklar →  Buyruk kümesi (instruction set)</p>
+        </li>
+        <li>
+          <p>Buyruğu veya işlem sonucunu tutan kayıt alanları →  Kaydediciler (registers)</p>
+        </li>
+        <li>
+          <p>Aritmetik ve Mantıksal işlemleri yerine getiren birim →  ALB (ALU)</p>
+        </li>
+      </ul>
+      <hr />
+      <p><a href="https://toy.ecylmz.com">Oyuncak Makine</a></p>
+      <ul>
+        <li>
+          <p>Kaydediciler: sadece 1 tane →  Akümülatör (Birikeç)</p>
+        </li>
+        <li>
+          <p>Buyruk kümesi: 14 buyruk</p>
+        </li>
+      </ul>
+      <hr />
+      <p>İki sayıyı topla</p>
+      <p><code>
+          start  load this
+          add result
+          store result
+          load that
+          add result
+          store result
+          load result
+          print
+          stop
+          this   3
+          that   5
+          result 0
+        </code></p>
+      <hr />
+      <h3 id="kaynak-kod">Kaynak kod</h3>
+      <p>Problemin çözümünü ilgili programlama dilinin sözcük ve kurallarıyla anlatan tarif</p>
+      <hr />
+      <p>MİB’nin anladığı tek dil: makine dili</p>
+      <ul>
+        <li>Programın çalıştırılması: Kaynak kodla yapılan tarifin MİB’nin dilindeki buyruklara dönüştürülmesi</li>
+      </ul>
+      <p>Tarifin hayata geçirilmesi (“programın çalıştırılması”)</p>
+      <ul>
+        <li>
+          <p>Önce kaynak kodun tamamını makine diline çevir →  Derleme (compile)</p>
+        </li>
+        <li>
+          <p>Kaynak kodu (tarifi) bir programa girdi olarak vererek tarifteki her cümlenin gereğinin MİB’ne bu program tarafından
+            yaptırılmasını sağla →  Yorumlama (interprete)</p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Kaynak kod bir tarifin hayata geçmesi için tek başına yeterli değil</p>
+        </li>
+        <li>
+          <p>Sadece makine dilinde yazılan bir tarif doğrudan yeterli (ki onda bile bir
+            tür işlemeye ihtiyaç var, bk. örnekte yapılan bellek ilklendirmeleri)</p>
+        </li>
+        <li>
+          <p>Bir derleyiciye veya bir yorumlayıcıya ihtiyaç var</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="derleme">Derleme</h3>
+      <p>(Aşırı basitleştirme içerir)</p>
+      <ul>
+        <li>
+          <p>Kaynak kodu hedef MİB’in buyruklarından oluşan makine diline çevir</p>
+        </li>
+        <li>
+          <p>Bu işlem program çalıştırılmadan önce <strong>bir seferliğine</strong> yapılır</p>
+        </li>
+        <li>
+          <p>Derlenmiş biçimdeki program çalıştırılır</p>
+        </li>
+        <li>
+          <p>Bu modelde program işletim sistemi tarafından doğrudan yüklenerek çalıştırılıyor</p>
+        </li>
+      </ul>
+      <hr />
+      <p>```c
+        #include <stdio.h></stdio.h></p>
+      <p>static int this   = 3;
+        static int that   = 5;
+        static int result = 0;</p>
+      <p>int main()
+        {
+        result = this + that;</p>
+      <pre><code>printf("%d\n", result); } ```
+</code></pre>
+      <hr />
+      <h3 id="nesne-kodu">Nesne kodu</h3>
+      <p>Object code</p>
+      <ul>
+        <li>
+          <p>Derleme sonucunda elde edilen imajı (ör. çalıştırılabilir kipte bir ikili program dosyası) anlatır</p>
+        </li>
+        <li>
+          <p>Kaynak kodun devamında yer alan bir terim</p>
+        </li>
+        <li>
+          <p>Terimde geçen nesneyi “Nesne Yönelimli”deki (Object Oriented) nesne ile karıştırmayın</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="yorumlama">Yorumlama</h3>
+      <p>(Aşırı basitleştirme içerir; derlemeye göre daha da aşırı)</p>
+      <ul>
+        <li>
+          <p>“Yorumlayıcı” programı belleğe yükle</p>
+        </li>
+        <li>
+          <p>Yorumlayıcı kaynak kodu okur; artık denetim yorumlayıcı programda</p>
+        </li>
+        <li>
+          <p>Yorumlayıcı, kaynak koddaki anlamlı çalıştırma cümlelerini (ör. satırlar) sırayla yorumlar</p>
+        </li>
+        <li>
+          <p>Yorumlama?  Cümleyi anlamlandır ve gereğini MİB’ne (onun anladığı buyruklarla) yaptır</p>
+        </li>
+        <li>
+          <p>Bu modelde program işletim sistemi tarafından yüklenenen bir yorumlayıcının aracılığıyla çalıştırılıyor</p>
+        </li>
       </ul>
       <hr />
       <p>```ruby
-        module HelloWorld
-        def self.call
-        puts ‘Hello, World!’
-        end
-        end</p>
-      <p>HelloWorld.call
+        this = 3
+        that = 5</p>
+      <p>result = this + that</p>
+      <p>puts result
         ```</p>
+      <hr />
+      <h3 id="alma-zaman">Çalışma zamanı</h3>
+      <p>Önemli bir terim: “çalışma zamanı” →  <strong>runtime</strong></p>
+      <ul>
+        <li>
+          <p>Programın çalıştırılması süresince geçen zaman dilimini anlatıyor</p>
+        </li>
+        <li>
+          <p>Derlenen programlarda, derlenmiş program imajının belleğe yüklenip MİB tarafından çalıştırılmaya başlandığı andan,
+            sonlandığı ana kadar geçen süre</p>
+        </li>
+        <li>
+          <p>Yorumlanan programlarda, kaynak kodun yorumlayıcı tarafından çalıştırılmaya başlandığı andan, sonlandığı ana kadar
+            geçen süre</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="dinamik-programlama-dilleri">Dinamik programlama dilleri</h3>
+      <ul>
+        <li>
+          <p>Kaynak kod üzerinde çalışma zamanı dışında yapılan başka işlemler de var</p>
+        </li>
+        <li>
+          <p>Bu süreçler de farklı şekilde adlandırılabiliyor, ör. derleme zamanı (compile time)</p>
+        </li>
+        <li>
+          <p>Yorumlanan bir program dilinde kararlar çalışma zamanında dinamik olarak alındığından bu dillere “dinamik program
+            dilleri” de deniliyor</p>
+        </li>
+        <li>
+          <p>“Dinamik” teriminin karşı tarafındaki terim: “Statik”</p>
+        </li>
+        <li>
+          <p>Bu nedenle kaynak kod üzerinde çalışma zamanı dışında gerçekleşen süreçler genel olarak “statik” terimiyle
+            vasıflandırılıyor</p>
+        </li>
+        <li>
+          <p>Örnek: Statik kod çözümlemesi</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="yksekalak-seviye-diller">Yüksek/alçak seviye diller</h3>
+      <p>Bilinmesinde yarar olan bir terim çifti</p>
+      <ul>
+        <li>
+          <p>Bir programlama dilinde sunulan soyutlamalarla ifade kabiliyeti ne kadar yüksek ise dil de o kadar “yüksek seviye”
+            (high-level) bir dil oluyor</p>
+        </li>
+        <li>
+          <p>Karşısındaki terim “alçak seviye” (low-level); soyutlamalar daha az, donanıma daha yakın (ve bir o kadar da denetim
+            olanağı)</p>
+        </li>
+        <li>
+          <p>Yüksek/alçak diyerek dilin kalitesine ilişkin bir sıfat oluşturmuyoruz, bu teknik bir tartışma</p>
+        </li>
+        <li>
+          <p>Bunlar göreceli terimler, mutlak anlamda kullanmayın</p>
+        </li>
+        <li>
+          <p>Örnek: Go, Ruby’ye göre alçak-seviye bir dildir, ama C’ye göre yüksek-seviyelidir</p>
+        </li>
+        <li>
+          <p>Yorumlanan (dinamik) diller derlenen dillere göre hemen hemen daima yüksek-seviyeli</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="derlemeyorumlama">Derleme/Yorumlama</h3>
+      <ul>
+        <li>
+          <p>“Hesaplama” (computing) süreçlerini anlamak için yararlı</p>
+        </li>
+        <li>
+          <p>Günümüzde artık çok anlamlı terimler değil (bk. JIT, bytecode, garbage collector)</p>
+        </li>
+        <li>
+          <p>Pek çok gerçeklemede “yorumlama” sürecinde bir tür derleme yapılıyor (çalışma zamanında)</p>
+        </li>
+        <li>
+          <p>Derleme bazen doğrudan MİB’i hedeflemiyor, sanal bir MİB hedefleniyor (ör. Java sanal makinesi)</p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Bu terimler programlama dilinin gerçeklemesiyle ilişkili; programlama diline iliştirilecek mutlak bir özelliği
+            anlatmıyor</p>
+        </li>
+        <li>
+          <p>Bir programlama dili, en azından kuramsal olarak, hem derlenen hem yorumlanan biçimde gerçeklenebilir</p>
+        </li>
+        <li>
+          <p>Fakat dil (ortaya çıkışında belirlenmiş) doğası itibarıyla bir tür gerçeklemeyi daha etkin kılar veya bir tür
+            gerçeklemeyi teknik olarak çok zorlaştırır</p>
+        </li>
+        <li>
+          <p>“Derlenen/yorumlanan dil” yerine “Kaynak kodun derlenerek/yorumlanarak çalıştırılması öngörülen dil”</p>
+        </li>
+        <li>
+          <p>Ör. Ruby, Python, Javascript yorumlanarak çalıştırılması öngörülen diller</p>
+        </li>
+        <li>
+          <p>Ör. C, Go, Rust derlenerek çalıştırılması öngörülen diller</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="derlenen-dil">Derlenen dil</h3>
+      <p>Avantajlar</p>
+      <ul>
+        <li>
+          <p>Çalışma zamanında yorumlama olmadığından (veya minimize edildiğinden) çok daha hızlı</p>
+        </li>
+        <li>
+          <p>Bellek kullanımı daha az</p>
+        </li>
+        <li>
+          <p>Sorunlar program çalışmadan önce (derleme aşamasında) yakalanabilir</p>
+        </li>
+        <li>
+          <p>Lojistiği daha kolay; hedef platform için derlenmiş programın kurulumu yeterli, ayrıca bir yorumlayıcı kurmanıza gerek
+            yok</p>
+        </li>
+      </ul>
+      <p>Dezavantajlar</p>
+      <ul>
+        <li>
+          <p>Yazılması daha maliyetli (derleyiciyi mutlu etmek zorundasınız, tip bildirimleri gibi daha ayrıntılı tarifler
+            gerekiyor)</p>
+        </li>
+        <li>
+          <p>Çalışma zamanı üzerinde denetiminiz olmadığından “dinamik” işler çeviremezsiniz</p>
+        </li>
+        <li>
+          <p>(C gibi en azından bir kısım dilde) Çalışma zamanında güvenlik açıkları</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="yorumlanan-dil">Yorumlanan dil</h3>
+      <p>Avantajlar</p>
+      <ul>
+        <li>
+          <p>Geliştirme süresi daha kısa (arada zeki bir yorumlayıcı var, daha kısa lafla çok iş)</p>
+        </li>
+        <li>
+          <p>Çalışma zamanı denetlenebildiğinden “dinamik” işler çevrilebilir</p>
+        </li>
+        <li>
+          <p>Çalışma zamanı denetlenebildiğinden basit güvenlik açıkları yaşanmaz</p>
+        </li>
+        <li>
+          <p>Daha “taşınabilir” (portable); yazdığınız kodun ilgili platformda çalışması için yorumlayıcının o platformda kurulu
+            olması yeterli (fakat bk. lojistik)</p>
+        </li>
+      </ul>
+      <p>Dezavantajlar</p>
+      <ul>
+        <li>
+          <p>Daha yavaş</p>
+        </li>
+        <li>
+          <p>Daha fazla bellek tüketimi</p>
+        </li>
+        <li>
+          <p>Çalışma zamanında yaşanan sürpriz hatalar (derlenebilseydi çalıştırmadan önce yakalanabilirdi)</p>
+        </li>
+        <li>
+          <p>Artan lojistik yük (yorumlayıcı kurulumu gerekiyor)</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Yorumlanması öngörülen bir dilde programın çalışma süresi ve bellek tüketimini artırmak pahasına, programın geliştirme
+        süresini azaltıyoruz</p>
+      <ul>
+        <li>
+          <p>Birim zamanda daha fazla iş</p>
+        </li>
+        <li>
+          <p>Daha çabuk hayata geçen fikirler</p>
+        </li>
+      </ul>
+      <hr />
+      <p>(Ama ile başlayacak eleştirilere açık bir yargı)</p>
+      <p><strong>Dinamik (yorumlanan) bir dilde geliştirici konforu hedeflenir</strong></p>
+      <ul>
+        <li>Sistem kaynaklarını (MİB, bellek vs) daha konforsuz bir durumda tutmak pahasına</li>
+      </ul>
+      <hr />
+      <h3 id="gnmz-trendleri">Günümüz trendleri</h3>
+      <ul>
+        <li>
+          <p>Ayrım yine korunmakla birlikte her iki türün en iyi özellikleri dillere eklenebiliyor</p>
+        </li>
+        <li>
+          <p>Yorumlanan dillerde tip bildirimleri</p>
+        </li>
+        <li>
+          <p>Derlenen dillerde çalışma zamanını denetleyen eklemeler (ör. çöp toplayıcı)</p>
+        </li>
+        <li>
+          <p>Teknik olarak geçerli, fakat pratikte hatalı kod parçalarını geliştirme aşamasında yakalayan zengin statik
+            çözümlemeler (“lint”leme)</p>
+        </li>
+      </ul>
+      <hr />
+      <h1 id="ruby">Ruby</h1>
+      <hr />
+      <h3 id="deiken">Değişken</h3>
+      <p>İsimlendirilmiş bellek hücresi</p>
+      <ul>
+        <li>
+          <p>Bellek hücresinde (bir tür) veri var</p>
+        </li>
+        <li>
+          <p>Veriye anlamlı bir isimle erişiyoruz</p>
+        </li>
+      </ul>
+      <hr />
+      <p>```ruby
+        kur = 8.96
+        dolar = 100.0</p>
+      <p>tl = kur * dolar
+        ```</p>
+      <hr />
+      <p>```ruby
+        oran = 18.0 / 100
+        fiyat = 100.0</p>
+      <p>kdv = fiyat * oran
+        ```</p>
+      <hr />
+      <h3 id="simlendirme">İsimlendirme</h3>
+      <p>Söz dizimi (sentaks) kuralları</p>
+      <ul>
+        <li>
+          <p>İlk karakter İngilizce alfabedeki küçük/büyük harflerden biri veya alt tire (<code>_</code>) olmalı</p>
+        </li>
+        <li>
+          <p>Varsa devam eden karakterlerde ilkine ilave olarak rakamlar kullanılabilir (ama ilk karakter rakam olamaz)</p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Sadece değişkenler değil, metot adları, sabitler, sınıf/modül adları da (Ruby’de bunlar da birer sabit isim)
+            isimlendirmenin kapsamında</p>
+        </li>
+        <li>
+          <p>Bu isimlere genel olarak “tanımlayıcı” (identifier) deniliyor</p>
+        </li>
+        <li>
+          <p>İsimlendirme söz dizimi kuralları →  Tanımlayıcı söz dizimi kuralları</p>
+        </li>
+      </ul>
+      <hr />
+      <p><strong>Uygun isimlendirme kod okunurluğunu çok artırır</strong></p>
+      <ul>
+        <li>
+          <p>Her program bir öykü veya (uzunluğuna göre) bir roman</p>
+        </li>
+        <li>
+          <p>İsimler bu öykünün kahramanları</p>
+        </li>
+        <li>
+          <p>Anlamlı isimler öykünün okunmasını kolaylaştırıyor</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Türkçe karakterler?</p>
+      <table>
+        <thead>
+          <tr>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+            <th> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>ç</code></td>
+            <td><code>ğ</code></td>
+            <td><code>ı</code></td>
+            <td><code>ö</code></td>
+            <td><code>ş</code></td>
+            <td><code>ü</code></td>
+          </tr>
+          <tr>
+            <td><code>Ç</code></td>
+            <td><code>Ğ</code></td>
+            <td><code>İ</code></td>
+            <td><code>Ö</code></td>
+            <td><code>Ş</code></td>
+            <td><code>Ü</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <ul>
+        <li><code>ı</code> ve <code>İ</code>‘ye dikkat!  (<code>i</code> ve <code>I</code> Türkçe’ye özgü değil)</li>
+        <li>Değişken adlarında Türkçe karakter çoğu durumda kullanabiliriz, ama kullanmamalıyız</li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Programlama evrensel bir etkinlik</p>
+        </li>
+        <li>
+          <p>Programlama dillerinin anahtar kelimeleri de İngilizce</p>
+        </li>
+        <li>
+          <p>İsimlendirmeleri enternasyonal yapmakta yarar var; özellikle her dilden geliştiricinin katkı sunabileceği açık kaynak
+            projelerde</p>
+        </li>
+      </ul>
+      <hr />
+      <p>```ruby
+        exchange_rate = 8.96
+        usd = 100.0</p>
+      <p>tl = exchange_rate * usd</p>
+      <p>tax_rate = 18.0 / 100
+        price = 100.0</p>
+      <p>tax = price * tax_rate
+        ```</p>
+      <hr />
+      <h3 id="fadeler">İfadeler</h3>
+      <ul>
+        <li>
+          <p>Değerlendirmeye (evaluation) konu ögeler</p>
+        </li>
+        <li>
+          <p>Değerlendirme?  Hesaplama, değer verme</p>
+        </li>
+        <li>
+          <p>Örnek: <code>exchange_rate * usd</code></p>
+        </li>
+        <li>
+          <p>Bu bir aritmetik ifade</p>
+        </li>
+        <li>
+          <p>Örnek: <code>usd = exchange_rate * usd</code></p>
+        </li>
+        <li>
+          <p>Bu (aritmetik ifade içeren) bir “atama” (assignment) ifadesi</p>
+        </li>
+      </ul>
+      <hr />
+      <p><strong>Her ifade bir değer döner</strong> (değerlendirme sonrası)</p>
+      <ul>
+        <li>
+          <p>Ruby’de ilkel değerlerin bizzat kendisi de ifade</p>
+        </li>
+        <li>
+          <p>Örnek: <code>100.0</code></p>
+        </li>
+        <li>
+          <p><code>usd = 100.0</code> atama ifadesinde önce sağ taraf değerlendirilir, dönen değer (<code>100.0</code>) sol taraftaki değişkene atanır</p>
+        </li>
+      </ul>
+      <hr />
+      <p><strong>Ruby’de her şey bir ifadedir</strong></p>
+      <ul>
+        <li>
+          <p>IRB’de girilen bir satır <code>enter</code> tuşu ile yorumlayıcıya gönderilir</p>
+        </li>
+        <li>
+          <p>IRB, satırı bir bütün halde ifade olarak yorumlar</p>
+        </li>
+        <li>
+          <p>İfadenin döndüğü değer <code>#=&gt;</code> ile belirtilir</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="aritmetik-operatrler">Aritmetik operatörler</h3>
+      <ul>
+        <li>
+          <p>Operatör →  İşleç</p>
+        </li>
+        <li>
+          <p>Sayısal türde değerleri operatörlerle düzenleyerek dönüş değeri yine sayısal türde olan aritmetik ifadeler kurabiliyoruz</p>
+        </li>
+        <li>
+          <p>Sayısal tür?  Tam sayı, Gerçel sayı, Rasyonel sayı</p>
+        </li>
+        <li>
+          <p>Aritmetik operatörler beklediğiniz gibi: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code></p>
+        </li>
+        <li>
+          <p>Ayrıca iki operatör: <code>%</code> modülüs ve <code>**</code> üs alma operatörleri</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="saysal-tr">Sayısal tür</h3>
+      <ul>
+        <li>
+          <p>Tam sayı ve gerçel sayılar</p>
+        </li>
+        <li>
+          <p>Gerçel sayılarla kurulan ifadelere dikkat!  <code>18.0 / 100</code> yerine <code>18 / 100</code> yazılırsa?</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Ruby’de Rasyonel sayıların gösterimi için özel bir söz dizimi kullanılıyor</p>
+      <p><code>ruby
+          tax_rate = 18/100r
+        </code></p>
+      <ul>
+        <li>
+          <p>Daha okunur</p>
+        </li>
+        <li>
+          <p>Bunu nasıl kullanacağız?  Göründüğü gibi, ör. <code>18/100r * 100.0</code></p>
+        </li>
+      </ul>
+      <hr />
+      <p>Tür dönüşümleri yapılabilir</p>
+      <ul>
+        <li>
+          <p>Değer nesneleri üzerinde çalıştırılacak iki metot: <code>to_i</code> ve <code>to_f</code></p>
+        </li>
+        <li>
+          <p>Bir değeri tamsayıya çevirmek için <code>to_i</code>, ör. <code>18.9.to_i #=&gt; 18</code></p>
+        </li>
+        <li>
+          <p>Bir değeri gerçel sayıya çevirmek için <code>to_f</code>, ör. <code>18/100r.to_f #=&gt; 0.18</code></p>
+        </li>
+        <li>
+          <p>Değer bu dönüşümü desteklemeli</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="fonksiyonlar">Fonksiyonlar</h3>
+      <p><code>ruby
+          value = Math.sin(0.5236) # 0.5236 ~ Pi/6 ~ 30 derece
+        </code></p>
+      <ul>
+        <li>
+          <p>Matematikte aşina olduğumuz bir trigonometrik fonksiyon: <code>sin</code></p>
+        </li>
+        <li>
+          <p><code>&lt;fonksiyon&gt;(girdi listesi) →  çıktı</code></p>
+        </li>
+        <li>
+          <p>Fonksiyonlara giriş değerlerini argümanlar yoluyla iletiyoruz, örnekte <code>30</code> derece <code>sin</code> fonksiyonuna iletiliyor</p>
+        </li>
+        <li>
+          <p>Fonksiyon (isminin yansıttığı) hesaplamayı yapıp bir değer dönüyor, örnekte <code>0.5</code></p>
+        </li>
+        <li>
+          <p>Ruby’de bir fonksiyona geçirilen argümanlar etrafında parantez kullanmanız her zaman gerekmiyor</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Matematiksel fonksiyonlardan bir parça farklı olarak programlamada yazacağınız fonksiyonlar:</p>
+      <ul>
+        <li>
+          <p>Hiç argüman istemeyebilir</p>
+        </li>
+        <li>
+          <p>Birden fazla argüman isteyebilir</p>
+        </li>
+        <li>
+          <p>Bir değer dönmeyebilir</p>
+        </li>
+        <li>
+          <p>Dönecekse sadece tek bir değer döner (bazı dillerde, ör. Go, birden fazla değer dönülebilir)</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="fonksiyon-veya-metot">Fonksiyon veya Metot</h3>
+      <p>Ruby gibi Nesne Yönelimli dillerde fonksiyon yerine metot adlandırması tercih ediliyor</p>
+      <ul>
+        <li>
+          <p>Bu bir isimlendirme inceliği (bazı nedenleri var, gelecekte daha ayrıntılı değineceğiz)</p>
+        </li>
+        <li>
+          <p>Bundan sonra fonksiyon değil metot diyeceğiz</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Metotlarla ilk karşılaşmamız:</p>
+      <p><code>ruby
+          puts 'Merhaba Dünya'
+        </code></p>
+      <ul>
+        <li>
+          <p><code>puts</code> bir metot (yani fonksiyon)</p>
+        </li>
+        <li>
+          <p>Metotlara genel olarak bir nesne üzerinde <code>.</code> operatörüyle erişiyoruz</p>
+        </li>
+        <li>
+          <p>Fakat bu örnekte metot bir nesne üzerinden değil doğrudan çağrılıyor</p>
+        </li>
+        <li>
+          <p>Bu konuya gelecekte değineceğiz</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="nesne-nokta-metot-notasyonu">Nesne Nokta Metot notasyonu</h3>
+      <p>Notasyona dikkat edin!  <code>18.to_f #=&gt; 18.0</code></p>
+      <ul>
+        <li>
+          <p>Noktanın solunda bir değer: <code>18</code>, sağında ise bir metot: <code>to_f</code> bulunuyor</p>
+        </li>
+        <li>
+          <p>Noktanın solundaki “değer” aslında bir “nesne” (object)</p>
+        </li>
+        <li>
+          <p>Nesnelere <code>.</code> operatörü yoluyla bir mesaj iletiyoruz</p>
+        </li>
+        <li>
+          <p>Mesaj →  Metot</p>
+        </li>
+        <li>
+          <p>Nesne mesajın gereğini yerine getiriyor (ilgili metot çağrılıyor)</p>
+        </li>
+      </ul>
+      <hr />
+      <p><strong>Ruby’de hemen her şey bir nesne</strong></p>
+      <ul>
+        <li>Nesneleri <code>.&lt;metot&gt;</code> söz dizimiyle uyarıyoruz</li>
+      </ul>
+      <hr />
+      <h3 id="lkel-veri-trleri">İlkel veri türleri</h3>
+      <ul>
+        <li>
+          <p>Sayısal türler ilkel (primitive) veri türlerinin en yaygın örneği</p>
+        </li>
+        <li>
+          <p>Pek çok programlama dilinde bir diğer önemli veri türü: “dizgi” (string)</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="dizgi">Dizgi</h3>
+      <p>```ruby
+        message = ‘Merhaba Dünya’</p>
+      <p>puts message
+        ```</p>
+      <ul>
+        <li>
+          <p>Örnekteki <code>'Merhaba Dünya'</code> değeri bir dizgi (string)</p>
+        </li>
+        <li>
+          <p>Çift tırnak veya tek tırnak kullanabiliriz</p>
+        </li>
+      </ul>
+      <hr />
+      <p>```ruby
+        who = ‘Dünya’
+        message = “Merhaba #{who}”</p>
+      <p>puts message
+        ```</p>
+      <ul>
+        <li>
+          <p>Çift tırnakta Ruby dizgi değerini özel olarak yorumlar →  “Dizgi Enterpolasyonu” (String Interpolation)</p>
+        </li>
+        <li>
+          <p><code>#{}</code> arasına istediğiniz karmaşıklıkta bir Ruby kodu yazabilirsiniz</p>
+        </li>
+        <li>
+          <p>Yorumlayıcı <code>#{}</code> arasındaki kodu bir ifade olarak değerlendirir ve dönüş değerini yerine koyar</p>
+        </li>
+        <li>
+          <p>Bu örnekte tek tırnak kullanılsaydı <code>message</code> dizgisi olduğu gibi (literal) yorumlanacaktı</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Dizgiler programlama dillerinde çok temel bir veri türü</p>
+      <ul>
+        <li>Her bir tespih tanesi bir “karakter” (character, char) olan bir tespih gibi</li>
+      </ul>
+      <hr />
+      <h3 id="karakter">Karakter</h3>
+      <ul>
+        <li>
+          <p>Dizgilerin yapıtaşları; kabaca harfler, rakamlar ve noktalama işaretleri</p>
+        </li>
+        <li>
+          <p>Bunlara ilave kontrol karakterleri var: boşluk, satır sonu, sekme gibi</p>
+        </li>
+        <li>
+          <p>Karakterler belirli sayıda bitlik bir bilgiyle kodlanıyor</p>
+        </li>
+        <li>
+          <p>En bilineni 7 bitlik ASCII: American Standard Code for Information Interchange</p>
+        </li>
+        <li>
+          <p>Türkçe gibi dile özgü karakterler ASCII tabloda yok</p>
+        </li>
+        <li>
+          <p>Bunun yerine günümüzde UTF-8 gibi daha evrensel kodlama standartları kullanılıyor</p>
+        </li>
+        <li>
+          <p>Yine de ASCII tabloya hakim olmalısınız (örneğin UTF-8 ASCII’nin bir tür üst sürümü)</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="ascii-tablo">ASCII Tablo</h3>
+      <p><code>
+          Dec  Char                           Dec  Char     Dec  Char     Dec  Char
+          ---------                           ---------     ---------     ----------
+          0  NUL (null)                      32  SPACE     64  @         96  `
+          1  SOH (start of heading)          33  !         65  A         97  a
+          2  STX (start of text)             34  "         66  B         98  b
+          3  ETX (end of text)               35  #         67  C         99  c
+          4  EOT (end of transmission)       36  $         68  D        100  d
+          5  ENQ (enquiry)                   37  %         69  E        101  e
+          6  ACK (acknowledge)               38  &amp;         70  F        102  f
+          7  BEL (bell)                      39  '         71  G        103  g
+          8  BS  (backspace)                 40  (         72  H        104  h
+          9  TAB (horizontal tab)            41  )         73  I        105  i
+          10  LF  (NL line feed, new line)    42  *         74  J        106  j
+          11  VT  (vertical tab)              43  +         75  K        107  k
+          12  FF  (NP form feed, new page)    44  ,         76  L        108  l
+          13  CR  (carriage return)           45  -         77  M        109  m
+          14  SO  (shift out)                 46  .         78  N        110  n
+          15  SI  (shift in)                  47  /         79  O        111  o
+          16  DLE (data link escape)          48  0         80  P        112  p
+          17  DC1 (device control 1)          49  1         81  Q        113  q
+          18  DC2 (device control 2)          50  2         82  R        114  r
+          19  DC3 (device control 3)          51  3         83  S        115  s
+          20  DC4 (device control 4)          52  4         84  T        116  t
+          21  NAK (negative acknowledge)      53  5         85  U        117  u
+          22  SYN (synchronous idle)          54  6         86  V        118  v
+          23  ETB (end of trans. block)       55  7         87  W        119  w
+          24  CAN (cancel)                    56  8         88  X        120  x
+          25  EM  (end of medium)             57  9         89  Y        121  y
+          26  SUB (substitute)                58  :         90  Z        122  z
+          27  ESC (escape)                    59  ;         91  [        123  {
+          28  FS  (file separator)            60  &lt;         92  \        124  |
+          29  GS  (group separator)           61  =         93  ]        125  }
+          30  RS  (record separator)          62  &gt;         94  ^        126  ~
+          31  US  (unit separator)            63  ?         95  _        127  DEL
+        </code></p>
+      <hr />
+      <p><strong>Ruby’de karakterler özel bir veri türü değildir</strong></p>
+      <ul>
+        <li>Ama örneğin C gibi bazı programlama dillerinde çoğunlukla <code>char</code> adında özel bir veri türüdür
+          (Ruby’den farklı olarak C programlama dilinde dizgi veri türü yoktur)</li>
+      </ul>
+      <hr />
+      <p>Ruby’de bir karakterin ASCII tablodaki onluk tabanda kodunu öğren: <code>.ord</code></p>
+      <p><code>ruby
+          'a'.ord
+          ' '.ord
+          "\n".ord
+          "\t".ord
+        </code></p>
+      <p>Onlu tabanda verilen bir kodu karakteri içeren dizgiye çevir: <code>.chr</code></p>
+      <p><code>ruby
+          97.chr
+        </code></p>
+      <hr />
+      <p>Özel karakterler</p>
+      <ul>
+        <li><code>"\n"</code> →  Satır sonu</li>
+        <li><code>"\t"</code> →  Sekme</li>
+        <li>Bunlar en yaygınları, bunların dışında ters bölü karakteriyle nitelendirilen başka kodlar da var</li>
+      </ul>
+      <hr />
+      <p>Beyaz boşluk (whitespace)</p>
+      <ul>
+        <li>
+          <p>Kabaca; boşluk, satır sonu ve sekme karakterlerine deniliyor (ama başkaları da var)</p>
+        </li>
+        <li>
+          <p>Dizgi içinde kullanılmadığında, kaynak kod ayrıştırılırken bu karakterler göz ardı edilir veya kodun söz dizimsel
+            olarak farklı parçalarını birbirinden ayırır</p>
+        </li>
+      </ul>
     </div>
     <script>
       feather.replace()
