@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'csv'
+
+module Roaster
+  MAPPINGS_FORWARD = {
+    name:    'Ad',
+    surname: 'Soyad',
+    number:  'Öğrenci No'
+  }.freeze
+
+  MAPPINGS_BACKWARD = MAPPINGS_FORWARD.invert.freeze
+
+  def self.call(content)
+    CSV.new(content, headers: true).map do |row|
+      ident(**row.to_h.slice(*MAPPINGS_FORWARD.values).transform_keys { |key| MAPPINGS_BACKWARD[key] })
+    end
+  end
+
+  class << self
+    TURKISH_CHARS = {
+      'ı' => 'i',
+      'ğ' => 'g',
+      'ü' => 'u',
+      'ş' => 's',
+      'ö' => 'o',
+      'ç' => 'c',
+      'İ' => 'I',
+      'Ğ' => 'G',
+      'Ü' => 'U',
+      'Ş' => 'S',
+      'Ö' => 'O',
+      'Ç' => 'C'
+    }.freeze
+
+    private
+
+    def asciified(string)
+      string.chars.to_a.map { |char| (ascii = TURKISH_CHARS[char]) ? ascii : char }.join
+    end
+
+    def ident(name:, surname:, number:)
+      result = [name, surname, number].map! do |strings|
+        strings.to_s.split.map do |string|
+          string = asciified(string)
+          string.upcase!
+          string.gsub!(/\W/, '')
+          string
+        end
+      end
+      result.flatten.join('-')
+    end
+  end
+end
+
+def main
+  Roaster.(ARGF.read).each { |ident| puts ident }
+end
+
+main
