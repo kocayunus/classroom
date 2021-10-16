@@ -67,7 +67,7 @@ end
 
 class Lecture < Index
   def self.pattern
-    /^[1-2]\d{3}[ _-]+/.freeze
+    /^\d{12}$/.freeze
   end
 
   def self.indexfile
