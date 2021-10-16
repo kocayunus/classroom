@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'time'
+
 require 'indexen'
 
 include Indexen
@@ -73,7 +75,7 @@ class Lecture < Index
   end
 
   def title
-    name.tr('_', ' ')
+    Time.strptime(name, '%Y%m%d%H%M').strftime('%Y-%m-%d %R')
   end
 
   def date
