@@ -3,7 +3,7 @@ Mutfak
 
 ## VS Code Yapılandırmaları
 
-Verilen yapılandırma ayarlarını mevcut yapılandırmanıza eklemek için mevcut VS Code yapılandırma dosyasını (`settings.json`) açın
+Verilen yapılandırma ayarlarını yapılandırmanıza uygulamak için mevcut VS Code yapılandırma dosyasını (`settings.json`) açın
 
 - Menüden "Görünüm → Komut Paletini" seçin
 
