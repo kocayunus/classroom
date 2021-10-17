@@ -4,8 +4,8 @@ audience:   OMÜ Bilgisayar Mühendisliği Bölümü
 numerology: BIL103
 ---
 
-**Dersle ilgili tüm duyurular dersin [Google Classroom](https://classroom.google.com/c/Mzk3NDIwOTM4Mzkw) akışlarında
-yapılmaktadır.  Bunun yanısıra özellikle dersin uygulamalarında yararlı olacak bazı bilgileri [Geliştirme Araçları ve Ortamları](https://roktas.github.io/classroom/_/) sayfalarında bulabilirsiniz.**
+**Dersle ilgili tüm duyurular [Google Classroom](https://classroom.google.com/c/Mzk3NDIwOTM4Mzkw) akışlarında
+yapılmaktadır.  Bunun yanısıra özellikle uygulamalarda yararlı olacak bazı bilgileri [Geliştirme Araçları ve Ortamları](https://roktas.github.io/classroom/_/) sayfalarında bulabilirsiniz.**
 
 # Programlamaya Giriş
 
