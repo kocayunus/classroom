@@ -11,6 +11,46 @@
   <body>
     <div class="container">
       <h1 id="mutfak">Mutfak</h1>
+      <h2 id="vs-code-yaplandrmalar">VS Code Yapılandırmaları</h2>
+      <p>Verilen yapılandırma ayarlarını mevcut yapılandırmanıza eklemek için mevcut VS Code yapılandırma dosyasını (<code>settings.json</code>) açın</p>
+      <ul>
+        <li>
+          <p>Menüden “Görünüm → Komut Paletini” seçin</p>
+        </li>
+        <li>
+          <p><code>Open Settings (JSON)</code> girin</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Yapılandırma dosyası açıldığında ekte her dil için verilen yapılandırmalardan birini seçerek kopyala yapıştır yoluyla (kısmen veya tamamen) aktarın</p>
+      <ul>
+        <li>
+          <p>Yapılandırmalar tüm dosya halinde verilmiştir</p>
+        </li>
+        <li>
+          <p>Yapılandırmayı tümüyle kullanmak için eski içeriği silin ve verilen yapılandırmayı (<code>{}</code> parantezlerini koruyarak)
+            olduğu gibi yapıştırın</p>
+        </li>
+        <li>
+          <p>Kısmen kullanmak istiyorsanız sadece ilgili satırları seçerek yapıştırın</p>
+        </li>
+        <li>
+          <p>Yapılandırmayı proje özelinde kullanmak istiyorsanız içeriği proje kökünde <code>.vscode</code> adında bir dizin oluşturarak
+            <code>.vscode/settings.json</code> dosyası halinde kaydedin</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="ruby">Ruby</h3>
+      <p><code>json
+          {
+          "editor.wordWrapColumn":   120,
+          "editor.wordWrap":         "on",
+          "terminal.integrated.cwd": "${fileDirname}",
+          "ruby.useLanguageServer":  true,
+          "ruby.lint":               { "rubocop": true  },
+          "[ruby]":                  { "editor.tabSize": 2 }
+          }
+        </code></p>
     </div>
     <script>
       feather.replace()
