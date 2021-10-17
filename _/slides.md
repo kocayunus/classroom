@@ -37,3 +37,14 @@ Yapılandırma dosyası açıldığında ekte her dil için verilen yapılandır
   "[ruby]":                  { "editor.tabSize": 2 }
 }
 ```
+
+---
+
+- Terminal açarak aşağıdaki komutla Rubocop'u kurmayı unutmayın:
+
+  ```sh
+  gem install rubocop
+  ```
+
+- Ruby yapılandırmasının ayrıntıları ilgili YouTube [videosunda](https://www.youtube.com/watch?v=5nQg3RoI97c)
+  açıklanmıştır
