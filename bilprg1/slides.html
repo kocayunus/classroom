@@ -849,6 +849,158 @@ return 0; } ```
             olarak farklı parçalarını birbirinden ayırır</p>
         </li>
       </ul>
+      <hr />
+      <h3 id="temel-baz-dizgi-metotlar">Temel bazı dizgi metotları</h3>
+      <p>```ruby
+        string = gets</p>
+      <p>puts string.size # string.length
+        puts string.empty?
+        puts string.chomp
+        puts string.chop
+        puts string.upcase
+        puts string.downcase
+        puts string.capitalize
+        puts string.tr ‘<em>’, ‘ ‘
+          puts string.delete ‘</em>’
+        puts string.strip
+        puts string.start_with? ‘2021’
+        puts string.end_with? ‘2021’
+        puts string.delete_prefix ‘2021’
+        puts string.delete_suffix ‘.rb’
+        ```</p>
+      <hr />
+      <p>String birleştirme (“concatenate”)</p>
+      <p>```ruby
+        string = ‘’</p>
+      <p>string « ‘Cezmi’
+        string « ’ ‘
+        string « ‘Seha’</p>
+      <p>puts string
+        ```</p>
+      <hr />
+      <p><code># frozen_string_literal: true</code>?</p>
+      <ul>
+        <li>
+          <p>Bu bir pragma</p>
+        </li>
+        <li>
+          <p>Kaynak koddaki tüm dizgi literallerini öntanımlı olarak “değiştirilemez” yapıyor</p>
+        </li>
+        <li>
+          <p>Bu sayede aynı dizgi literali için bellek ayırmak gerekmiyor</p>
+        </li>
+        <li>
+          <p>Yorumlayıcıya verdiğiniz açık sözün denetlenmesi sağlanıyor (hata yakalama)</p>
+        </li>
+      </ul>
+      <p><code>ruby
+          city = 'Samsun'.freeze
+          city &lt;&lt; '55' # hata
+        </code></p>
+      <p>yerine</p>
+      <p>```ruby
+        # frozen_string_literal: true</p>
+      <p>city = ‘Samsun’
+        city « ‘55’ # hata
+        ```</p>
+      <hr />
+      <p><code># frozen_string_literal: true</code> yapılırsa birleştirmeler nasıl?</p>
+      <ul>
+        <li>IRB’de sorunu görmeyebilirsiniz (görmek için <code>RUBYOPT="--enable-frozen-string-literal" irb</code>)</li>
+      </ul>
+      <p><code>ruby
+          string = String.new '' # string = '' yerine
+        </code></p>
+      <p>(Dikkat! <code>String.new</code>‘i argümansız çalıştırırsanız karakter kodlaması ASCII oluyor)</p>
+      <hr />
+      <h3 id="ak-denetimi">Akış denetimi</h3>
+      <ul>
+        <li>
+          <p>Kod akışını farklı kod yollarına bölen koşul deyimleri</p>
+        </li>
+        <li>
+          <p>Kod bloklarının etkinleştirilmesi belirli koşulların sağlanmasına bağlanıyor</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemin gerçel kökleri var mı?</p>
+      <p>Diskriminant pozitif olmalı (alan bilgisi)</p>
+      <p>```ruby
+        a, b, c = 1.0, 0.0, 1.0</p>
+      <p>delta = b ** 2 - 4 * a * c</p>
+      <p>if delta &gt;= 0.0
+        delta_sqrt = Math.sqrt(delta)</p>
+      <p>p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a</p>
+      <p>puts “Kökler: (#{p}, #{q})”
+        else
+        puts ‘Çözüm yok’
+        end
+        ```</p>
+      <ul>
+        <li>
+          <p><code>if</code>, <code>else</code> ve <code>end</code> birer anahtar kelime</p>
+        </li>
+        <li>
+          <p>Koşul ifadesi: <code>delta &gt;= 0.0</code> aritmetik karşılaştırma içeren bir mantık (lojik) ifade</p>
+        </li>
+        <li>
+          <p>Aritmetik karşılaştırma operatörü <code>&gt;=</code> “büyük veya eşit”</p>
+        </li>
+        <li>
+          <p>Gerçel sayı karşılaştırmalarını böyle yapmayın, sorunu görebiliyor musunuz?</p>
+        </li>
+        <li>
+          <p>İlk satırda paralel atama yapılıyor (kötüye kullanmayın)</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Örnek: Verilen 3 sayı geçerli bir üçgenin kenar uzunlukları mı?</p>
+      <p>Üçgen kuralı (alan bilgisi): Sayılardan herhangi ikisinin toplamı üçüncüden <strong>daima</strong> büyüktür</p>
+      <p>```ruby
+        a, b, c = 3, 4, 5</p>
+      <p>if a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
+        puts “Geçerli üçgen”
+        else
+        puts “Üçgen değil”
+        end
+        ```</p>
+      <ul>
+        <li>
+          <p>Koşulda mantıksal (lojik) bir ifade, önermeler <code>&amp;&amp;</code> “ve” mantık operatörüyle bağlanmış</p>
+        </li>
+        <li>
+          <p>Önermelerin her biri aritmetik karşılaştırma, <code>&gt;</code> “büyüktür”</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Örnek: Kullanıcıdan bir sayı iste</p>
+      <p>```ruby
+        string = gets.chomp</p>
+      <p>if string == ‘’
+        puts ‘Lütfen bir sayı girin.’
+        elsif (number = Integer(number, exception: false))
+        puts “Girdiğiniz sayı: #{number}”
+        else
+        puts “Geçersiz sayı girdisi: #{string}”
+        end
+        ```</p>
+      <ul>
+        <li>
+          <p><code>elsif</code> yeni anahtar kelime, çoklu koşul deyimleri</p>
+        </li>
+        <li>
+          <p>Koşul ifadesi içinde atama yapabilirsiniz (kötüye kullanmayın)</p>
+        </li>
+        <li>
+          <p>Yeter ki parantezlerle niyetinizi açık hale getirin</p>
+        </li>
+        <li>
+          <p>Boş dizgi denetimi daha deyimsel nasıl yapılabilir?</p>
+        </li>
+        <li>
+          <p>Kullanıcı bir veya daha fazla sayıda beyaz boşluk girmişse?</p>
+        </li>
+      </ul>
     </div>
     <script>
       feather.replace()
