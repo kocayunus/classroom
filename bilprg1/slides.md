@@ -703,7 +703,7 @@ Onlu tabanda verilen bir kodu karakteri içeren dizgiye çevir: `.chr`
 97.chr
 ```
 
---- 
+---
 
 Özel karakterler
 
@@ -719,3 +719,164 @@ Beyaz boşluk (whitespace)
 
 - Dizgi içinde kullanılmadığında, kaynak kod ayrıştırılırken bu karakterler göz ardı edilir veya kodun söz dizimsel
   olarak farklı parçalarını birbirinden ayırır
+
+---
+
+### Temel bazı dizgi metotları
+
+```ruby
+string = gets
+
+puts string.size # string.length
+puts string.empty?
+puts string.chomp
+puts string.chop
+puts string.upcase
+puts string.downcase
+puts string.capitalize
+puts string.tr '_', ' '
+puts string.delete '_'
+puts string.strip
+puts string.start_with? '2021'
+puts string.end_with? '2021'
+puts string.delete_prefix '2021'
+puts string.delete_suffix '.rb'
+```
+
+---
+
+String birleştirme ("concatenate")
+
+```ruby
+string = ''
+
+string << 'Cezmi'
+string << ' '
+string << 'Seha'
+
+puts string
+```
+
+---
+
+`# frozen_string_literal: true`?
+
+- Bu bir pragma
+
+- Kaynak koddaki tüm dizgi literallerini öntanımlı olarak "değiştirilemez" yapıyor
+
+- Bu sayede aynı dizgi literali için bellek ayırmak gerekmiyor
+
+- Yorumlayıcıya verdiğiniz açık sözün denetlenmesi sağlanıyor (hata yakalama)
+
+```ruby
+city = 'Samsun'.freeze
+city << '55' # hata
+```
+
+yerine
+
+```ruby
+# frozen_string_literal: true
+
+city = 'Samsun'
+city << '55' # hata
+```
+
+---
+
+`# frozen_string_literal: true` yapılırsa birleştirmeler nasıl?
+
+- IRB'de sorunu görmeyebilirsiniz (görmek için `RUBYOPT="--enable-frozen-string-literal" irb`)
+
+```ruby
+string = String.new '' # string = '' yerine
+```
+
+(Dikkat! `String.new`'i argümansız çalıştırırsanız karakter kodlaması ASCII oluyor)
+
+---
+
+### Akış denetimi
+
+- Kod akışını farklı kod yollarına bölen koşul deyimleri
+
+- Kod bloklarının etkinleştirilmesi belirli koşulların sağlanmasına bağlanıyor
+
+---
+
+Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemin gerçel kökleri var mı?
+
+Diskriminant pozitif olmalı (alan bilgisi)
+
+```ruby
+a, b, c = 1.0, 0.0, 1.0
+
+delta = b ** 2 - 4 * a * c
+
+if delta >= 0.0
+  delta_sqrt = Math.sqrt(delta)
+
+  p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+
+  puts "Kökler: (#{p}, #{q})"
+else
+  puts 'Çözüm yok'
+end
+```
+
+- `if`, `else` ve `end` birer anahtar kelime
+
+- Koşul ifadesi: `delta >= 0.0` aritmetik karşılaştırma içeren bir mantık (lojik) ifade
+
+- Aritmetik karşılaştırma operatörü `>=` "büyük veya eşit"
+
+- Gerçel sayı karşılaştırmalarını böyle yapmayın, sorunu görebiliyor musunuz?
+
+- İlk satırda paralel atama yapılıyor (kötüye kullanmayın)
+
+---
+
+Örnek: Verilen 3 sayı geçerli bir üçgenin kenar uzunlukları mı?
+
+Üçgen kuralı (alan bilgisi): Sayılardan herhangi ikisinin toplamı üçüncüden **daima** büyüktür
+
+```ruby
+a, b, c = 3, 4, 5
+
+if a + b > c && a + c > b && b + c > a
+  puts "Geçerli üçgen"
+else
+  puts "Üçgen değil"
+end
+```
+
+- Koşulda mantıksal (lojik) bir ifade, önermeler `&&` "ve" mantık operatörüyle bağlanmış
+
+- Önermelerin her biri aritmetik karşılaştırma, `>` "büyüktür"
+
+---
+
+Örnek: Kullanıcıdan bir sayı iste
+
+```ruby
+string = gets.chomp
+
+if string == ''
+  puts 'Lütfen bir sayı girin.'
+elsif (number = Integer(number, exception: false))
+  puts "Girdiğiniz sayı: #{number}"
+else
+  puts "Geçersiz sayı girdisi: #{string}"
+end
+```
+
+- `elsif` yeni anahtar kelime, çoklu koşul deyimleri
+
+- Koşul ifadesi içinde atama yapabilirsiniz (kötüye kullanmayın)
+
+- Yeter ki parantezlerle niyetinizi açık hale getirin
+
+- Boş dizgi denetimi daha deyimsel nasıl yapılabilir?
+
+- Kullanıcı bir veya daha fazla sayıda beyaz boşluk girmişse?

@@ -14,10 +14,10 @@
       {
         "directive": "... github.com/roktas/education/doc ruby/giriş\n",
         "insertion": {
-          "before": 311,
-          "after": 82,
-          "signature": "- Yine de ASCII tabloya hakim olmalısınız (örneğin UTF-8 ASCII'nin bir tür üst sürümü)\n",
-          "digest": "0421cce1e7aa2a3014ca5b3bc98cb5bdec37fdc09b7b22da1d5f17e851d4ad25"
+          "before": 462,
+          "after": 92,
+          "signature": "- IRB'de sorunu görmeyebilirsiniz (görmek için `RUBYOPT=\"--enable-frozen-string-literal\" irb`)\n",
+          "digest": "6ea26fd200303d3e54b95ef5959ec40415ee800f41d56870d0c0565aabab9bc8"
         }
       }
     ]
