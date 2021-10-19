@@ -42,6 +42,8 @@ class Course < Index
 
       <%- unless children.empty? %>
       ### Oturum
+    
+      **Dikkat!  Oturum kayıtlarını izlemek için STU hesabıyla giriş yapmanız gerekiyor**
 
       | Tarih | Notlar | Kayıt |
       |:----- |:------ |:----- |
