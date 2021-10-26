@@ -923,22 +923,19 @@ return 0; } ```
         </li>
       </ul>
       <hr />
-      <p>Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemin gerçel kökleri var mı?</p>
+      <p>Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemde çözüm var mı?</p>
       <p>Diskriminant pozitif olmalı (alan bilgisi)</p>
       <p>```ruby
         a, b, c = 1.0, 0.0, 1.0</p>
       <p>delta = b ** 2 - 4 * a * c</p>
       <p>if delta &gt;= 0.0
-        delta_sqrt = Math.sqrt(delta)</p>
-      <p>p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a</p>
-      <p>puts “Kökler: (#{p}, #{q})”
-        else
-        puts ‘Çözüm yok’
+        puts ‘Çözüm var’
         end
         ```</p>
+      <hr />
       <ul>
         <li>
-          <p><code>if</code>, <code>else</code> ve <code>end</code> birer anahtar kelime</p>
+          <p><code>if</code>, <code>end</code> birer anahtar kelime</p>
         </li>
         <li>
           <p>Koşul ifadesi: <code>delta &gt;= 0.0</code> aritmetik karşılaştırma içeren bir mantık (lojik) ifade</p>
@@ -954,6 +951,50 @@ return 0; } ```
         </li>
       </ul>
       <hr />
+      <p>Gövdesi tek satır olan <code>if</code> deyimlerini tek satırda yazabiliyoruz</p>
+      <p>```ruby
+        a, b, c = 1.0, 0.0, 1.0</p>
+      <p>delta = b ** 2 - 4 * a * c</p>
+      <p>puts ‘Çözüm var’ if delta &gt;= 0.0
+        ```</p>
+      <hr />
+      <p>```ruby
+        a, b, c = 1.0, 0.0, 1.0</p>
+      <p>delta = b ** 2 - 4 * a * c</p>
+      <p>puts ‘Çözüm var’ unless delta &lt; 0.0
+        ```</p>
+      <hr />
+      <ul>
+        <li>
+          <p>Yeni anahtar kelime: <code>unless</code></p>
+        </li>
+        <li>
+          <p>Negatif lojik için kullanılıyor</p>
+        </li>
+        <li>
+          <p>Özellikle <code>!</code> değillemeleri içeren basit ifadelerde yararlı</p>
+        </li>
+        <li>
+          <p>Okunurluğu (yerine göre) bir parça arttırıyor</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Örnek: Katsayıları verilen kuadratik denklemin gerçel kökleri neler?</p>
+      <p>```ruby
+        a, b, c = 1.0, 0.0, 1.0</p>
+      <p>delta = b ** 2 - 4 * a * c</p>
+      <p>if delta &gt;= 0.0
+        delta_sqrt = Math.sqrt(delta)</p>
+      <p>p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a</p>
+      <p>puts “Kökler: (#{p}, #{q})”
+        else
+        puts ‘Çözüm yok’
+        end
+        ```</p>
+      <ul>
+        <li>Yeni anahtar kelime: <code>else</code></li>
+      </ul>
+      <hr />
       <p>Örnek: Verilen 3 sayı geçerli bir üçgenin kenar uzunlukları mı?</p>
       <p>Üçgen kuralı (alan bilgisi): Sayılardan herhangi ikisinin toplamı üçüncüden <strong>daima</strong> büyüktür</p>
       <p>```ruby
@@ -961,7 +1002,7 @@ return 0; } ```
       <p>if a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
         puts “Geçerli üçgen”
         else
-        puts “Üçgen değil”
+        puts “Geçerli üçgen değil”
         end
         ```</p>
       <ul>
@@ -973,32 +1014,461 @@ return 0; } ```
         </li>
       </ul>
       <hr />
-      <p>Örnek: Kullanıcıdan bir sayı iste</p>
+      <p>Örnek: Kullanıcıdan bir tam sayı iste</p>
       <p>```ruby
+        print ‘Lütfen bir sayı girin: ‘
         string = gets.chomp</p>
       <p>if string == ‘’
-        puts ‘Lütfen bir sayı girin.’
-        elsif (number = Integer(number, exception: false))
-        puts “Girdiğiniz sayı: #{number}”
+        puts ‘Hiç bir şey girmediniz.’
+        elsif (number = Integer(string, exception: false))
+        puts “Girdiğiniz sayı #{number}”
         else
-        puts “Geçersiz sayı girdisi: #{string}”
+        puts “Geçersiz sayı girdiniz: #{string}”
         end
         ```</p>
       <ul>
         <li>
-          <p><code>elsif</code> yeni anahtar kelime, çoklu koşul deyimleri</p>
+          <p>Yeni anahtar kelime: <code>elsif</code>, çoklu koşul deyimleri</p>
         </li>
         <li>
-          <p>Koşul ifadesi içinde atama yapabilirsiniz (kötüye kullanmayın)</p>
+          <p><code>Integer(string, exception: false)</code> hatalı dönüşümde <code>nil</code> değeri dönüyor</p>
         </li>
         <li>
-          <p>Yeter ki parantezlerle niyetinizi açık hale getirin</p>
+          <p>Koşul ifadesi içinde atama yapabilirsiniz (kötüye kullanmayın), yeter ki parantezlerle niyetinizi açık hale getirin</p>
         </li>
         <li>
           <p>Boş dizgi denetimi daha deyimsel nasıl yapılabilir?</p>
         </li>
         <li>
           <p>Kullanıcı bir veya daha fazla sayıda beyaz boşluk girmişse?</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="nil"><code>nil</code></h3>
+      <p>Düpedüz yokluğu veya geçerli bir değerin yokluğunu anlatan “sözde değer”</p>
+      <ul>
+        <li>
+          <p>Mantıksal bağlamda <code>false</code> ile benzer sonuçlar üretiyor</p>
+        </li>
+        <li>
+          <p>Yani bu bir “falsy” değer</p>
+        </li>
+        <li>
+          <p>Diğer dillerde de kısmen benzer değerler var; ör. C, C#, Java’da <code>null</code></p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="dorulukyanllk">Doğruluk/Yanlışlık</h3>
+      <p>Basit iki kural</p>
+      <ol>
+        <li>
+          <p><strong>Ruby’de değeri <code>false</code> ve <code>nil</code> olan her ifade yanlıştır</strong></p>
+        </li>
+        <li>
+          <p><strong>Yanlış olmayan her şey doğrudur</strong></p>
+        </li>
+      </ol>
+      <hr />
+      <p>```ruby
+        number = Integer(‘geçersiz’, exception: false) #=&gt; nil</p>
+      <p>if number
+        puts ‘Doğru’
+        else
+        puts ‘Yanlış’
+        end
+        ```</p>
+      <hr />
+      <p>Bazen <code>nil</code> değerini açıkça denetlemeniz gerekebilir</p>
+      <p>```ruby
+        number = Integer(‘geçersiz’, exception: false) #=&gt; nil</p>
+      <p>if number.nil?
+        puts ‘Evet: nil’
+        end
+        ```</p>
+      <hr />
+      <h3 id="metot">Metot</h3>
+      <p>İsmiyle çağrılarak çalıştırılabilir (bir veya çoğunlukla birden fazla satırlık) kod parçası</p>
+      <ul>
+        <li>
+          <p>Farklı girdilerle tekrar tekrar yapılan hesaplamalar için her seferinde aynı kodu yazmanız gerekmiyor</p>
+        </li>
+        <li>
+          <p>Hesaplama girdileri çağırma zamanında verilen parametrelerle değiştirilebilir</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemin gerçel köklerini bul</p>
+      <p>```ruby
+        def calculate_roots(a, b, c)
+        delta = b ** 2 - 4 * a * c</p>
+      <p>if delta &gt;= 0.0
+        delta_sqrt = Math.sqrt(delta)</p>
+      <pre><code>p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+puts "Kökler: (#{p}, #{q})"   else
+puts 'Çözüm yok'   end end
+</code></pre>
+      <p>a, b, c = 1.0, 0.0, 1.0</p>
+      <p>calculate_roots(a, b, c)
+        ```</p>
+      <hr />
+      <ul>
+        <li>
+          <p>Yeni anahtar kelime: <code>def</code></p>
+        </li>
+        <li>
+          <p><code>a</code>, <code>b</code> ve <code>c</code> metot argümanları</p>
+        </li>
+        <li>
+          <p>Çağırma zamanında metoda bu argümanlarla değerleri geçiriyoruz</p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Metot argümanlarıyla çağırma zamanında kullanılan değişkenlerin aynı isimde olması gerekmiyor</p>
+          <p>```ruby
+            a2, a1, a0 = 1.0, 0.0, 1.0</p>
+          <p>calculate_roots(a2, a1, a0)
+            ```</p>
+        </li>
+        <li>
+          <p>Değerleri hiç bir değişken kullanmadan da geçirebiliriz</p>
+          <p><code>ruby
+              calculate_roots(1.0, 0.0, 1.0)
+            </code></p>
+        </li>
+      </ul>
+      <hr />
+      <p>Örnek: Verilen 3 sayı geçerli bir üçgenin kenar uzunlukları mı?</p>
+      <p>```ruby
+        def validate_triangular(a, b, c)
+        if a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
+        puts “Geçerli üçgen”
+        else
+        puts “Geçerli üçgen değil”
+        end
+        end</p>
+      <p>validate_triangular(3, 4, 5)
+        ```</p>
+      <hr />
+      <p>Metotlar çoğunlukla bir hesap yaptıktan sonra bize bir sonuç döner</p>
+      <ul>
+        <li>
+          <p>Her iki örnekte de bir sonuç dönmedik</p>
+        </li>
+        <li>
+          <p>Son örnekte aşama aşama giderek gösterelim</p>
+        </li>
+      </ul>
+      <hr />
+      <p>```ruby
+        def validate_triangular(a, b, c)
+        if a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
+        return true
+        else
+        return false
+        end
+        end</p>
+      <p>if validate_triangular(3, 4, 5)
+        puts “Geçerli üçgen”
+        else
+        puts “Geçerli üçgen değil”
+        end
+        ```</p>
+      <hr />
+      <ul>
+        <li>
+          <p>Yeni anahtar kelime: <code>return</code></p>
+        </li>
+        <li>
+          <p>Kullanıldığı noktada metotu sonlandırarak verilen değeri çağıran tarafa dönüyor</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Her metot tek bir iş yapmalı</p>
+      <ul>
+        <li>İlk örnekte bu kural nasıl ihlal edilmiş?</li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Ruby zaten <code>true</code>/<code>false</code> hesabını yapıyor, biz ayrıca neden hesap ediyoruz?</p>
+        </li>
+        <li>
+          <p>Ruby’de metottan çıkarken etkin olan son satır aynı zamanda dönüş değeridir</p>
+        </li>
+        <li>
+          <p>Çoğu zaman <code>return</code> ile açık dönüş yapmamız gerekmez</p>
+        </li>
+        <li>
+          <p>Ruby’de <code>return</code> deyimini “erken çıkış”lar için kullanın</p>
+        </li>
+      </ul>
+      <hr />
+      <p>```ruby
+        def validate_triangular(a, b, c)
+        a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
+        end</p>
+      <p>if validate_triangular(3, 4, 5)
+        puts “Geçerli üçgen”
+        else
+        puts “Geçerli üçgen değil”
+        end
+        ```</p>
+      <hr />
+      <p>Örnek: Kullanıcıdan bir tam sayı iste</p>
+      <p>```ruby
+        def getnum
+        print ‘Lütfen bir sayı girin: ‘
+        string = gets.chomp</p>
+      <p>if string.empty?
+        puts ‘Hiç bir şey girmediniz.’
+        elsif (number = Integer(string, exception: false))
+        puts “Girdiğiniz sayı #{number}”
+        else
+        puts “Geçersiz sayı girdiniz: #{string}”
+        end</p>
+      <p>number
+        end
+        ```</p>
+      <hr />
+      <p>İsimlendirmeler çok önemli</p>
+      <ul>
+        <li>
+          <p>Ruby’de metot adlarının sonunda <code>?</code> ve <code>!</code> karakterlerini kullanabilirsiniz</p>
+        </li>
+        <li>
+          <p><code>true</code> veya <code>false</code> değer dönen metotlara “predicate method” diyoruz</p>
+        </li>
+        <li>
+          <p><code>?</code> sonlandırma karakteri bir metotun “predicate” olduğunu nitelendirmekte kullanılan bir konvansiyon</p>
+        </li>
+        <li>
+          <p>Bu sadece bir konvansiyon, metot adının sonunda <code>?</code> karakteri olunca sihirli bir işlem gerçekleşmiyor</p>
+        </li>
+        <li>
+          <p>İsimlendirmeleri çok daha anlamlı yapıyor</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemde çözüm var mı?</p>
+      <p>Diskriminant pozitif olmalı (alan bilgisi)</p>
+      <p>```ruby
+        def has_solution?(a, b, c)
+        (b ** 2 - 4 * a * c) &gt;= 0.0
+        end</p>
+      <p>if has_solution?(1.0, 0.0, 1.0)
+        puts “Çözüm var”
+        else
+        puts “Çözüm yok”
+        end
+        ```</p>
+      <hr />
+      <p>```ruby
+        def triangular?(a, b, c)
+        a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
+        end</p>
+      <p>if triangular?(3, 4, 5)
+        puts “Geçerli üçgen”
+        else
+        puts “Geçerli üçgen değil”
+        end
+        ```</p>
+      <hr />
+      <h3 id="l-operatr">Üçlü operatörü</h3>
+      <p>Ternary operatörü</p>
+      <p>```ruby
+        def has_solution?(a, b, c)
+        (b ** 2 - 4 * a * c) &gt;= 0.0
+        end</p>
+      <p>puts “Çözüm #{has_solution?(1.0, 0.0, 1.0) ? ‘var’ : ‘yok’}”</p>
+      <p>def triangular?(a, b, c)
+        a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
+        end</p>
+      <p>puts “Geçerli üçgen#{triangular?(3, 4, 5) ? ‘’ : ‘ değil’}”
+        ```</p>
+      <hr />
+      <h3 id="kapsam">Kapsam</h3>
+      <p>```ruby
+        a, b, c = 1.0, 0.0, 1.0</p>
+      <p>def calculate_roots(a, b, c)
+        delta = b ** 2 - 4 * a * c</p>
+      <p>if delta &gt;= 0.0
+        delta_sqrt = Math.sqrt(delta)</p>
+      <pre><code>p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+puts "Kökler: (#{p}, #{q})"   else
+puts 'Çözüm yok'   end end
+</code></pre>
+      <p>calculate_roots(a, b, c)</p>
+      <p>puts delta #=&gt; ?
+        ```</p>
+      <hr />
+      <p>Metotlar dışarıya kapalı bir kutu gibi davranır</p>
+      <ul>
+        <li>
+          <p>Metot gövdesi bir kapsam (“scope”) belirler: yerel kapsam (“local scope”)</p>
+        </li>
+        <li>
+          <p>Yerel kapsamdaki bir değişken dışarı sızmaz (ör. <code>delta</code>)</p>
+        </li>
+        <li>
+          <p>Benzer şekilde metot dışındaki hiç bir değer argümanlar yoluyla verilmedikçe içeri sızmaz</p>
+        </li>
+        <li>
+          <p>Metodun dış dünyayla yegane kontak noktaları: giriş argümanları ve dönüş değeri</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="simlendirilmi-argmanlar">İsimlendirilmiş argümanlar</h3>
+      <p>```ruby
+        def calculate_roots(a:, b:, c:)
+        delta = b ** 2 - 4 * a * c</p>
+      <p>if delta &gt;= 0.0
+        delta_sqrt = Math.sqrt(delta)</p>
+      <pre><code>p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+puts "Kökler: (#{p}, #{q})"   else
+puts 'Çözüm yok'   end end
+</code></pre>
+      <p>calculate_roots(a: 1.0, b: 0.0, c: 1.0)
+        ```</p>
+      <hr />
+      <ul>
+        <li>
+          <p>Veriliş sırasıyla anlamlandırılan argümanlar: “pozisyonel argümanlar”</p>
+        </li>
+        <li>
+          <p>Argümanları veriliş sırasıyla değil de isimleriyle belirtsek?</p>
+        </li>
+        <li>
+          <p>Özellikle birden fazla sayıda argüman geçirmemiz gerektiğinde yararlı</p>
+        </li>
+        <li>
+          <p>Neyin ne olduğunu çağırma zamanında karıştırmamış oluyoruz</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="ntanml-argmanlar">Öntanımlı argümanlar</h3>
+      <p>```ruby
+        def calculate_roots(a: 0.0, b: 0.0, c: 0.0)
+        delta = b ** 2 - 4 * a * c</p>
+      <p>if delta &gt;= 0.0
+        delta_sqrt = Math.sqrt(delta)</p>
+      <pre><code>p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+puts "Kökler: (#{p}, #{q})"   else
+puts 'Çözüm yok'   end end
+</code></pre>
+      <p>calculate_roots(a: 1.0, c: 1.0)</p>
+      <p>calculate_roots
+        ```</p>
+      <hr />
+      <p>Öntanımlı argümanlar “pozisyonel argümanlar” için de geçerli</p>
+      <p>```ruby
+        def calculate_roots(a = 0.0, b = 0.0, c = 0.0)
+        delta = b ** 2 - 4 * a * c</p>
+      <p>if delta &gt;= 0.0
+        delta_sqrt = Math.sqrt(delta)</p>
+      <pre><code>p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+puts "Kökler: (#{p}, #{q})"   else
+puts 'Çözüm yok'   end end
+</code></pre>
+      <p>calculate_roots</p>
+      <p>calculate_roots(1.0, 0.0, 1.0)
+        ```</p>
+      <ul>
+        <li>
+          <p>İlk çağrıda işe yaradı</p>
+        </li>
+        <li>
+          <p>Fakat ikincide işe yaramıyor</p>
+        </li>
+        <li>
+          <p>Zorunlu olarak tüm argümanları girmek zorunda kaldık, neden?</p>
+        </li>
+      </ul>
+      <hr />
+      <p>İkinci derece denklem örneğinde bir sorun daha var</p>
+      <ul>
+        <li>
+          <p>“Bir metot tek bir iş yapmalı” kuralı ihlal edilmiş</p>
+        </li>
+        <li>
+          <p>Bunu düzeltmek şu aşamada zor</p>
+        </li>
+        <li>
+          <p>Ruby’de metotlar sadece tek bir değer dönebilir</p>
+        </li>
+        <li>
+          <p>Birden fazla değeri tek bir değer halinde dönmek gerekiyor</p>
+        </li>
+        <li>
+          <p>Bunun yolu?  Diziler</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="dng">Döngü</h3>
+      <p>Bilgisayarın en temel kabiliyeti: bir işlemi tekrar tekrar yapabilmek</p>
+      <hr />
+      <p>Örnek: Kullanıcıdan geçerli bir tamsayı al</p>
+      <p>```ruby
+        def getnum
+        print ‘Lütfen bir sayı girin [ENTER sonlandırır]: ‘</p>
+      <p>while !(string = gets.chomp).empty?
+        number = Integer(string, exception: false)
+        if number
+        return number
+        end</p>
+      <pre><code>print "Geçersiz sayı: '#{string}'.  Lütfen tekrar girin: "   end
+</code></pre>
+      <p>nil
+        end
+        ```</p>
+      <hr />
+      <ul>
+        <li>
+          <p>Yeni anahtar kelime: <code>while</code></p>
+        </li>
+        <li>
+          <p>Çoğu durumda “… oldukça/olmadıkça” veya “… olduğu sürece/olmadığı sürece” gibi okuyabilirsiniz</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Sözde kod</p>
+      <p>```
+        Girdi al, bu boş bir dizgi olmadığı sürece
+        dizgiyi tamsayıya çevir
+        eğer dönüşüm geçerli ise tamsayıyı dön</p>
+      <p>hata görüntüle
+        ```</p>
+      <hr />
+      <p>```ruby
+        def getnum
+        print ‘Lütfen bir sayı girin [ENTER sonlandırır]: ‘</p>
+      <p>until (string = gets.chomp).empty?
+        number = Integer(string, exception: false)
+        return number if number</p>
+      <pre><code>print "Geçersiz sayı: '#{string}'.  Lütfen tekrar girin: "   end
+</code></pre>
+      <p>nil
+        end
+        ```</p>
+      <hr />
+      <ul>
+        <li>
+          <p>Yeni anahtar kelime: <code>until</code></p>
+        </li>
+        <li>
+          <p><code>if</code>/<code>unless</code> ilişkisine benzer şekilde <code>while</code>/<code>until</code></p>
+        </li>
+        <li>
+          <p>Olumsuz lojik için kullanılıyor</p>
+        </li>
+        <li>
+          <p>Basit ifadeler kullanıldığı sürece okunurluğu bir parça arttırıyor</p>
         </li>
       </ul>
     </div>
