@@ -1142,14 +1142,14 @@ puts 'Çözüm yok'   end end
       <hr />
       <p>Örnek: Verilen 3 sayı geçerli bir üçgenin kenar uzunlukları mı?</p>
       <p>```ruby
-        def validate_triangular(a, b, c)
+        def validate_triangle(a, b, c)
         if a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
         puts “Geçerli üçgen”
         else
         puts “Geçerli üçgen değil”
         end
         end</p>
-      <p>validate_triangular(3, 4, 5)
+      <p>validate_triangle(3, 4, 5)
         ```</p>
       <hr />
       <p>Metotlar çoğunlukla bir hesap yaptıktan sonra bize bir sonuç döner</p>
@@ -1163,14 +1163,14 @@ puts 'Çözüm yok'   end end
       </ul>
       <hr />
       <p>```ruby
-        def validate_triangular(a, b, c)
+        def validate_triangle(a, b, c)
         if a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
         return true
         else
         return false
         end
         end</p>
-      <p>if validate_triangular(3, 4, 5)
+      <p>if validate_triangle(3, 4, 5)
         puts “Geçerli üçgen”
         else
         puts “Geçerli üçgen değil”
@@ -1207,10 +1207,10 @@ puts 'Çözüm yok'   end end
       </ul>
       <hr />
       <p>```ruby
-        def validate_triangular(a, b, c)
+        def validate_triangle(a, b, c)
         a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
         end</p>
-      <p>if validate_triangular(3, 4, 5)
+      <p>if validate_triangle(3, 4, 5)
         puts “Geçerli üçgen”
         else
         puts “Geçerli üçgen değil”
@@ -1266,10 +1266,10 @@ puts 'Çözüm yok'   end end
         ```</p>
       <hr />
       <p>```ruby
-        def triangular?(a, b, c)
+        def triangle?(a, b, c)
         a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
         end</p>
-      <p>if triangular?(3, 4, 5)
+      <p>if triangle?(3, 4, 5)
         puts “Geçerli üçgen”
         else
         puts “Geçerli üçgen değil”
@@ -1283,10 +1283,10 @@ puts 'Çözüm yok'   end end
         (b ** 2 - 4 * a * c) &gt;= 0.0
         end</p>
       <p>puts “Çözüm #{has_solution?(1.0, 0.0, 1.0) ? ‘var’ : ‘yok’}”</p>
-      <p>def triangular?(a, b, c)
+      <p>def triangle?(a, b, c)
         a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a
         end</p>
-      <p>puts “Geçerli üçgen#{triangular?(3, 4, 5) ? ‘’ : ‘ değil’}”
+      <p>puts “Geçerli üçgen#{triangle?(3, 4, 5) ? ‘’ : ‘ değil’}”
         ```</p>
       <hr />
       <h3 id="kapsam">Kapsam</h3>
