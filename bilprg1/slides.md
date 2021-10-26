@@ -805,9 +805,67 @@ string = String.new '' # string = '' yerine
 
 ---
 
-Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemin gerçel kökleri var mı?
+Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemde çözüm var mı?
 
 Diskriminant pozitif olmalı (alan bilgisi)
+
+```ruby
+a, b, c = 1.0, 0.0, 1.0
+
+delta = b ** 2 - 4 * a * c
+
+if delta >= 0.0
+  puts 'Çözüm var'
+end
+```
+
+---
+
+- `if`, `end` birer anahtar kelime
+
+- Koşul ifadesi: `delta >= 0.0` aritmetik karşılaştırma içeren bir mantık (lojik) ifade
+
+- Aritmetik karşılaştırma operatörü `>=` "büyük veya eşit"
+
+- Gerçel sayı karşılaştırmalarını böyle yapmayın, sorunu görebiliyor musunuz?
+
+- İlk satırda paralel atama yapılıyor (kötüye kullanmayın)
+
+---
+
+Gövdesi tek satır olan `if` deyimlerini tek satırda yazabiliyoruz
+
+```ruby
+a, b, c = 1.0, 0.0, 1.0
+
+delta = b ** 2 - 4 * a * c
+
+puts 'Çözüm var' if delta >= 0.0
+```
+
+---
+
+```ruby
+a, b, c = 1.0, 0.0, 1.0
+
+delta = b ** 2 - 4 * a * c
+
+puts 'Çözüm var' unless delta < 0.0
+```
+
+---
+
+- Yeni anahtar kelime: `unless`
+
+- Negatif lojik için kullanılıyor
+
+- Özellikle `!` değillemeleri içeren basit ifadelerde yararlı
+
+- Okunurluğu (yerine göre) bir parça arttırıyor
+
+---
+
+Örnek: Katsayıları verilen kuadratik denklemin gerçel kökleri neler?
 
 ```ruby
 a, b, c = 1.0, 0.0, 1.0
@@ -825,15 +883,7 @@ else
 end
 ```
 
-- `if`, `else` ve `end` birer anahtar kelime
-
-- Koşul ifadesi: `delta >= 0.0` aritmetik karşılaştırma içeren bir mantık (lojik) ifade
-
-- Aritmetik karşılaştırma operatörü `>=` "büyük veya eşit"
-
-- Gerçel sayı karşılaştırmalarını böyle yapmayın, sorunu görebiliyor musunuz?
-
-- İlk satırda paralel atama yapılıyor (kötüye kullanmayın)
+- Yeni anahtar kelime: `else`
 
 ---
 
@@ -847,7 +897,7 @@ a, b, c = 3, 4, 5
 if a + b > c && a + c > b && b + c > a
   puts "Geçerli üçgen"
 else
-  puts "Üçgen değil"
+  puts "Geçerli üçgen değil"
 end
 ```
 
@@ -857,26 +907,506 @@ end
 
 ---
 
-Örnek: Kullanıcıdan bir sayı iste
+Örnek: Kullanıcıdan bir tam sayı iste
 
 ```ruby
+print 'Lütfen bir sayı girin: '
 string = gets.chomp
 
 if string == ''
-  puts 'Lütfen bir sayı girin.'
-elsif (number = Integer(number, exception: false))
-  puts "Girdiğiniz sayı: #{number}"
+  puts 'Hiç bir şey girmediniz.'
+elsif (number = Integer(string, exception: false))
+  puts "Girdiğiniz sayı #{number}"
 else
-  puts "Geçersiz sayı girdisi: #{string}"
+  puts "Geçersiz sayı girdiniz: #{string}"
 end
 ```
 
-- `elsif` yeni anahtar kelime, çoklu koşul deyimleri
+- Yeni anahtar kelime: `elsif`, çoklu koşul deyimleri
 
-- Koşul ifadesi içinde atama yapabilirsiniz (kötüye kullanmayın)
+- `Integer(string, exception: false)` hatalı dönüşümde `nil` değeri dönüyor
 
-- Yeter ki parantezlerle niyetinizi açık hale getirin
+- Koşul ifadesi içinde atama yapabilirsiniz (kötüye kullanmayın), yeter ki parantezlerle niyetinizi açık hale getirin
 
 - Boş dizgi denetimi daha deyimsel nasıl yapılabilir?
 
 - Kullanıcı bir veya daha fazla sayıda beyaz boşluk girmişse?
+
+---
+
+### `nil`
+
+Düpedüz yokluğu veya geçerli bir değerin yokluğunu anlatan "sözde değer"
+
+- Mantıksal bağlamda `false` ile benzer sonuçlar üretiyor
+
+- Yani bu bir "falsy" değer
+
+- Diğer dillerde de kısmen benzer değerler var; ör. C, C#, Java'da `null`
+
+---
+
+### Doğruluk/Yanlışlık
+
+Basit iki kural
+
+1. **Ruby'de değeri `false` ve `nil` olan her ifade yanlıştır**
+
+2. **Yanlış olmayan her şey doğrudur**
+
+---
+
+```ruby
+number = Integer('geçersiz', exception: false) #=> nil
+
+if number
+  puts 'Doğru'
+else
+  puts 'Yanlış'
+end
+```
+
+---
+
+Bazen `nil` değerini açıkça denetlemeniz gerekebilir
+
+```ruby
+number = Integer('geçersiz', exception: false) #=> nil
+
+if number.nil?
+  puts 'Evet: nil'
+end
+```
+
+---
+
+### Metot
+
+İsmiyle çağrılarak çalıştırılabilir (bir veya çoğunlukla birden fazla satırlık) kod parçası
+
+- Farklı girdilerle tekrar tekrar yapılan hesaplamalar için her seferinde aynı kodu yazmanız gerekmiyor
+
+- Hesaplama girdileri çağırma zamanında verilen parametrelerle değiştirilebilir
+
+---
+
+Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemin gerçel köklerini bul
+
+```ruby
+def calculate_roots(a, b, c)
+  delta = b ** 2 - 4 * a * c
+  
+  if delta >= 0.0
+    delta_sqrt = Math.sqrt(delta)
+  
+    p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+    puts "Kökler: (#{p}, #{q})"
+  else
+    puts 'Çözüm yok'
+  end
+end
+
+a, b, c = 1.0, 0.0, 1.0
+
+calculate_roots(a, b, c)
+```
+
+---
+
+- Yeni anahtar kelime: `def`
+
+- `a`, `b` ve `c` metot argümanları
+
+- Çağırma zamanında metoda bu argümanlarla değerleri geçiriyoruz
+
+---
+
+- Metot argümanlarıyla çağırma zamanında kullanılan değişkenlerin aynı isimde olması gerekmiyor
+
+  ```ruby
+  a2, a1, a0 = 1.0, 0.0, 1.0
+
+  calculate_roots(a2, a1, a0)
+  ```
+
+- Değerleri hiç bir değişken kullanmadan da geçirebiliriz
+
+  ```ruby
+  calculate_roots(1.0, 0.0, 1.0)
+  ```
+
+---
+
+Örnek: Verilen 3 sayı geçerli bir üçgenin kenar uzunlukları mı?
+
+```ruby
+def validate_triangular(a, b, c)
+  if a + b > c && a + c > b && b + c > a
+    puts "Geçerli üçgen"
+  else
+    puts "Geçerli üçgen değil"
+  end
+end
+
+validate_triangular(3, 4, 5)
+```
+
+---
+
+Metotlar çoğunlukla bir hesap yaptıktan sonra bize bir sonuç döner
+
+- Her iki örnekte de bir sonuç dönmedik
+
+- Son örnekte aşama aşama giderek gösterelim
+
+---
+
+```ruby
+def validate_triangular(a, b, c)
+  if a + b > c && a + c > b && b + c > a
+    return true
+  else
+    return false
+  end
+end
+
+if validate_triangular(3, 4, 5)
+  puts "Geçerli üçgen"
+else
+  puts "Geçerli üçgen değil"
+end
+```
+
+---
+
+- Yeni anahtar kelime: `return`
+
+- Kullanıldığı noktada metotu sonlandırarak verilen değeri çağıran tarafa dönüyor
+
+---
+
+Her metot tek bir iş yapmalı
+
+- İlk örnekte bu kural nasıl ihlal edilmiş? 
+
+---
+
+- Ruby zaten `true`/`false` hesabını yapıyor, biz ayrıca neden hesap ediyoruz?
+
+- Ruby'de metottan çıkarken etkin olan son satır aynı zamanda dönüş değeridir
+
+- Çoğu zaman `return` ile açık dönüş yapmamız gerekmez
+
+- Ruby'de `return` deyimini "erken çıkış"lar için kullanın
+
+---
+
+```ruby
+def validate_triangular(a, b, c)
+  a + b > c && a + c > b && b + c > a
+end
+
+if validate_triangular(3, 4, 5)
+  puts "Geçerli üçgen"
+else
+  puts "Geçerli üçgen değil"
+end
+```
+
+---
+
+Örnek: Kullanıcıdan bir tam sayı iste
+
+```ruby
+def getnum
+  print 'Lütfen bir sayı girin: '
+  string = gets.chomp
+  
+  if string.empty?
+    puts 'Hiç bir şey girmediniz.'
+  elsif (number = Integer(string, exception: false))
+    puts "Girdiğiniz sayı #{number}"
+  else
+    puts "Geçersiz sayı girdiniz: #{string}"
+  end
+
+  number
+end
+```
+
+---
+
+İsimlendirmeler çok önemli
+
+- Ruby'de metot adlarının sonunda `?` ve `!` karakterlerini kullanabilirsiniz
+
+- `true` veya `false` değer dönen metotlara "predicate method" diyoruz
+
+- `?` sonlandırma karakteri bir metotun "predicate" olduğunu nitelendirmekte kullanılan bir konvansiyon
+
+- Bu sadece bir konvansiyon, metot adının sonunda `?` karakteri olunca sihirli bir işlem gerçekleşmiyor
+
+- İsimlendirmeleri çok daha anlamlı yapıyor
+
+---
+
+Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemde çözüm var mı?
+
+Diskriminant pozitif olmalı (alan bilgisi)
+
+```ruby
+def has_solution?(a, b, c)
+  (b ** 2 - 4 * a * c) >= 0.0
+end
+
+if has_solution?(1.0, 0.0, 1.0)
+  puts "Çözüm var"
+else
+  puts "Çözüm yok"
+end
+```
+
+---
+
+```ruby
+def triangular?(a, b, c)
+  a + b > c && a + c > b && b + c > a
+end
+
+if triangular?(3, 4, 5)
+  puts "Geçerli üçgen"
+else
+  puts "Geçerli üçgen değil"
+end
+```
+
+---
+
+### Üçlü operatörü
+
+Ternary operatörü
+
+```ruby
+def has_solution?(a, b, c)
+  (b ** 2 - 4 * a * c) >= 0.0
+end
+
+puts "Çözüm #{has_solution?(1.0, 0.0, 1.0) ? 'var' : 'yok'}"
+
+def triangular?(a, b, c)
+  a + b > c && a + c > b && b + c > a
+end
+
+puts "Geçerli üçgen#{triangular?(3, 4, 5) ? '' : ' değil'}"
+```
+
+---
+
+### Kapsam
+
+```ruby
+a, b, c = 1.0, 0.0, 1.0
+
+def calculate_roots(a, b, c)
+  delta = b ** 2 - 4 * a * c
+  
+  if delta >= 0.0
+    delta_sqrt = Math.sqrt(delta)
+  
+    p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+    puts "Kökler: (#{p}, #{q})"
+  else
+    puts 'Çözüm yok'
+  end
+end
+
+calculate_roots(a, b, c)
+
+puts delta #=> ?
+```
+
+---
+
+Metotlar dışarıya kapalı bir kutu gibi davranır
+
+- Metot gövdesi bir kapsam ("scope") belirler: yerel kapsam ("local scope")
+
+- Yerel kapsamdaki bir değişken dışarı sızmaz (ör. `delta`)
+
+- Benzer şekilde metot dışındaki hiç bir değer argümanlar yoluyla verilmedikçe içeri sızmaz
+
+- Metodun dış dünyayla yegane kontak noktaları: giriş argümanları ve dönüş değeri
+
+---
+
+### İsimlendirilmiş argümanlar
+
+```ruby
+def calculate_roots(a:, b:, c:)
+  delta = b ** 2 - 4 * a * c
+  
+  if delta >= 0.0
+    delta_sqrt = Math.sqrt(delta)
+  
+    p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+    puts "Kökler: (#{p}, #{q})"
+  else
+    puts 'Çözüm yok'
+  end
+end
+
+calculate_roots(a: 1.0, b: 0.0, c: 1.0)
+```
+
+---
+
+- Veriliş sırasıyla anlamlandırılan argümanlar: "pozisyonel argümanlar"
+
+- Argümanları veriliş sırasıyla değil de isimleriyle belirtsek?
+
+- Özellikle birden fazla sayıda argüman geçirmemiz gerektiğinde yararlı
+
+- Neyin ne olduğunu çağırma zamanında karıştırmamış oluyoruz
+
+---
+
+### Öntanımlı argümanlar
+
+```ruby
+def calculate_roots(a: 0.0, b: 0.0, c: 0.0)
+  delta = b ** 2 - 4 * a * c
+  
+  if delta >= 0.0
+    delta_sqrt = Math.sqrt(delta)
+  
+    p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+    puts "Kökler: (#{p}, #{q})"
+  else
+    puts 'Çözüm yok'
+  end
+end
+
+calculate_roots(a: 1.0, c: 1.0)
+
+calculate_roots
+```
+
+---
+
+Öntanımlı argümanlar "pozisyonel argümanlar" için de geçerli
+
+```ruby
+def calculate_roots(a = 0.0, b = 0.0, c = 0.0)
+  delta = b ** 2 - 4 * a * c
+  
+  if delta >= 0.0
+    delta_sqrt = Math.sqrt(delta)
+  
+    p, q = (-b - delta_sqrt) / 2 * a, (-b + delta_sqrt) / 2 * a
+  
+    puts "Kökler: (#{p}, #{q})"
+  else
+    puts 'Çözüm yok'
+  end
+end
+
+calculate_roots
+
+calculate_roots(1.0, 0.0, 1.0)
+```
+
+- İlk çağrıda işe yaradı
+
+- Fakat ikincide işe yaramıyor
+
+- Zorunlu olarak tüm argümanları girmek zorunda kaldık, neden?
+
+---
+
+İkinci derece denklem örneğinde bir sorun daha var
+
+- "Bir metot tek bir iş yapmalı" kuralı ihlal edilmiş
+
+- Bunu düzeltmek şu aşamada zor
+
+- Ruby'de metotlar sadece tek bir değer dönebilir
+
+- Birden fazla değeri tek bir değer halinde dönmek gerekiyor
+
+- Bunun yolu?  Diziler
+
+---
+
+### Döngü
+
+Bilgisayarın en temel kabiliyeti: bir işlemi tekrar tekrar yapabilmek
+
+---
+
+Örnek: Kullanıcıdan geçerli bir tamsayı al
+
+```ruby
+def getnum
+  print 'Lütfen bir sayı girin [ENTER sonlandırır]: '
+
+  while !(string = gets.chomp).empty?
+    number = Integer(string, exception: false)
+    if number
+      return number
+    end
+
+    print "Geçersiz sayı: '#{string}'.  Lütfen tekrar girin: "
+  end
+
+  nil
+end
+```
+
+---
+
+- Yeni anahtar kelime: `while`
+
+- Çoğu durumda "... oldukça/olmadıkça" veya "... olduğu sürece/olmadığı sürece" gibi okuyabilirsiniz
+
+---
+
+Sözde kod
+
+```
+Girdi al, bu boş bir dizgi olmadığı sürece
+  dizgiyi tamsayıya çevir
+  eğer dönüşüm geçerli ise tamsayıyı dön
+
+  hata görüntüle
+```
+
+---
+
+```ruby
+def getnum
+  print 'Lütfen bir sayı girin [ENTER sonlandırır]: '
+
+  until (string = gets.chomp).empty?
+    number = Integer(string, exception: false)
+    return number if number
+
+    print "Geçersiz sayı: '#{string}'.  Lütfen tekrar girin: "
+  end
+
+  nil
+end
+```
+
+---
+
+- Yeni anahtar kelime: `until`
+
+- `if`/`unless` ilişkisine benzer şekilde `while`/`until`
+
+- Olumsuz lojik için kullanılıyor
+
+- Basit ifadeler kullanıldığı sürece okunurluğu bir parça arttırıyor
