@@ -1041,7 +1041,7 @@ calculate_roots(a, b, c)
 Örnek: Verilen 3 sayı geçerli bir üçgenin kenar uzunlukları mı?
 
 ```ruby
-def validate_triangular(a, b, c)
+def validate_triangle(a, b, c)
   if a + b > c && a + c > b && b + c > a
     puts "Geçerli üçgen"
   else
@@ -1049,7 +1049,7 @@ def validate_triangular(a, b, c)
   end
 end
 
-validate_triangular(3, 4, 5)
+validate_triangle(3, 4, 5)
 ```
 
 ---
@@ -1063,7 +1063,7 @@ Metotlar çoğunlukla bir hesap yaptıktan sonra bize bir sonuç döner
 ---
 
 ```ruby
-def validate_triangular(a, b, c)
+def validate_triangle(a, b, c)
   if a + b > c && a + c > b && b + c > a
     return true
   else
@@ -1071,7 +1071,7 @@ def validate_triangular(a, b, c)
   end
 end
 
-if validate_triangular(3, 4, 5)
+if validate_triangle(3, 4, 5)
   puts "Geçerli üçgen"
 else
   puts "Geçerli üçgen değil"
@@ -1103,11 +1103,11 @@ Her metot tek bir iş yapmalı
 ---
 
 ```ruby
-def validate_triangular(a, b, c)
+def validate_triangle(a, b, c)
   a + b > c && a + c > b && b + c > a
 end
 
-if validate_triangular(3, 4, 5)
+if validate_triangle(3, 4, 5)
   puts "Geçerli üçgen"
 else
   puts "Geçerli üçgen değil"
@@ -1170,11 +1170,11 @@ end
 ---
 
 ```ruby
-def triangular?(a, b, c)
+def triangle?(a, b, c)
   a + b > c && a + c > b && b + c > a
 end
 
-if triangular?(3, 4, 5)
+if triangle?(3, 4, 5)
   puts "Geçerli üçgen"
 else
   puts "Geçerli üçgen değil"
@@ -1194,11 +1194,11 @@ end
 
 puts "Çözüm #{has_solution?(1.0, 0.0, 1.0) ? 'var' : 'yok'}"
 
-def triangular?(a, b, c)
+def triangle?(a, b, c)
   a + b > c && a + c > b && b + c > a
 end
 
-puts "Geçerli üçgen#{triangular?(3, 4, 5) ? '' : ' değil'}"
+puts "Geçerli üçgen#{triangle?(3, 4, 5) ? '' : ' değil'}"
 ```
 
 ---
