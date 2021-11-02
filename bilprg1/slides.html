@@ -923,7 +923,7 @@ return 0; } ```
         </li>
       </ul>
       <hr />
-      <p>Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemde çözüm var mı?</p>
+      <h3 id="rnek-katsaylar-verilen-kuadratik-kinci-derece-bir-denklemde-zm-var-m">Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemde çözüm var mı?</h3>
       <p>Diskriminant pozitif olmalı (alan bilgisi)</p>
       <p>```ruby
         a, b, c = 1.0, 0.0, 1.0</p>
@@ -1414,19 +1414,22 @@ puts 'Çözüm yok'   end end
       <p>Bilgisayarın en temel kabiliyeti: bir işlemi tekrar tekrar yapabilmek</p>
       <hr />
       <p>Örnek: Kullanıcıdan geçerli bir tamsayı al</p>
-      <p>```ruby
-        def getnum
-        print ‘Lütfen bir sayı girin [ENTER sonlandırır]: ‘</p>
-      <p>while !(string = gets.chomp).empty?
-        number = Integer(string, exception: false)
-        if number
-        return number
-        end</p>
-      <pre><code>print "Geçersiz sayı: '#{string}'.  Lütfen tekrar girin: "   end
-</code></pre>
-      <p>nil
-        end
-        ```</p>
+      <p><code>ruby
+          01  def getnum
+          02    print 'Lütfen bir sayı girin [ENTER sonlandırır]: '
+          03  
+          04    while !(string = gets.chomp).empty?
+          05      number = Integer(string, exception: false)
+          06      if number
+          07        return number
+          08      end
+          09  
+          10      print "Geçersiz sayı: '#{string}'.  Lütfen tekrar girin: "
+          11    end
+          12  
+          13    nil
+          14  end
+        </code></p>
       <hr />
       <ul>
         <li>
@@ -1471,6 +1474,170 @@ puts 'Çözüm yok'   end end
           <p>Basit ifadeler kullanıldığı sürece okunurluğu bir parça arttırıyor</p>
         </li>
       </ul>
+      <hr />
+      <h3 id="rnek-say-tahmini">Örnek: Sayı tahmini</h3>
+      <p>Verilen bir aralık içinde belirlenmiş bir tamsayıyı tahmin et</p>
+      <hr />
+      <p>İyileştirmeler</p>
+      <ul>
+        <li>Kod tekrarını nasıl önleriz?</li>
+        <li>Döngü üzerinde tam denetim nasıl kurarız?</li>
+        <li>Kullanıcıya ipucu verebilir miyiz?  “Büyük/küçük” gibi</li>
+        <li>Maksimum deneme sayısını sınırlayabilir miyiz?</li>
+        <li>Sayı aralığını değişken yapabilir miyiz?</li>
+        <li>UX: Her tahminde deneme sayısını da kullanıcıya bildirebilir miyiz?</li>
+        <li>Sayı aralığı ve maksimum deneme sayısını program çalıştırılırken girebilir miyiz?</li>
+      </ul>
+      <hr />
+      <h3 id="yeni">Yeni</h3>
+      <ul>
+        <li>Yeni anahtar kelime: <code>loop</code>: açık uçlu döngüler kurmaya yarıyor</li>
+        <li>Yeni anahtar kelime: <code>break</code>: döngü sonlandırmaya yarıyor</li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Sabitler: büyük harf ile başlayan (ve çoğunlukla hepsi büyük harften oluşan) tanımlayıcılar</p>
+        </li>
+        <li>
+          <p><code>ARGV</code>: komut satırı argümanlarını tutan (sabit isimli bir) dizi</p>
+        </li>
+        <li>
+          <p><code>||=</code> öntanımlı değer atama özdeyişi</p>
+        </li>
+        <li>
+          <p><code>STDIN</code>: standart girdiya karşı düşen sabit</p>
+        </li>
+        <li>
+          <p><code>STDIN.gets</code>: daima standart girdiden (ör. klavye) okuma yapan özdeyiş</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="diziler">Diziler</h3>
+      <p>Birbiriyle ilişkili (bir küme oluşturan) değerleri barındıran veri türü</p>
+      <p><code>ruby
+          days = ['pazartesi', 'salı', 'çarşamba', 'perşembe', 'cuma', 'cumartesi', 'pazar']
+        </code></p>
+      <ul>
+        <li>
+          <p>Kümedeki her değere tek bir tanımlayıcıyla üzerinden erişiyoruz, nasıl?</p>
+        </li>
+        <li>
+          <p>İndis kullanarak, ilk değerin indisi <code>0</code>, her seferinde 1 artıyor</p>
+        </li>
+      </ul>
+      <p><code>ruby
+          days[0]   #=&gt; 'pazartesi'
+          days[1]   #=&gt; 'salı'
+          days[6]   #=&gt; 'pazar'
+          days[7]   #=&gt; nil
+          days[100] #=&gt; nil
+        </code></p>
+      <hr />
+      <p>Pek çok programlama dilinde saymaya <code>0</code>‘dan başlanır, <strong><code>1</code>‘den değil</strong></p>
+      <ul>
+        <li>Bu durumda son elemanın indisi ne oluyor?  <code>&lt;dizi uzunluğu&gt; - 1</code></li>
+      </ul>
+      <hr />
+      <h3 id="sz-dizimi">Söz dizimi</h3>
+      <ul>
+        <li>
+          <p>Birden fazla satıra yayabiliriz</p>
+          <p><code>ruby
+              days = [
+              'pazartesi',
+              'salı',
+              'çarşamba',
+              'perşembe',
+              'cuma',
+              'cumartesi',
+              'pazar',
+              ]
+            </code></p>
+        </li>
+        <li>
+          <p>Son elemandan sonra da <code>,</code> kullanmaya izin var (ama topluluk stilinde hoş bakılmıyor)</p>
+        </li>
+        <li>
+          <p>Özel olarak dizgilerden oluşan dizileri ilklendirmek için <code>%w[]</code> kullanabiliriz</p>
+          <p><code>ruby
+              days = %w[pazartesi salı çarşamba perşembe cuma cumartesi pazar]
+            </code></p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="deer-atama">Değer atama</h3>
+      <p>Basitçe ilgili indisteki elemana değer atamamız yeterli</p>
+      <p><code>ruby
+          days[0] = 'monday'
+        </code></p>
+      <hr />
+      <h3 id="temel-metotlar">Temel metotlar</h3>
+      <ul>
+        <li>
+          <p>Dizi uzunluğu: <code>days.size</code> veya <code>days.length</code> (eşdeğer)</p>
+        </li>
+        <li>
+          <p>İlk eleman: <code>days.first</code></p>
+        </li>
+        <li>
+          <p>Son eleman: <code>days.last</code></p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="negatif-indisler">Negatif indisler</h3>
+      <p>Diziye sondan erişmek için kullanılıyor</p>
+      <p><code>ruby
+          days[-1]         #=&gt; 'pazar'
+          days[-2]         #=&gt; 'cumartesi'
+          days[-7]         #=&gt; 'pazartesi'
+          days[-days.size] #=&gt; 'pazartesi'
+          days[-8]         #=&gt; nil
+          days[-100]       #=&gt; nil
+        </code></p>
+      <hr />
+      <h3 id="dizide-dolamak">Dizide dolaşmak</h3>
+      <p>En sık yapılan işlem, bir tür döngü</p>
+      <ul>
+        <li>
+          <p>Şu ana kadar öğrendiğiniz döngü deyimleriyle yapılabilir</p>
+        </li>
+        <li>
+          <p>Ama bunu yapmayın, Ruby’de dizilerde dolaşmak için çok daha güçlü yöntemler var</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="each"><code>each</code></h3>
+      <p>Ruby’de <code>Enumerable</code> modülünde tanımlı olan ve dizi türündeki tüm nesnelerin cevap verdiği bir metot</p>
+      <p><code>ruby
+          days.each do |day|
+          puts day
+          end
+        </code></p>
+      <hr />
+      <p><strong>Ruby’de dizilerde dolaşmak için daima <code>each</code> ve daha sonra gösterilecek <code>Enumerable</code> metotlarını kullanın</strong></p>
+      <ul>
+        <li>
+          <p><code>while</code>, <code>until</code>, <code>loop</code> (ve anlatmaya gerek görmediğimiz <code>for</code>) gibi döngü deyimlerini <strong>kullanmayın</strong></p>
+        </li>
+        <li>
+          <p>Bu deyimlere çoğunlukla dizi içermeyen düzensiz döngülerde ihtiyaç duyacaksınız</p>
+        </li>
+        <li>
+          <p>Bu uyarı özellikle diğer programlama dillerinden bilgi transfer edeceklere önemli</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="eachwithindex"><code>each_with_index</code></h3>
+      <p>Dolaşırken indis bilgisine ihtiyacımız varsa?</p>
+      <p><code>ruby
+          days.each_with_index do |day, i|
+          puts "#{i}: #{day}"
+          end
+        </code></p>
+      <hr />
+      <h3 id="bloklar">Bloklar</h3>
+      <p>TODO</p>
     </div>
     <script>
       feather.replace()
