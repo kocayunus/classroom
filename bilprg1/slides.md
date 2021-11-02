@@ -1440,6 +1440,12 @@ Verilen bir aralık içinde belirlenmiş bir tamsayıyı tahmin et
 
 ---
 
+- `break` anahtar kelimesi `while`, `until` ve gelecekte göreceğiniz tüm döngülerde, döngüyü kırmak için kullanılır
+
+- `loop`'a özgü değil
+
+---
+
 - Sabitler: büyük harf ile başlayan (ve çoğunlukla hepsi büyük harften oluşan) tanımlayıcılar
 
 - `ARGV`: komut satırı argümanlarını tutan (sabit isimli bir) dizi
