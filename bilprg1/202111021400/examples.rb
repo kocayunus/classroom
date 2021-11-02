@@ -39,7 +39,7 @@ def guess(upper:, tries:)
 end
 
 def main
-guess upper: ARGV[0]&.to_i, tries: ARGV[1]&.to_i
+  guess upper: ARGV[0]&.to_i, tries: ARGV[1]&.to_i
 end
 
 UPPER = 100
