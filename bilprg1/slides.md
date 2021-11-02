@@ -805,7 +805,7 @@ string = String.new '' # string = '' yerine
 
 ---
 
-Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemde çözüm var mı?
+### Örnek: Katsayıları verilen kuadratik (İkinci derece) bir denklemde çözüm var mı?
 
 Diskriminant pozitif olmalı (alan bilgisi)
 
@@ -1350,20 +1350,20 @@ Bilgisayarın en temel kabiliyeti: bir işlemi tekrar tekrar yapabilmek
 Örnek: Kullanıcıdan geçerli bir tamsayı al
 
 ```ruby
-def getnum
-  print 'Lütfen bir sayı girin [ENTER sonlandırır]: '
-
-  while !(string = gets.chomp).empty?
-    number = Integer(string, exception: false)
-    if number
-      return number
-    end
-
-    print "Geçersiz sayı: '#{string}'.  Lütfen tekrar girin: "
-  end
-
-  nil
-end
+01  def getnum
+02    print 'Lütfen bir sayı girin [ENTER sonlandırır]: '
+03  
+04    while !(string = gets.chomp).empty?
+05      number = Integer(string, exception: false)
+06      if number
+07        return number
+08      end
+09  
+10      print "Geçersiz sayı: '#{string}'.  Lütfen tekrar girin: "
+11    end
+12  
+13    nil
+14  end
 ```
 
 ---
@@ -1410,3 +1410,181 @@ end
 - Olumsuz lojik için kullanılıyor
 
 - Basit ifadeler kullanıldığı sürece okunurluğu bir parça arttırıyor
+
+---
+
+### Örnek: Sayı tahmini
+
+Verilen bir aralık içinde belirlenmiş bir tamsayıyı tahmin et
+
+[//]: guess-number
+
+---
+
+İyileştirmeler
+
+- Kod tekrarını nasıl önleriz?
+- Döngü üzerinde tam denetim nasıl kurarız?
+- Kullanıcıya ipucu verebilir miyiz?  "Büyük/küçük" gibi
+- Maksimum deneme sayısını sınırlayabilir miyiz?
+- Sayı aralığını değişken yapabilir miyiz?
+- UX: Her tahminde deneme sayısını da kullanıcıya bildirebilir miyiz?
+- Sayı aralığı ve maksimum deneme sayısını program çalıştırılırken girebilir miyiz?
+
+---
+
+### Yeni
+
+- Yeni anahtar kelime: `loop`: açık uçlu döngüler kurmaya yarıyor
+- Yeni anahtar kelime: `break`: döngü sonlandırmaya yarıyor
+
+---
+
+- Sabitler: büyük harf ile başlayan (ve çoğunlukla hepsi büyük harften oluşan) tanımlayıcılar
+
+- `ARGV`: komut satırı argümanlarını tutan (sabit isimli bir) dizi
+
+- `||=` öntanımlı değer atama özdeyişi
+
+- `STDIN`: standart girdiya karşı düşen sabit
+
+- `STDIN.gets`: daima standart girdiden (ör. klavye) okuma yapan özdeyiş
+
+---
+
+### Diziler
+
+Birbiriyle ilişkili (bir küme oluşturan) değerleri barındıran veri türü
+
+```ruby
+days = ['pazartesi', 'salı', 'çarşamba', 'perşembe', 'cuma', 'cumartesi', 'pazar']
+```
+
+- Kümedeki her değere tek bir tanımlayıcıyla üzerinden erişiyoruz, nasıl?
+
+- İndis kullanarak, ilk değerin indisi `0`, her seferinde 1 artıyor
+
+```ruby
+days[0]   #=> 'pazartesi'
+days[1]   #=> 'salı'
+days[6]   #=> 'pazar'
+days[7]   #=> nil
+days[100] #=> nil
+```
+
+---
+
+Pek çok programlama dilinde saymaya `0`'dan başlanır, **`1`'den değil**
+
+- Bu durumda son elemanın indisi ne oluyor?  `<dizi uzunluğu> - 1`
+
+---
+
+### Söz dizimi
+
+- Birden fazla satıra yayabiliriz
+
+  ```ruby
+  days = [
+    'pazartesi',
+    'salı',
+    'çarşamba',
+    'perşembe',
+    'cuma',
+    'cumartesi',
+    'pazar',
+  ]
+  ```
+
+- Son elemandan sonra da `,` kullanmaya izin var (ama topluluk stilinde hoş bakılmıyor)
+
+- Özel olarak dizgilerden oluşan dizileri ilklendirmek için `%w[]` kullanabiliriz
+
+  ```ruby
+  days = %w[pazartesi salı çarşamba perşembe cuma cumartesi pazar]
+  ```
+
+---
+
+### Değer atama
+
+Basitçe ilgili indisteki elemana değer atamamız yeterli
+
+```ruby
+days[0] = 'monday'
+```
+
+---
+
+### Temel metotlar
+
+- Dizi uzunluğu: `days.size` veya `days.length` (eşdeğer)
+
+- İlk eleman: `days.first`
+
+- Son eleman: `days.last`
+
+---
+
+### Negatif indisler
+
+Diziye sondan erişmek için kullanılıyor
+
+```ruby
+days[-1]         #=> 'pazar'
+days[-2]         #=> 'cumartesi'
+days[-7]         #=> 'pazartesi'
+days[-days.size] #=> 'pazartesi'
+days[-8]         #=> nil
+days[-100]       #=> nil
+```
+
+---
+
+### Dizide dolaşmak
+
+En sık yapılan işlem, bir tür döngü
+
+- Şu ana kadar öğrendiğiniz döngü deyimleriyle yapılabilir
+
+- Ama bunu yapmayın, Ruby'de dizilerde dolaşmak için çok daha güçlü yöntemler var
+
+---
+
+### `each`
+
+Ruby'de `Enumerable` modülünde tanımlı olan ve dizi türündeki tüm nesnelerin cevap verdiği bir metot
+
+```ruby
+days.each do |day|
+  puts day
+end
+```
+
+---
+
+**Ruby'de dizilerde dolaşmak için daima `each` ve daha sonra gösterilecek `Enumerable` metotlarını kullanın**
+
+- `while`, `until`, `loop` (ve anlatmaya gerek görmediğimiz `for`) gibi döngü deyimlerini **kullanmayın**
+
+- Bu deyimlere çoğunlukla dizi içermeyen düzensiz döngülerde ihtiyaç duyacaksınız
+
+- Bu uyarı özellikle diğer programlama dillerinden bilgi transfer edeceklere önemli
+
+---
+
+### `each_with_index`
+
+Dolaşırken indis bilgisine ihtiyacımız varsa?
+
+```ruby
+days.each_with_index do |day, i|
+  puts "#{i}: #{day}"
+end
+```
+
+---
+
+### Bloklar
+
+TODO
