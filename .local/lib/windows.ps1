@@ -11,9 +11,8 @@ $Dispatch = @{
 }
 
 $Packages  = @(
-    "git"
-	"vscode"
-	"windows-terminal"
+    "vscode"
+    "windows-terminal"
 )
 
 function invokeURL {
@@ -45,6 +44,11 @@ function Bootstrap() {
 
 	invokeURL("get.scoop.sh")
 
+    Write-Output "... Installing Git"
+
+    scoop install git
+ 	git config --global credential.helper manager-core
+
     Write-Output "... Configuring Scoop"
 
 	scoop bucket add extras
@@ -53,16 +57,12 @@ function Bootstrap() {
 
 	scoop update
 
-    Write-Output "... Installing packages"
+    Write-Output "... Installing extra packages"
 
     foreach ($package in $Packages) {
         Write-Output "${package}"
         scoop install $package
     }
-
-    Write-Output "... Configuring Git"
-
- 	git config --global credential.helper manager-core
 
     Write-Output "... Downloading Ubuntu WSL image"
 
