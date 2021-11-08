@@ -10,11 +10,6 @@ $Dispatch = @{
     "hello"     = [PSCustomObject]@{ Command = "Hello";     Description = "Say hello"        }
 }
 
-$Packages  = @(
-    "vscode"
-    "windows-terminal"
-)
-
 function invokeURL {
     Param(
         [Parameter(Mandatory = $true, Position = 0)]
@@ -38,39 +33,47 @@ function Bootstrap() {
 
     Write-Output "--- Bootstrap"
 
-        Set-ExecutionPolicy Bypass -Scope Process -force
+    Set-ExecutionPolicy Bypass -Scope Process -force
 
-    Write-Output "... Installing Scoop"
-
-        invokeURL("get.scoop.sh")
-
-    Write-Output "... Installing Git"
-
-    scoop install git
-        git config --global credential.helper manager-core
-
-    Write-Output "... Configuring Scoop"
-
-        scoop bucket add extras
-        scoop bucket add nerd-fonts
-        scoop bucket add wsl https://git.irs.sh/KNOXDEV/wsl
-
-        scoop update
-
-    Write-Output "... Installing extra packages"
-
-    foreach ($package in $Packages) {
-        Write-Output "${package}"
-        scoop install $package
+    if (Get-Command "scoop" -ErrorAction SilentlyContinue) {
+        Write-Output "... Installing Scoop"
+	invokeURL("get.scoop.sh")
     }
 
-    Write-Output "... Downloading Ubuntu WSL image"
+    if (Get-Command "git" -ErrorAction SilentlyContinue) {
+	Write-Output "... Installing Git"
+	scoop install git
+        git config --global credential.helper manager-core
+    }
 
+    foreach ($bucket in "extras", "nerd-fonts") {
+        if (scoop bucket known | Select-String -Pattern "^$bucket$" -Quiet) {
+    	    Write-Output "... Adding Scoop bucket $bucket"
+            scoop bucket add $bucket
+        }
+    }
+
+    if (scoop bucket known | Select-String -Pattern "^wsl$" -Quiet) {
+        scoop bucket add wsl https://git.irs.sh/KNOXDEV/wsl
+    }
+    
+    Write-Output "... Updating Scoop index"
+
+    scoop update
+
+    if (Get-Command "code" -ErrorAction SilentlyContinue) {
+	Write-Output "... Installing VS Code"
+	scoop install vscode
+    }
+
+    if (! scoop info wsl-ubuntu2004 | Out-Null) {
+    	Write-Output "... Downloading Ubuntu WSL image"
         scoop install wsl-ubuntu2004
+    }
 
     Write-Output "... Enabling WSL"
 
-        Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 }
 
 function Hello() {
