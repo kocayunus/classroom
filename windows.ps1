@@ -38,24 +38,24 @@ function Bootstrap() {
 
     Write-Output "--- Bootstrap"
 
-	Set-ExecutionPolicy Bypass -Scope Process -force
+        Set-ExecutionPolicy Bypass -Scope Process -force
 
     Write-Output "... Installing Scoop"
 
-	invokeURL("get.scoop.sh")
+        invokeURL("get.scoop.sh")
 
     Write-Output "... Installing Git"
 
     scoop install git
- 	git config --global credential.helper manager-core
+        git config --global credential.helper manager-core
 
     Write-Output "... Configuring Scoop"
 
-	scoop bucket add extras
-	scoop bucket add nerd-fonts
-	scoop bucket add wsl https://git.irs.sh/KNOXDEV/wsl
+        scoop bucket add extras
+        scoop bucket add nerd-fonts
+        scoop bucket add wsl https://git.irs.sh/KNOXDEV/wsl
 
-	scoop update
+        scoop update
 
     Write-Output "... Installing extra packages"
 
@@ -66,11 +66,11 @@ function Bootstrap() {
 
     Write-Output "... Downloading Ubuntu WSL image"
 
-	scoop install wsl-ubuntu2004
+        scoop install wsl-ubuntu2004
 
     Write-Output "... Enabling WSL"
 
-	Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+        Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 }
 
 function Hello() {
