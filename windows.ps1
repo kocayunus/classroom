@@ -46,11 +46,15 @@ function Bootstrap() {
         git config --global credential.helper manager-core
     }
 
-    foreach ($bucket in "extras", "nerd-fonts") {
-        if (scoop bucket known | Select-String -Pattern "^$bucket$" -Quiet) {
-    	    Write-Output "... Adding Scoop bucket $bucket"
-            scoop bucket add $bucket
-        }
+    $buckets = @{
+        "extras"     = ""
+	"nerd-fonts" = ""
+        "wsl"        = "https://git.irs.sh/KNOXDEV/wsl"
+    }
+
+    foreach ($bucket in $buckets.GetEnumerator()) {
+    	Write-Output "... Adding Scoop bucket $bucket"
+        scoop bucket add $bucket.Name $bucket.Value *>$null
     }
 
     if (scoop bucket known | Select-String -Pattern "^wsl$" -Quiet) {
@@ -66,7 +70,7 @@ function Bootstrap() {
 	scoop install vscode
     }
 
-    if (! scoop info wsl-ubuntu2004 | Out-Null) {
+    if (! scoop info wsl-ubuntu2004 *>$null) {
     	Write-Output "... Downloading Ubuntu WSL image"
         scoop install wsl-ubuntu2004
     }
