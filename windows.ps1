@@ -13,12 +13,12 @@ function info($msg) {
     Write-Host "$msg" -f darkgray
 }
 
-function commandAvailable {
+function commandMissing {
     Param (
         [string]$name
     )
 
-    return [boolean](Get-Command $name -ErrorAction Ignore)
+    return [boolean]!(Get-Command $name -ErrorAction Ignore)
 }
 
 function invokeURL {
@@ -50,13 +50,13 @@ function main() {
         break
     }
 
-    if (! commandAvailable "scoop") {
+    if (commandMissing "scoop") {
         doing "Installing Scoop"
 
         invokeURL("get.scoop.sh")
     }
 
-    if (! commandAvailable "git") {
+    if (commandMissing "git") {
         doing "Installing Git"
 
         scoop install git
@@ -77,13 +77,13 @@ function main() {
         }
     }
 
-    if (! commandAvailable "code") {
+    if (commandMissing "code") {
         doing "Installing VS Code"
 
         scoop install vscode
     }
 
-    if (! scoop info wsl-ubuntu2004 *>$null) {
+    if (!(scoop info wsl-ubuntu2004 *>$null)) {
         doing "Downloading Ubuntu WSL image"
 
         scoop install wsl-ubuntu2004
