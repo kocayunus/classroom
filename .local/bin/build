@@ -12,13 +12,15 @@ init() {
 	OUTDIR=$(readlink -f "$OUTDIR")
 
 	[ -n "$CI" ] || clean
+
+	mkdir -p "$OUTDIR" && cp -a .local/lib/windows.ps1 "$OUTDIR"/
 }
 
 clean() {
 	if git rev-parse --git-dir >/dev/null 2>&1; then
 		git clean -fx "$OUTDIR"
 	else
-		rm -rf -- "$OUTDIR"/*
+		rm -rf -- "${OUTDIR:?}"/*
 	fi
 }
 
