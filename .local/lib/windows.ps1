@@ -1,13 +1,24 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter',      '', Target='*')]
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '', Target='*')]
+#Requires -Version 5
 
-param (
-    $Command
-)
+function abort($msg, [int] $exit_code=1) {
+    Write-Host $msg -f red
+    exit $exit_code
+}
 
-$Dispatch = @{
-    "bootstrap" = [PSCustomObject]@{ Command = "Bootstrap"; Description = "Bootstrap system" }
-    "hello"     = [PSCustomObject]@{ Command = "Hello";     Description = "Say hello"        }
+function doing($msg) {
+    Write-Host "> $msg" -f yellow
+}
+
+function info($msg) {
+    Write-Host "$msg" -f darkgray
+}
+
+function commandAvailable {
+    Param (
+        [string]$name
+    )
+
+    return [boolean](Get-Command $name -ErrorAction Ignore)
 }
 
 function invokeURL {
@@ -20,100 +31,67 @@ function invokeURL {
         $arguments
     )
 
-    Write-Output "Running script from ${url}"
+    info "... Running script from ${url}"
 
     # Set TLS1.2
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor "Tls12"
     & $([scriptblock]::Create((Invoke-RestMethod $url))) @arguments
 }
 
-function Bootstrap() {
-    [CmdletBinding()]
-    Param()
+function main() {
+    $old_erroractionpreference = $erroractionpreference
+    $erroractionpreference = 'stop' # quit if anything goes wrong
 
-    Write-Output "--- Bootstrap"
-
-    Set-ExecutionPolicy Bypass -Scope Process -force
-
-    if (Get-Command "scoop" -ErrorAction SilentlyContinue) {
-        Write-Output "... Installing Scoop"
-	invokeURL("get.scoop.sh")
+    $allowedExecutionPolicy = @('Unrestricted', 'RemoteSigned', 'ByPass')
+    if ((Get-ExecutionPolicy).ToString() -notin $allowedExecutionPolicy) {
+        Write-Output "PowerShell requires an execution policy in [$($allowedExecutionPolicy -join ", ")] to run this script."
+        Write-Output "For example, to set the execution policy to 'RemoteSigned' please run :"
+        Write-Output "'Set-ExecutionPolicy RemoteSigned -scope CurrentUser'"
+        break
     }
 
-    if (Get-Command "git" -ErrorAction SilentlyContinue) {
-	Write-Output "... Installing Git"
-	scoop install git
+    if (! commandAvailable "scoop") {
+        doing "Installing Scoop"
+
+        invokeURL("get.scoop.sh")
+    }
+
+    if (! commandAvailable "git") {
+        doing "Installing Git"
+
+        scoop install git
         git config --global credential.helper manager-core
     }
 
     $buckets = @{
         "extras"     = ""
-	"nerd-fonts" = ""
+        "nerd-fonts" = ""
         "wsl"        = "https://git.irs.sh/KNOXDEV/wsl"
     }
 
     foreach ($bucket in $buckets.GetEnumerator()) {
-    	Write-Output "... Adding Scoop bucket $bucket"
-        scoop bucket add $bucket.Name $bucket.Value *>$null
+        if (scoop bucket known | Select-String -Pattern "^$($bucket.Name)$" -Quiet) {
+            doing "Adding Scoop bucket $bucket"
+
+            scoop bucket add $bucket.Name $bucket.Value
+        }
     }
 
-    if (scoop bucket known | Select-String -Pattern "^wsl$" -Quiet) {
-        scoop bucket add wsl https://git.irs.sh/KNOXDEV/wsl
-    }
-    
-    Write-Output "... Updating Scoop index"
+    if (! commandAvailable "code") {
+        doing "Installing VS Code"
 
-    scoop update
-
-    if (Get-Command "code" -ErrorAction SilentlyContinue) {
-	Write-Output "... Installing VS Code"
-	scoop install vscode
+        scoop install vscode
     }
 
     if (! scoop info wsl-ubuntu2004 *>$null) {
-    	Write-Output "... Downloading Ubuntu WSL image"
+        doing "Downloading Ubuntu WSL image"
+
         scoop install wsl-ubuntu2004
     }
 
-    Write-Output "... Enabling WSL"
+    $erroractionpreference = $old_erroractionpreference # Reset $erroractionpreference to original value
+
+    doing "Enabling WSL"
 
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 }
-
-function Hello() {
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory=$true)]
-        [string] $Name
-    )
-    Write-Output "--- Hello"
-    Write-Output $Name
-}
-
-function usage() {
-    $Dispatch.Values | Sort-Object -Descending
-}
-
-function main() {
-    if (!$Command) {
-        usage
-        return
-    }
-
-    if ($Command -eq "help") {
-        Get-Help $args[0]
-        return
-    }
-
-    if (!$Env:OS.StartsWith("Win")) {
-        Write-Error "This script requires Windows" -ErrorAction Stop
-    }
-
-    if (!$Dispatch.ContainsKey($Command)) {
-        Write-Error "No such command: $Command" -ErrorAction Stop
-    }
-
-    & $Dispatch[$Command].Command @args
-}
-
-main @args
