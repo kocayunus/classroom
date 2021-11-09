@@ -186,19 +186,26 @@ function taskUbuntuInstall {
 }
 
 function taskWSLEnable {
-    if (!(enabledWindowsOptionalFeature "VirtualMachinePlatform") -or !(enabledWindowsOptionalFeature "Microsoft-Windows-Subsystem-Linux")) {
-        doing "Windows Linux Alt Sistemi (WSL) aktive ediliyor"
+    $enabledWSL = enabledWindowsOptionalFeature "Microsoft-Windows-Subsystem-Linux"
+    $enabledVMP = enabledWindowsOptionalFeature "VirtualMachinePlatform"
 
-        if (!(enabledWindowsOptionalFeature "VirtualMachinePlatform")) {
-            Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
-        }
-
-        if (!(enabledWindowsOptionalFeature "Microsoft-Windows-Subsystem-Linux")) {
-            Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
-        }
-
-        reboot("Makinenin yeniden baslatilmasi gerekiyor.  Lutfen islemi onaylayin.")
+    if ($enabledWSL -and $enabledVMP) {
+	    return
     }
+
+    doing "Windows Linux Alt Sistemi (WSL) aktive ediliyor"
+
+    if (!$enabledVMP) {
+        Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+        info "  VirtualMachinePlatform aktif"
+    }
+
+    if (!$enableWSL) {
+        Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
+        info "  Microsoft-Windows-Subsystem-Linux aktif"
+    }
+
+    reboot("Makinenin yeniden baslatilmasi gerekiyor.  Lutfen islemi onaylayin.")
 
     $global:tasksDone++
 }
