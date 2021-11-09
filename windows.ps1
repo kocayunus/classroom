@@ -1,5 +1,7 @@
 #Requires -Version 5
 
+# KEEP THIS SCRIPT IDEMPOTENT
+
 function abort($msg, [int] $exit_code=1) {
     Write-Host $msg -f red
     exit $exit_code
@@ -23,12 +25,28 @@ function reboot($msg) {
     Restart-Computer -Confirm
 }
 
-function commandMissing {
+function commandAvailable {
     param (
         [string]$name
     )
 
-    return [boolean]!(Get-Command $name -ErrorAction Ignore)
+    return [boolean](Get-Command $name -ErrorAction Ignore)
+}
+
+function packageAvailable {
+    param (
+        [string]$name
+    )
+
+    return [boolean](scoop export | Select-String -Pattern $name -Quiet)
+}
+
+function bucketAvailable {
+    param (
+        [string]$name
+    )
+
+    return [boolean](scoop bucket list | Select-String -Pattern $name -Quiet)
 }
 
 function invokeURL {
@@ -57,14 +75,44 @@ function enabledWindowsOptionalFeature {
     return [boolean]((Get-WindowsOptionalFeature -FeatureName $feature -Online).State -eq "Enabled")
 }
 
+$global:tasksDone = 0
 
-function sanitizeGit {
+function taskScoopInstall {
+    if (commandAvailable "scoop") {
+	    return
+    }
+
+    doing "Scoop kuruluyor"
+    invokeURL("get.scoop.sh")
+
+    $global:tasksDone++
+}
+
+function taskGitInstall {
+    if (commandAvailable "git") {
+        return
+    }
+
+    doing "Git kuruluyor"
+    scoop install git
+
+    $global:tasksDone++
+}
+
+function taskGitSetup {
     $default = @{
         username = $env:username
         email    = "$($env:username)@$($env:userdomain)"
     }
 
-    $user = git config --global user.name | Out-String
+    $user  = git config --global user.name  | Out-String
+    $email = git config --global user.email | Out-String
+
+    if (($user -ne "") -and ($email -ne "")) {
+        return
+    }
+
+    doing "Git kurulumu kontrol ediliyor"
 
     if ($user -eq "") {
         notice "Git username '$($default["username"])' olarak ayarlandi."
@@ -74,8 +122,6 @@ function sanitizeGit {
         git config --global user.name $default["username"]
     }
 
-    $email = git config --global user.email | Out-String
-
     if ($email -eq "") {
         notice "Git email '$($default["email"])' olarak ayarlandi."
         notice "Lutfen bunu daha sonra asagidaki komutla degistirin:"
@@ -83,6 +129,78 @@ function sanitizeGit {
 
         git config --global user.email $default["email"]
     }
+
+    $global:tasksDone++
+}
+
+function taskScoopSetup {
+    $buckets = @{
+        'extras'     = ''
+        'nerd-fonts' = ''
+        'wsl'        = 'https://git.irs.sh/KNOXDEV/wsl'
+    }
+
+    $missings = [System.Collections.ArrayList]@()
+
+    foreach ($bucket in $buckets.GetEnumerator()) {
+    	if (!(bucketAvailable $bucket.Name)) {
+            [void]$missings.Add($bucket)
+        }
+    }
+
+    if ($missings.count -eq 0) {
+        return
+    }
+
+    doing "Scoop bucket ekleniyor"
+
+    foreach ($bucket in $missings) {
+        info "  $($bucket.Name)"
+
+        scoop bucket add $bucket.Name $bucket.Value
+    }
+
+    $global:tasksDone++
+}
+
+function taskVSCodeInstall {
+    if (commandAvailable "code") {
+        return
+    }
+
+    doing "VS Code kuruluyor"
+    scoop install vscode
+
+    $global:tasksDone++
+}
+
+function taskUbuntuInstall {
+    if (packageAvailable "wsl-ubuntu2004") {
+        return
+    }
+
+    doing "Ubuntu kutusu kuruluyor"
+    scoop install wsl-ubuntu2004
+
+    $global:tasksDone++
+}
+
+function taskWSLEnable {
+    if (!(enabledWindowsOptionalFeature "VirtualMachinePlatform") -or !(enabledWindowsOptionalFeature "Microsoft-Windows-Subsystem-Linux")) {
+        doing "Windows Linux Alt Sistemi (WSL) aktive ediliyor"
+
+        if (!(enabledWindowsOptionalFeature "VirtualMachinePlatform")) {
+            Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
+        }
+
+        if (!(enabledWindowsOptionalFeature "Microsoft-Windows-Subsystem-Linux")) {
+            Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
+        }
+
+        reboot("Makinenin yeniden baslatilmasi gerekiyor.  Lutfen islemi onaylayin.")
+    }
+
+    $global:tasksDone++
 }
 
 function main() {
@@ -97,59 +215,18 @@ function main() {
         return
     }
 
-    if (commandMissing "scoop") {
-        doing "Scoop kuruluyor"
+    notice "Kurulum inceleniyor..."
 
-        invokeURL("get.scoop.sh")
-    }
+    taskScoopInstall
+    taskGitInstall
+    taskGitSetup
+    taskScoopSetup
+    taskVSCodeInstall
+    taskUbuntuInstall
+    taskWSLEnable
 
-    if (commandMissing "git") {
-        doing "Git kuruluyor"
-
-        scoop install git
-    }
-
-    doing "Git kurulumu kontrol ediliyor"
-    sanitizeGit
-
-    $buckets = @{
-        'extras'     = ''
-        'nerd-fonts' = ''
-        'wsl'        = 'https://git.irs.sh/KNOXDEV/wsl'
-    }
-
-    foreach ($bucket in $buckets.GetEnumerator()) {
-    	if (!(scoop bucket list | Select-String -Pattern $bucket.Name -Quiet)) {
-            info "Scoop bucket ekleniyor: $($bucket.Name)"
-
-            scoop bucket add $bucket.Name $bucket.Value
-        }
-    }
-
-    if (commandMissing "code") {
-        doing "VS Code kuruluyor"
-
-        scoop install vscode
-    }
-
-    if (!(scoop export | Select-String -Pattern "wsl-ubuntu2004" -Quiet)) {
-        doing "Ubuntu kutusu kuruluyor"
-
-        scoop install wsl-ubuntu2004
-    }
-
-    if (!(enabledWindowsOptionalFeature "VirtualMachinePlatform") -or !(enabledWindowsOptionalFeature "Microsoft-Windows-Subsystem-Linux")) {
-        doing "Windows Linux Alt Sistemi (WSL) aktive ediliyor"
-
-        if (!(enabledWindowsOptionalFeature "VirtualMachinePlatform")) {
-            Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
-        }
-
-        if (!(enabledWindowsOptionalFeature "Microsoft-Windows-Subsystem-Linux")) {
-            Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
-        }
-
-        reboot("Makinenin yeniden baslatilmasi gerekiyor.  Lutfen islemi onaylayin.")
+    if ($global:tasksDone -gt 0) {
+        notice "Kurulum sorunsuz."
     }
 
     $erroractionpreference = $old_erroractionpreference # Reset $erroractionpreference to original value

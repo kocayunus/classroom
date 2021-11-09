@@ -1086,6 +1086,32 @@ return 0; } ```
         end
         ```</p>
       <hr />
+      <p>Yeri gelmişken…  “Ruby’de her şey bir ifade” demiştik, örneği inceleyelim</p>
+      <p><code>ruby
+          flag =
+          if x == 0
+          false
+          else
+          true
+          end
+        </code></p>
+      <ul>
+        <li>Herşeyin ifade olmadığı pek çok dilde böyle bir kod yazamazsınız (<code>if</code> pek çok dilde bir ifade değil bir deyimdir)</li>
+      </ul>
+      <hr />
+      <p><code>ruby
+          flag =
+          if x == 0
+          false
+          else
+          true
+          end
+        </code></p>
+      <p>Bu kodu basitçe şöyle yazabilirdiniz</p>
+      <p><code>ruby
+          flag = x == 0
+        </code></p>
+      <hr />
       <h3 id="metot">Metot</h3>
       <p>İsmiyle çağrılarak çalıştırılabilir (bir veya çoğunlukla birden fazla satırlık) kod parçası</p>
       <ul>
@@ -1529,7 +1555,7 @@ puts 'Çözüm yok'   end end
         </code></p>
       <ul>
         <li>
-          <p>Kümedeki her değere tek bir tanımlayıcıyla üzerinden erişiyoruz, nasıl?</p>
+          <p>Kümedeki her değere tek bir tanımlayıcı üzerinden erişiyoruz, nasıl?</p>
         </li>
         <li>
           <p>İndis kullanarak, ilk değerin indisi <code>0</code>, her seferinde 1 artıyor</p>
@@ -1605,6 +1631,25 @@ puts 'Çözüm yok'   end end
           days[-100]       #=&gt; nil
         </code></p>
       <hr />
+      <h3 id="dizi-sonuna-yeni-eleman-eklemek">Dizi sonuna yeni eleman eklemek</h3>
+      <p>Çok sık yaptığımız bir işlem</p>
+      <p><code>ruby
+          a = []
+          a &lt;&lt; 3
+          a &lt;&lt; 5
+          a &lt;&lt; 9
+          a #=&gt; [3, 5, 9]
+        </code></p>
+      <p>Dizinin başına (veya seçilen bir indisten önce/sonraya) elema eklemek?  Düşündüğünüz kadar sık ihtiyaç duyulacak bir
+        işlem değil</p>
+      <p><code>ruby
+          a = []
+          a.unshift &lt;&lt; 3
+          a.unshift &lt;&lt; 5
+          a.unshift &lt;&lt; 9
+          a #=&gt; [9, 5, 3]
+        </code></p>
+      <hr />
       <h3 id="dizide-dolamak">Dizide dolaşmak</h3>
       <p>En sık yapılan işlem, bir tür döngü</p>
       <ul>
@@ -1646,7 +1691,240 @@ puts 'Çözüm yok'   end end
         </code></p>
       <hr />
       <h3 id="bloklar">Bloklar</h3>
-      <p>TODO</p>
+      <p>Metotlara geçirilen eylemler</p>
+      <ul>
+        <li>
+          <p>Daha teknik bir anlatımla isimsiz (anonim) işlevler</p>
+        </li>
+        <li>
+          <p>Ruby’nin çok önemli bir özelliği</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Blokları anlayabilmemiz için hikayede biraz geriye gitmek zorundayız</p>
+      <ul>
+        <li>
+          <p>Ruby’de hemen her şey akıllı bir “nesne”</p>
+        </li>
+        <li>
+          <p>Uygun metotlarla uyararak nesnelerin istediğiniz davranışı göstermesini sağlayabilirsiniz</p>
+        </li>
+        <li>
+          <p>Örneğin dizgiler birer nesne</p>
+          <p><code>ruby
+              irb(main):001:0&gt; 'This is a test'.length
+              =&gt; 14
+              irb(main):002:0&gt; 'This is a test'.upcase
+              =&gt; THIS IS A TEST
+            </code></p>
+        </li>
+        <li>
+          <p><strong>Sayılar da öyle</strong></p>
+          <p><code>ruby
+              irb(main):003:0&gt; 3.times { puts 'Test' }
+              Test
+              Test
+              Test
+              =&gt; 3
+            </code></p>
+        </li>
+      </ul>
+      <hr />
+      <p>Son örneğe yoğunlaşalım</p>
+      <p><code>ruby
+          3.times { puts 'Test' }
+        </code></p>
+      <ul>
+        <li>
+          <p><code>3</code> bir tamsayı nesnesi, <code>times</code> bu nesnenin bir metotu</p>
+        </li>
+        <li>
+          <p>Öyle ki bu metota hangi eylemi tekrarlayacağını bildirebiliyorsunuz</p>
+        </li>
+        <li>
+          <p>Nasıl?  Eylemi gerçekleyen bir kod bloğuyla</p>
+          <p><code>ruby
+              { puts 'Test' }
+            </code></p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Kod bloklarını <code>{...}</code> yerine <code>do ... end</code> ile de yazabiliriz</p>
+          <p><code>ruby
+              3.times do
+              puts 'Test'
+              end
+            </code></p>
+        </li>
+        <li>
+          <p>Stil olarak tek satırlık bloklarda kıvrık parantezler, birden fazla satıra yayılan kod blokları için <code>do ... end</code>
+            tercih ediyoruz</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Bir işleve eylemde ihtiyaç duyacağı bilgileri argümanlar üzerinden geçirebiliriz.</p>
+      <p><code>ruby
+          puts 'Test'
+        </code></p>
+      <ul>
+        <li>
+          <p><code>puts</code>: Neyi görüntüleyeyim?</p>
+        </li>
+        <li>
+          <p>Çağıran: “Test” dizgisini</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Aynı diyaloğu <code>times</code> için kurgulayalım.</p>
+      <ul>
+        <li><code>times</code>: <strong>kaç</strong> defa <strong>ne</strong> yapacağım?</li>
+      </ul>
+      <p>Ama bu soru hatalı.</p>
+      <ul>
+        <li>
+          <p><code>times</code> metodu uyarılırken <strong>kaç</strong> defa bilgisini zaten alıyor, nasıl?</p>
+          <p><code>ruby
+              3.times ...
+            </code></p>
+        </li>
+        <li>
+          <p>Diyalog <code>times</code> ile değil <code>3</code> tamsayı nesnesi arasında gerçekleşmeli</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Diyalog:</p>
+      <ul>
+        <li>
+          <p><code>3</code>: Ne istiyorsun?</p>
+        </li>
+        <li>
+          <p>Çağıran: Sen <strong>defa</strong> (yani <code>3</code> defa) bir şey yapmanı.</p>
+        </li>
+        <li>
+          <p><code>3</code>: Tamam, ben <strong>defa</strong> ne yapacağım?</p>
+        </li>
+        <li>
+          <p>Çağıran: <code>puts 'Test'</code> (‘Test’ dizgisini görüntüle).</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Sonuçlar:</p>
+      <ul>
+        <li>
+          <p>Nesnelere sadece veri değil eylem de bildirilebiliyor</p>
+        </li>
+        <li>
+          <p>Bu sayede çeşitlenebilir davranışlar elde edebiliyoruz</p>
+        </li>
+        <li>
+          <p>Tekrarlama eylemiyle (<code>times</code>), tekrarlanacak eylemi (<code>puts "Test"</code>) ayırıyoruz</p>
+        </li>
+        <li>
+          <p><code>times</code> bir metot, <code>puts 'Test'</code> ise bu metota geçirilen bir blok</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Metafor</p>
+      <ul>
+        <li>
+          <p>İngiltere kraliçesi Türkiye’ye resmi ziyaret yapacak; Kraliçenin ülkede bulunduğu sürece yemekleri nasıl olacak?</p>
+        </li>
+        <li>
+          <p>1: İngiliz protokolü Dışişleri protokolüne kraliçenin ülkedeyken yiyeceği yemeklerin listesini veya tarifini iletebilir</p>
+        </li>
+        <li>
+          <p>2: Kraliçe yemekleri yapacak özel ahçısını bizzat yanında getirebilir</p>
+        </li>
+        <li>
+          <p>İlki klasik yöntem, bir metota (ör. <code>yemek_hazırla</code>) veri girilmesi (yemek listesi veya tarifler)</p>
+        </li>
+        <li>
+          <p>İkincisinde ise metota bir eylem veriliyor, ahçının eylemleri</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Bloklar metotumsu (veya fonksiyonumsu) şeyler</p>
+      <ul>
+        <li>
+          <p>Blok argümanları (varsa) <code>|...|</code> karakterleri arasında (metotlardaki parantezler)</p>
+        </li>
+        <li>
+          <p>Blok dönüş değeri metotlardaki gibi etkin olan son satır</p>
+        </li>
+        <li>
+          <p>Dikkat! Bloğun dönüş değerini bloğu alan metotun dönüş değeriyle karıştırmayın</p>
+        </li>
+        <li>
+          <p>Nihai “dönüş değeri”ni bloğun verildiği metot belirliyor</p>
+          <p><code>ruby
+              3.times { 'Merhaba' } #=&gt; 3 döner
+            </code></p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Metotlarda olduğu gibi bloklarda da erken çıkış için <code>return</code> kullanabiliriz</p>
+        </li>
+        <li>
+          <p>Fakat genel olarak <code>return</code> yerine <code>break</code> veya <code>next</code> tercih ediyoruz</p>
+        </li>
+      </ul>
+      <hr />
+      <p>```ruby
+        %w[samsun istanbul izmir adana].each do |city|
+        next if city.include? ‘a’</p>
+      <p>puts city
+        end
+        ```</p>
+      <p>```ruby
+        %w[samsun istanbul izmir adana].each do |city|
+        break unless city.include? ‘a’</p>
+      <p>puts city
+        end
+        ```</p>
+      <hr />
+      <h3 id="blok-kapsam">Blok kapsamı</h3>
+      <p>“Bloklar metotumsu (veya fonksiyonumsu) şeyler” demiştik</p>
+      <ul>
+        <li>
+          <p>Blok içinde tanımlanan bir değişken bloğa özgüdür, blok dışına çıkamaz</p>
+          <p>```ruby
+            %w[samsun istanbul izmir adana].each do |city|
+            next if city.include? ‘a’</p>
+          <p>puts city
+            end</p>
+          <p>puts city
+            ```</p>
+        </li>
+        <li>
+          <p>Bu kod neden hata veriyor?</p>
+        </li>
+        <li>
+          <p>Düzeltmek için ne yapılabilir?</p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Bazen bir blokta üretilen bir değeri dış kapsama taşımak isteyebiliriz</p>
+          <p>```ruby
+            cities_with_a = []</p>
+          <p>%w[samsun istanbul izmir adana].each do |city|
+            cities_with_a « city if city.include? ‘a’
+            end</p>
+          <p>puts cities_with_a
+            ```</p>
+        </li>
+        <li>
+          <p>Sonuç: dış kapsama taşınacak değeri tutacak değişkeni bloktan önce tanımlayın (<code>nil</code> gibi bir değerle de olsa)</p>
+        </li>
+        <li>
+          <p>Fakat bunu yapmanın hemen hemen daima daha iyi bir yolu vardır (örnek için <code>select</code> veya <code>collect</code>)</p>
+        </li>
+      </ul>
     </div>
     <script>
       feather.replace()
