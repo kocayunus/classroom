@@ -1596,9 +1596,9 @@ işlem değil
 
 ```ruby
 a = []
-a.unshift << 3
-a.unshift << 5
-a.unshift << 9
+a.unshift 3
+a.unshift 5
+a.unshift 9
 a #=> [9, 5, 3]
 ```
 
@@ -1798,9 +1798,7 @@ Bloklar metotumsu (veya fonksiyonumsu) şeyler
 
 ---
 
-- Metotlarda olduğu gibi bloklarda da erken çıkış için `return` kullanabiliriz
-
-- Fakat genel olarak `return` yerine `break` veya `next` tercih ediyoruz
+- Bloklarda da erken çıkış için (`return` yerine) `break` veya `next` tercih ediyoruz
 
 ---
 
