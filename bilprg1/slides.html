@@ -1644,9 +1644,9 @@ puts 'Çözüm yok'   end end
         işlem değil</p>
       <p><code>ruby
           a = []
-          a.unshift &lt;&lt; 3
-          a.unshift &lt;&lt; 5
-          a.unshift &lt;&lt; 9
+          a.unshift 3
+          a.unshift 5
+          a.unshift 9
           a #=&gt; [9, 5, 3]
         </code></p>
       <hr />
@@ -1865,12 +1865,7 @@ puts 'Çözüm yok'   end end
       </ul>
       <hr />
       <ul>
-        <li>
-          <p>Metotlarda olduğu gibi bloklarda da erken çıkış için <code>return</code> kullanabiliriz</p>
-        </li>
-        <li>
-          <p>Fakat genel olarak <code>return</code> yerine <code>break</code> veya <code>next</code> tercih ediyoruz</p>
-        </li>
+        <li>Bloklarda da erken çıkış için (<code>return</code> yerine) <code>break</code> veya <code>next</code> tercih ediyoruz</li>
       </ul>
       <hr />
       <p>```ruby
