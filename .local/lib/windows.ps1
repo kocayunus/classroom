@@ -190,7 +190,7 @@ function taskWSLEnable {
     $enabledVMP = enabledWindowsOptionalFeature "VirtualMachinePlatform"
 
     if ($enabledWSL -and $enabledVMP) {
-	    return
+        return
     }
 
     doing "Windows Linux Alt Sistemi (WSL) aktive ediliyor"
