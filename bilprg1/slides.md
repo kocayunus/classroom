@@ -1716,6 +1716,20 @@ Son örneğe yoğunlaşalım
 
 ---
 
+Metafor
+
+- İngiltere kraliçesi Türkiye'ye resmi ziyaret yapacak; Kraliçenin ülkede bulunduğu sürece yemekleri nasıl olacak?
+
+- 1: İngiliz protokolü Dışişleri protokolüne kraliçenin ülkedeyken yiyeceği yemeklerin listesini veya tarifini iletebilir
+
+- 2: Kraliçe yemekleri yapacak özel ahçısını bizzat yanında getirebilir
+
+- İlki klasik yöntem, bir metota (ör. `yemek_hazırla`) veri girilmesi (yemek listesi veya tarifler)
+
+- İkincisinde ise metota bir eylem veriliyor, ahçının eylemleri
+
+---
+
 Bir işleve eylemde ihtiyaç duyacağı bilgileri argümanlar üzerinden geçirebiliriz.
 
 ```ruby
@@ -1765,20 +1779,6 @@ Sonuçlar:
 - Tekrarlama eylemiyle (`times`), tekrarlanacak eylemi (`puts "Test"`) ayırıyoruz
 
 - `times` bir metot, `puts 'Test'` ise bu metota geçirilen bir blok
-
----
-
-Metafor
-
-- İngiltere kraliçesi Türkiye'ye resmi ziyaret yapacak; Kraliçenin ülkede bulunduğu sürece yemekleri nasıl olacak?
-
-- 1: İngiliz protokolü Dışişleri protokolüne kraliçenin ülkedeyken yiyeceği yemeklerin listesini veya tarifini iletebilir
-
-- 2: Kraliçe yemekleri yapacak özel ahçısını bizzat yanında getirebilir
-
-- İlki klasik yöntem, bir metota (ör. `yemek_hazırla`) veri girilmesi (yemek listesi veya tarifler)
-
-- İkincisinde ise metota bir eylem veriliyor, ahçının eylemleri
 
 ---
 
