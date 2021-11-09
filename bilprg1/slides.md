@@ -980,6 +980,38 @@ end
 
 ---
 
+Yeri gelmişken...  "Ruby'de her şey bir ifade" demiştik, örneği inceleyelim
+
+```ruby
+flag =
+  if x == 0
+    false
+  else
+    true
+  end
+```
+
+- Herşeyin ifade olmadığı pek çok dilde böyle bir kod yazamazsınız (`if` pek çok dilde bir ifade değil bir deyimdir)
+
+---
+
+```ruby
+flag =
+  if x == 0
+    false
+  else
+    true
+  end
+```
+
+Bu kodu basitçe şöyle yazabilirdiniz
+
+```ruby
+flag = x == 0
+```
+
+---
+
 ### Metot
 
 İsmiyle çağrılarak çalıştırılabilir (bir veya çoğunlukla birden fazla satırlık) kod parçası
@@ -1466,7 +1498,7 @@ Birbiriyle ilişkili (bir küme oluşturan) değerleri barındıran veri türü
 days = ['pazartesi', 'salı', 'çarşamba', 'perşembe', 'cuma', 'cumartesi', 'pazar']
 ```
 
-- Kümedeki her değere tek bir tanımlayıcıyla üzerinden erişiyoruz, nasıl?
+- Kümedeki her değere tek bir tanımlayıcı üzerinden erişiyoruz, nasıl?
 
 - İndis kullanarak, ilk değerin indisi `0`, her seferinde 1 artıyor
 
@@ -1547,6 +1579,31 @@ days[-100]       #=> nil
 
 ---
 
+### Dizi sonuna yeni eleman eklemek
+
+Çok sık yaptığımız bir işlem
+
+```ruby
+a = []
+a << 3
+a << 5
+a << 9
+a #=> [3, 5, 9]
+```
+
+Dizinin başına (veya seçilen bir indisten önce/sonraya) elema eklemek?  Düşündüğünüz kadar sık ihtiyaç duyulacak bir
+işlem değil
+
+```ruby
+a = []
+a.unshift << 3
+a.unshift << 5
+a.unshift << 9
+a #=> [9, 5, 3]
+```
+
+---
+
 ### Dizide dolaşmak
 
 En sık yapılan işlem, bir tür döngü
@@ -1593,4 +1650,212 @@ end
 
 ### Bloklar
 
-TODO
+Metotlara geçirilen eylemler
+
+- Daha teknik bir anlatımla isimsiz (anonim) işlevler
+
+- Ruby'nin çok önemli bir özelliği
+
+---
+
+Blokları anlayabilmemiz için hikayede biraz geriye gitmek zorundayız
+
+- Ruby'de hemen her şey akıllı bir "nesne"
+
+- Uygun metotlarla uyararak nesnelerin istediğiniz davranışı göstermesini sağlayabilirsiniz
+
+- Örneğin dizgiler birer nesne
+
+  ```ruby
+  irb(main):001:0> 'This is a test'.length
+  => 14
+  irb(main):002:0> 'This is a test'.upcase
+  => THIS IS A TEST
+  ```
+
+- **Sayılar da öyle**
+
+  ```ruby
+  irb(main):003:0> 3.times { puts 'Test' }
+  Test
+  Test
+  Test
+  => 3
+  ```
+
+---
+
+Son örneğe yoğunlaşalım
+
+```ruby
+3.times { puts 'Test' }
+```
+
+- `3` bir tamsayı nesnesi, `times` bu nesnenin bir metotu
+
+- Öyle ki bu metota hangi eylemi tekrarlayacağını bildirebiliyorsunuz
+
+- Nasıl?  Eylemi gerçekleyen bir kod bloğuyla
+
+  ```ruby
+  { puts 'Test' }
+  ```
+
+---
+
+- Kod bloklarını `{...}` yerine `do ... end` ile de yazabiliriz
+
+  ```ruby
+  3.times do
+    puts 'Test'
+  end
+  ```
+
+- Stil olarak tek satırlık bloklarda kıvrık parantezler, birden fazla satıra yayılan kod blokları için `do ... end`
+  tercih ediyoruz
+
+---
+
+Bir işleve eylemde ihtiyaç duyacağı bilgileri argümanlar üzerinden geçirebiliriz.
+
+```ruby
+puts 'Test'
+```
+
+- `puts`: Neyi görüntüleyeyim?
+
+- Çağıran: "Test" dizgisini
+
+---
+
+Aynı diyaloğu `times` için kurgulayalım.
+
+- `times`: **kaç** defa **ne** yapacağım?
+
+Ama bu soru hatalı.
+
+- `times` metodu uyarılırken **kaç** defa bilgisini zaten alıyor, nasıl?
+
+  ```ruby
+  3.times ...
+  ```
+
+- Diyalog `times` ile değil `3` tamsayı nesnesi arasında gerçekleşmeli
+
+---
+
+Diyalog:
+
+- `3`: Ne istiyorsun?
+
+- Çağıran: Sen **defa** (yani `3` defa) bir şey yapmanı.
+
+- `3`: Tamam, ben **defa** ne yapacağım?
+
+- Çağıran: `puts 'Test'` ('Test' dizgisini görüntüle).
+
+---
+
+Sonuçlar:
+
+- Nesnelere sadece veri değil eylem de bildirilebiliyor
+
+- Bu sayede çeşitlenebilir davranışlar elde edebiliyoruz
+
+- Tekrarlama eylemiyle (`times`), tekrarlanacak eylemi (`puts "Test"`) ayırıyoruz
+
+- `times` bir metot, `puts 'Test'` ise bu metota geçirilen bir blok
+
+---
+
+Metafor
+
+- İngiltere kraliçesi Türkiye'ye resmi ziyaret yapacak; Kraliçenin ülkede bulunduğu sürece yemekleri nasıl olacak?
+
+- 1: İngiliz protokolü Dışişleri protokolüne kraliçenin ülkedeyken yiyeceği yemeklerin listesini veya tarifini iletebilir
+
+- 2: Kraliçe yemekleri yapacak özel ahçısını bizzat yanında getirebilir
+
+- İlki klasik yöntem, bir metota (ör. `yemek_hazırla`) veri girilmesi (yemek listesi veya tarifler)
+
+- İkincisinde ise metota bir eylem veriliyor, ahçının eylemleri
+
+---
+
+Bloklar metotumsu (veya fonksiyonumsu) şeyler
+
+- Blok argümanları (varsa) `|...|` karakterleri arasında (metotlardaki parantezler)
+
+- Blok dönüş değeri metotlardaki gibi etkin olan son satır
+
+- Dikkat! Bloğun dönüş değerini bloğu alan metotun dönüş değeriyle karıştırmayın
+
+- Nihai "dönüş değeri"ni bloğun verildiği metot belirliyor
+
+  ```ruby
+  3.times { 'Merhaba' } #=> 3 döner
+  ```
+
+---
+
+- Metotlarda olduğu gibi bloklarda da erken çıkış için `return` kullanabiliriz
+
+- Fakat genel olarak `return` yerine `break` veya `next` tercih ediyoruz
+
+---
+
+```ruby
+%w[samsun istanbul izmir adana].each do |city|
+  next if city.include? 'a'
+
+  puts city
+end
+```
+
+```ruby
+%w[samsun istanbul izmir adana].each do |city|
+  break unless city.include? 'a'
+
+  puts city
+end
+```
+
+---
+
+### Blok kapsamı
+
+"Bloklar metotumsu (veya fonksiyonumsu) şeyler" demiştik
+
+- Blok içinde tanımlanan bir değişken bloğa özgüdür, blok dışına çıkamaz
+
+  ```ruby
+  %w[samsun istanbul izmir adana].each do |city|
+    next if city.include? 'a'
+
+    puts city
+  end
+
+  puts city
+  ```
+
+- Bu kod neden hata veriyor?
+
+- Düzeltmek için ne yapılabilir?
+
+---
+
+- Bazen bir blokta üretilen bir değeri dış kapsama taşımak isteyebiliriz
+
+  ```ruby
+  cities_with_a = []
+  
+  %w[samsun istanbul izmir adana].each do |city|
+    cities_with_a << city if city.include? 'a'
+  end
+  
+  puts cities_with_a
+  ```
+
+- Sonuç: dış kapsama taşınacak değeri tutacak değişkeni bloktan önce tanımlayın (`nil` gibi bir değerle de olsa)
+
+- Fakat bunu yapmanın hemen hemen daima daha iyi bir yolu vardır (örnek için `select` veya `collect`)
