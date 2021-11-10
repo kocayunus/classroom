@@ -12,7 +12,7 @@ function doing($msg) {
 }
 
 function info($msg) {
-    Write-Host "$msg" -f darkgray
+    Write-Host "> $msg" -f darkgray
 }
 
 function notice($msg) {
@@ -59,7 +59,7 @@ function invokeURL {
         $arguments
     )
 
-    info "... ${url}"
+    info $url
 
     # Set TLS1.2
     [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor "Tls12"
@@ -155,7 +155,7 @@ function taskScoopSetup {
     doing "Scoop bucket ekleniyor"
 
     foreach ($bucket in $missings) {
-        info "  $($bucket.Name)"
+        info $bucket.Name
 
         scoop bucket add $bucket.Name $bucket.Value
     }
@@ -174,6 +174,17 @@ function taskVSCodeInstall {
     $global:tasksDone++
 }
 
+function taskWindowsTerminalInstall {
+    if (commandAvailable "WindowsTerminal") {
+        return
+    }
+
+    doing "Windows Terminal kuruluyor"
+    scoop install windows-terminal
+
+    $global:tasksDone++
+}
+
 function taskUbuntuInstall {
     if (packageAvailable "wsl-ubuntu2004") {
         return
@@ -185,27 +196,28 @@ function taskUbuntuInstall {
     $global:tasksDone++
 }
 
-function taskWSLEnable {
+function taskWSL1Enable {
     $enabledWSL = enabledWindowsOptionalFeature "Microsoft-Windows-Subsystem-Linux"
-    $enabledVMP = enabledWindowsOptionalFeature "VirtualMachinePlatform"
 
-    if ($enabledWSL -and $enabledVMP) {
+    if ($enabledWSL) {
         return
     }
 
-    doing "Windows Linux Alt Sistemi (WSL) aktive ediliyor"
+    doing "Windows Linux Alt Sistemi (WSL) sürüm 1 aktive ediliyor"
 
-    if (!$enabledVMP) {
-        Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
-        info "  VirtualMachinePlatform aktif"
-    }
-
-    if (!$enableWSL) {
-        Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
-        info "  Microsoft-Windows-Subsystem-Linux aktif"
-    }
-
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart
     reboot("Makinenin yeniden baslatilmasi gerekiyor.  Lutfen islemi onaylayin.")
+
+    $global:tasksDone++
+}
+
+# Too many problems in older systems which can't be managed automatically in a robust manner
+function taskWSL2Enable {
+    info "Bu gorev henuz eklenmedi"
+
+    return
+
+    doing "Windows Linux Alt Sistemi (WSL) sürüm 2 aktive ediliyor"
 
     $global:tasksDone++
 }
@@ -229,10 +241,11 @@ function main() {
     taskGitSetup
     taskScoopSetup
     taskVSCodeInstall
+    taskWindowsTerminalInstall
     taskUbuntuInstall
-    taskWSLEnable
+    taskWSL1Enable
 
-    if ($global:tasksDone -gt 0) {
+    if ($global:tasksDone -eq 0) {
         notice "Kurulum sorunsuz."
     }
 
