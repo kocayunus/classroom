@@ -203,7 +203,7 @@ function taskWSL1Enable {
         return
     }
 
-    doing "Windows Linux Alt Sistemi (WSL) sürüm 1 aktive ediliyor"
+    doing "Windows Linux Alt Sistemi (WSL) versiyon 1 aktive ediliyor"
 
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart
     reboot("Makinenin yeniden baslatilmasi gerekiyor.  Lutfen islemi onaylayin.")
@@ -217,7 +217,7 @@ function taskWSL2Enable {
 
     return
 
-    doing "Windows Linux Alt Sistemi (WSL) sürüm 2 aktive ediliyor"
+    doing "Windows Linux Alt Sistemi (WSL) versiyon 2 aktive ediliyor"
 
     $global:tasksDone++
 }
