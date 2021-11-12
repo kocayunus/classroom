@@ -57,4 +57,3 @@ end
 cities.each_with_index do |city, i|
   puts "#{i + 1}. #{city}"
 end
-
