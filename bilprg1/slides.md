@@ -1604,6 +1604,22 @@ a #=> [9, 5, 3]
 
 ---
 
+### Dizgiden diziye, Diziden dizgiye
+
+`split` ve `join`: bu metot çiftine özel bir yer ayırıyoruz
+
+- `split`: bir dizgiden (tekil, skalar) bir dizi (çoğul, vektör) üretiyor
+
+- `join` : bir diziden (çoğul, vektör) bir dizgi (tekil, skalar) üretiyor
+
+```ruby
+name   = 'Ahmet Yılmaz'
+names  = name.split      #=> ['Ahmet', 'Yılmaz']
+dashed = names.join('-') #=> 'Ahmet-Yılmaz'
+```
+
+---
+
 ### Dizide dolaşmak
 
 En sık yapılan işlem, bir tür döngü
@@ -1857,3 +1873,470 @@ end
 - Sonuç: dış kapsama taşınacak değeri tutacak değişkeni bloktan önce tanımlayın (`nil` gibi bir değerle de olsa)
 
 - Fakat bunu yapmanın hemen hemen daima daha iyi bir yolu vardır (örnek için `select` veya `collect`)
+
+---
+
+### Sayılabilirler modülü
+
+`Enumerable` [modülü](https://ruby-doc.org/core-3.0.2/Enumerable.html)
+
+- Koleksiyonlar üzerinde yapılabilecek pek çok işlemi barındıran bir "katıştırma" (mixin) modülü
+
+- Koleksiyon?  Genel olarak Dizi ve daha sonra görülecek olan Sözlük veri yapıları
+
+- Koleksiyon?  Daha teknik bir anlatımla `each` metodunu sağlayan tüm nesneler
+
+- İşlemler?  Sıralama, seçme, eşleme, arama
+
+---
+
+- En temel metot: `each`, koleksiyonlarda dolaşmak için
+
+- Fakat "sonuç üreten" dolaşmalarda `each` yerine kullanmanızın daha uygun olacağı metotlar var
+
+- `Enumerable` modülü bu metotları sağlıyor
+
+- Yeter ki nesne `each` metotunu gerçeklesin (bu metotu `Enumerable` sunmuyor, sadece yararlanıyor)
+
+---
+
+### Seçme (Süzme): `select`
+
+- `N` boyutlu bir dizide belirli bir koşulu sağlayan ögeleri seçiyoruz
+
+- Koşul bir "blok"la ifade ediliyor: "blok" `true` değer üretmişse ise seç, aksi halde bırak
+
+- Seçilen ögelerle `M` boyutlu yeni bir dizi oluşturuyoruz; öyle ki `M <= N` 
+
+---
+
+```ruby
+[1, 2, 3, 4, 5].select { |num| num.even? } #=> [2, 4]
+
+%w[foo bar].select { |str| str == 'foo' } #=> ['foo']
+```
+
+- `select` metotunun diğer adları: `filter`, `find_all`
+
+---
+
+- Seçme işlemi yeni bir dizi üretir
+
+- Yeni dizinin boyutu özgün diziden büyük olamaz, genellikle daha küçüktür
+
+---
+
+**Diziler üzerinde seçme yaparken `each` değil `select` tercih edin**
+
+- `Enumerable` modülünü de barındıran Standart kitaplığı iyi tanıyın
+
+- Her iş için en uygun çözümü kullanın
+
+- Aksi halde kendi "kötü" çözümünüzü geliştirme tehlikesi söz konusu
+
+---
+
+İlişkili metot: `reject`
+
+```ruby
+[1, 2, 3, 4, 5].reject { |num|  num.even? } #=> [1, 3, 5]
+```
+
+---
+
+İlişkili metot: `find`
+
+```ruby
+[1, 2, 3, 4, 5].find { |num|  num.even? } #=> 2
+```
+
+- Bu metotun daima tek bir değer döndüğüne dikkat edin ("find" yapamamışsa `nil`)
+
+- Amacınız koşul sağlandığında devam etmeden ilgili ögeyi dönmek ise daima `find` kullanın
+
+- Diğer adı: `detect`
+
+---
+
+### Eşleme: `map`
+
+- `N` boyutlu bir dizideki her ögeyi, çoğunlukla o ögeyi bir işlemden geçirerek, yeni bir ögeyle eşleştiriyoruz
+
+- İşlem bir "blok"la ifade ediliyor: "blok"un (girdi olarak verilen ögeyle) ürettiği değerle eşleme yap
+
+- Eşleşen ögelerle yine aynı boyutta (`N`) yeni bir dizi oluşturuyoruz
+
+---
+
+```ruby
+[1, 2, 3, 4, 5].map { |num|  num ** 2 } #=> [1, 4, 9, 16, 25]
+
+%w[foo bar].map { |str| str.upcase } #=> ['FOO', 'BAR']
+```
+
+- `map` metotunun diğer adı: `collect`
+
+---
+
+- Eşleme işlemi yeni bir dizi üretir
+
+- Yeni dizinin boyutu özgün diziye daima eşittir (daha büyük veya küçük olamaz)
+
+---
+
+**Diziler üzerinde eşleme yaparken `each` değil `map` tercih edin**
+
+- `Enumerable` modülünü de barındıran Standart kitaplığı iyi tanıyın
+
+- Her iş için en uygun çözümü kullanın
+
+- Aksi halde kendi "kötü" çözümünüzü geliştirme tehlikesi söz konusu
+
+---
+
+### Koleksiyon predikatörleri
+
+`all?`, `any?`, `one?`, `none?`
+
+```ruby
+%w[ant bear cat].all?  { |word| word.length >= 3 } #=> true
+%w[ant bear cat].any?  { |word| word.length >= 3 } #=> true
+%w{ant bear cat}.one?  { |word| word.length == 4 } #=> true
+%w{ant bear cat}.none? { |word| word.length == 5 } #=> true
+```
+
+---
+
+**Diziler üzerinde mantıksal sonuç üreten bir değerlendirme yaparken `each` veya `select` değil bu metotları tercih edin**
+
+- `Enumerable` modülünü de barındıran Standart kitaplığı iyi tanıyın
+
+- Her iş için en uygun çözümü kullanın
+
+- Aksi halde kendi "kötü" çözümünüzü geliştirme tehlikesi söz konusu
+
+---
+
+İyi
+
+```ruby
+ok = original.all?  { |word| word.length >= 3 }
+
+if ok
+  ...
+end
+```
+
+---
+
+Kötü
+
+```ruby
+original = %w[ant bear cat]
+longest_than_two = original.select { |word| word.length >= 3 }
+
+if longest_than_two.length == original.length
+  ...
+end
+```
+
+---
+
+Çirkin
+
+```ruby
+original = %w[ant bear cat]
+
+ok = true
+original.each do |word|
+  if word.length < 3
+    ok = false
+    break
+  end
+end
+
+if ok
+  ...
+end
+```
+
+---
+
+### Sıralama: `sort`
+
+- `N` boyutlu bir diziyi "belirli bir kurala" göre sıralıyoruz
+
+- Kural bir "blok"la ifade ediliyor: verilen öge çiftini karşılaştırarak "küçük, eşit, büyük" sonucu üret
+
+- Sıralanan yine aynu boyutta (`N`) yeni bir dizi oluşturuyoruz
+
+---
+
+```ruby
+[1, 2, 3, 4, 5].sort { |a, b| b <=> a } #=> [5, 4, 3, 2, 1]
+
+%w[foo bar].sort #=> ['bar', 'foo']
+```
+
+- Sıralama kuralı zorunlu değil: verilmemesi halinde öntanımlı kurallar uygulanıyor
+
+- Öntanımlı kuralllar?  Dizgilerin alfabetik sıralaması, sayıların büyüklüğüne göre sıralanması
+
+---
+
+- Sıralama işlemi yeni bir dizi üretir
+
+- Yeni dizinin boyutu özgün diziye daima eşittir (daha büyük veya küçük olamaz)
+
+---
+
+**Diziler üzerinde sıralama yaparken `each` değil `sort` tercih edin**
+
+- `Enumerable` modülünü de barındıran Standart kitaplığı iyi tanıyın
+
+- Her iş için en uygun çözümü kullanın
+
+- Aksi halde kendi "kötü" çözümünüzü geliştirme tehlikesi söz konusu
+
+---
+
+### Karşılaştırma işlemi
+
+- Sıralama yaparken her seferinde iki ögeyi karşılaştırıyoruz: ör. `a` ve `b`
+
+- İşlem başarımını eniyileştirmek için öge çiftlerinin nasıl seçileceği önemli bir "algoritmik problem"
+
+- Buna "sıralama algoritması" diyoruz
+
+---
+
+- Literatürde "quick, merge, heap, shell, bubble" sort gibi iyi bilinen bazı algoritmalar var
+
+- Standart kitaplıktaki metotları kullanarak sıralama yaparken "sıralama algoritması"yla ilgilenmiyoruz
+
+- Bu bir gerçekleme detayı: Ruby sizin için en uygun (optimum) veya ona yakın algoritmayı seçiyor
+
+- Bizim ilgilendiğimiz kraşılaştırma işlemi; ki çoğu durumda onu bile vermemiz gerekmiyor
+
+---
+
+Karşılaştırma işlemi 3 ihtimallı bir bilgiyi üretmeli: "küçüktür", "eşittir", "büyüktür"
+
+- "Küçüktür": negatif bir sayı, çoğunlukla `-1`
+
+- "Eşittir": `0`
+
+- "Büyüktür": pozitif bir sayı, çoğunlukla `1`
+
+---
+
+```ruby
+[1, 2, 3, 4, 5].sort do |a, b|
+  if b < a
+    -1 # herhangi bir negatif değer de olabilir
+  elsif b > a
+    1 # herhangi bir pozitif değer de olabilir
+  else
+    0
+  end
+end #=> [5, 4, 3, 2, 1]
+```
+
+Örnekte dizideki öge çiftinin `a, b` sırasıyla verildiğine fakat karşılaştırmanın `b, a` sırasıyla yapıldığına dikkat
+edin: "Ters sıralama"
+
+---
+
+### `<=>`: "Spaceship" işleci
+
+- Örnekteki karşılaştırmayı her seferinde yapmanız gerekmiyor
+
+- `<`, `>` ve `==` karşılaştırmaları ilkel nesnelerin zaten cevap verdiği metotlar (bu bilgi nesne de zaten var)
+
+- O halde örnekteki karşılaştırmaları `<=>` isimli özel bir metotta toplayabiliriz
+
+(Dikkatli bakılırsa cepheden bir tür "uzay gemisi" görülebilir)
+
+---
+
+```ruby
+def <=>(other)
+  if self > other
+    1 # herhangi bir negatif değer de olabilir
+  elsif self < other
+    1 # herhangi bir pozitif değer de olabilir
+  else
+    0
+  end
+end
+```
+
+---
+
+- Böyle bir `<=>` metotu `Integer`, `String` gibi ilkel veri türü nesnelerine ekleyebiliriz
+
+- Bu yapıldığında `sort` metotuna karşılaştırma işlemi vermek bile gerekmez
+
+- Neden?  Ruby "türdeş" dizide dolaşırken ilgili türün `<=>` metotunu uyarır
+
+---
+
+`sort` metotunu genellikle hiç bir blok tanımlamadan kullanıyoruz
+
+- Öntanımlı davranışın var olmadığı veya uygun olmadığı durumlarda bir blok lullanıyoruz
+
+- Fakat çoğu durumda ilgili nesneye ait sınıfta özel bir `<=>` metotu yazmak daha doğru
+
+---
+
+Bir diziyi ters sıralamak için her seferinde önceki örneklerdeki gibi mi kod yazacağız?
+
+```ruby
+[1, 2, 3, 4, 5].sort.reverse #=> [5, 4, 3, 2, 1]
+```
+
+- Önce sırala, sonra tersle
+
+- Dikkat!  Sadece `reverse` diziyi sıralamadan tersler
+
+---
+
+Bir dizgi dizisini dizgi uzunluklarına göre sıralamak istersek?
+
+İlişkili metot: `sort_by`
+
+```ruby
+%w[apple pear fig].sort_by { |word| word.length }  #=> ['fig', 'pear', 'apple']
+```
+
+- Karşılaştırma işlemini ögelerin kendisiyle değil bir özelliği üzerinden yapıyoruz
+
+- "Blok" nesnenin kendisinden bu özelliğe ait değeri üretiyor
+
+- Öyle ki karşılaştırma bu değerlere ait öntanımlı `<=>` işleciyle gerçekleşiyor
+
+---
+
+### Ünlemli metotlar
+
+Verilen koleksiyonla eş boyutta bir koleksiyon üreten metotları ele alalım: `map`, `sort`, `reverse`
+
+- Bu metotlar her seferinde yeni bir dizi üretiyor
+
+- Örneğin bellekte büyük yer kaplayan 100,000 ögeli bir diziyi sıraladığımızda bellekte bir o kadar yer işgal eden yeni
+  bir dizi üretiyoruz
+
+- Sıralanmamış özgün diziye sonraki aşamalarda çoğunlukla ihtiyacımız yok
+
+- Bellekten tasarruf için yerinde sıralasak?  Yani sıralanmış dizi eskisine ayrılan bellek alanına kayıtlansa?
+
+---
+
+```ruby
+> a = [1, 2, 3, 4, 5] #=> [1, 2, 3, 4, 5]
+> b = a.reverse       #=> [5, 4, 3, 2, 1]
+> a                   #=> [1, 2, 3, 4, 5]
+```
+
+yerine
+
+```ruby
+> a = [1, 2, 3, 4, 5]
+> a.reverse! #=> [5, 4, 3, 2, 1]
+> a          #=> [5, 4, 3, 2, 1]
+```
+
+---
+
+Tek yapmamız gereken metotu sonunda `!` olan çeşidiyle değiştirmek
+
+```ruby
+> a = [1, 2, 3, 4, 5]
+> a.reverse!
+> a #=> [5, 4, 3, 2, 1]
+> a.sort!
+> a #=> [1, 2, 3, 4, 5]
+> a.map! { |i| i ** i }
+> a #=> [1, 4, 9, 16, 25]
+```
+
+---
+
+**Ters sıralamada daima ünlemli metotları kullanın**
+
+İyi
+
+```ruby
+a.sort!.reverse!
+```
+
+Kötü
+
+```ruby
+a.sort.reverse
+# veya
+a.sort.reverse!
+```
+
+---
+
+- Ruby'de sonunda `?` karakteri bulunan metotları görmüştük
+
+- `?` "doğru mu, değil mi?"yi çağrıştırıyordu
+
+- Sondaki `!` ise genel olarak "dikkatli ol, bu metotun bir yan etkisi var" mesajını iletiyor
+
+- Örneklerdeki yan etki?  Özgün dizinin artık yok olması, değişime uğraması
+
+- Bu yan etki bazen istemediğiniz bir şey olabilir
+
+- Örneğin: "Sıralanmamış diziye de ihtiyacım var; isteğe göre farklı kurallarla birden fazla sıralama yapmam gerekiyor"
+
+---
+
+**Bu bir konvansiyon**
+
+- Her metotun ünlemli bir karşılığı yok, sadece anlamlı durumlarda var
+
+- Sona `!` koyduğunuzda sihirli bir şey olmuyor, **bu sadece bir konvansiyon**
+
+- Bu konvansiyon, (daima zor olan) isimlendirmelerde kullanacağınız bir enstrüman
+
+- Mevcut bir ismi "recycle" ederek yeniden kullanabiliyorsunuz, üstelik daha anlamlı bir seçenek olarak
+
+- Ünlemli metotu, eğer bu anlamlıysa, siz gerçekleyeceksiniz
+
+- Bunu yaparken "dikkat, yan etkisi var" semantiğine sadık kalın
+
+---
+
+### Standart kitaplık
+
+Standart kitaplık bir hazine
+
+- Kıymetli pek çok mücevher (metot) var
+
+- Bunları tanıyın (aksi halde ne olacağını biliyorsunuz)
+
+---
+
+
+Diğer "sayılabilirler" metotları
+
+- `max`, `min`, `max_by`, `min_by`, `sum`
+
+- `uniq`, `zip`, `tally`
+
+---
+
+Diğer dizi metotları
+
+- `compact`, `flatten`
+
+- `sample`, `rotate`
+
+- `permutation`, `combination`
+
+- `product`, `transpose`
+
+- `intersection`, `union`, `difference`
