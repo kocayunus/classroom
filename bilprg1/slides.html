@@ -1651,6 +1651,22 @@ puts 'Çözüm yok'   end end
           a #=&gt; [9, 5, 3]
         </code></p>
       <hr />
+      <h3 id="dizgiden-diziye-diziden-dizgiye">Dizgiden diziye, Diziden dizgiye</h3>
+      <p><code>split</code> ve <code>join</code>: bu metot çiftine özel bir yer ayırıyoruz</p>
+      <ul>
+        <li>
+          <p><code>split</code>: bir dizgiden (tekil, skalar) bir dizi (çoğul, vektör) üretiyor</p>
+        </li>
+        <li>
+          <p><code>join</code> : bir diziden (çoğul, vektör) bir dizgi (tekil, skalar) üretiyor</p>
+        </li>
+      </ul>
+      <p><code>ruby
+          name   = 'Ahmet Yılmaz'
+          names  = name.split      #=&gt; ['Ahmet', 'Yılmaz']
+          dashed = names.join('-') #=&gt; 'Ahmet-Yılmaz'
+        </code></p>
+      <hr />
       <h3 id="dizide-dolamak">Dizide dolaşmak</h3>
       <p>En sık yapılan işlem, bir tür döngü</p>
       <ul>
@@ -1919,6 +1935,516 @@ puts 'Çözüm yok'   end end
         </li>
         <li>
           <p>Fakat bunu yapmanın hemen hemen daima daha iyi bir yolu vardır (örnek için <code>select</code> veya <code>collect</code>)</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="saylabilirler-modl">Sayılabilirler modülü</h3>
+      <p><code>Enumerable</code> <a href="https://ruby-doc.org/core-3.0.2/Enumerable.html">modülü</a></p>
+      <ul>
+        <li>
+          <p>Koleksiyonlar üzerinde yapılabilecek pek çok işlemi barındıran bir “katıştırma” (mixin) modülü</p>
+        </li>
+        <li>
+          <p>Koleksiyon?  Genel olarak Dizi ve daha sonra görülecek olan Sözlük veri yapıları</p>
+        </li>
+        <li>
+          <p>Koleksiyon?  Daha teknik bir anlatımla <code>each</code> metodunu sağlayan tüm nesneler</p>
+        </li>
+        <li>
+          <p>İşlemler?  Sıralama, seçme, eşleme, arama</p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>En temel metot: <code>each</code>, koleksiyonlarda dolaşmak için</p>
+        </li>
+        <li>
+          <p>Fakat “sonuç üreten” dolaşmalarda <code>each</code> yerine kullanmanızın daha uygun olacağı metotlar var</p>
+        </li>
+        <li>
+          <p><code>Enumerable</code> modülü bu metotları sağlıyor</p>
+        </li>
+        <li>
+          <p>Yeter ki nesne <code>each</code> metotunu gerçeklesin (bu metotu <code>Enumerable</code> sunmuyor, sadece yararlanıyor)</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="seme-szme-select">Seçme (Süzme): <code>select</code></h3>
+      <ul>
+        <li>
+          <p><code>N</code> boyutlu bir dizide belirli bir koşulu sağlayan ögeleri seçiyoruz</p>
+        </li>
+        <li>
+          <p>Koşul bir “blok”la ifade ediliyor: “blok” <code>true</code> değer üretmişse ise seç, aksi halde bırak</p>
+        </li>
+        <li>
+          <p>Seçilen ögelerle <code>M</code> boyutlu yeni bir dizi oluşturuyoruz; öyle ki <code>M &lt;= N</code></p>
+        </li>
+      </ul>
+      <hr />
+      <p>```ruby
+        [1, 2, 3, 4, 5].select { |num| num.even? } #=&gt; [2, 4]</p>
+      <p>%w[foo bar].select { |str| str == ‘foo’ } #=&gt; [‘foo’]
+        ```</p>
+      <ul>
+        <li><code>select</code> metotunun diğer adları: <code>filter</code>, <code>find_all</code></li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Seçme işlemi yeni bir dizi üretir</p>
+        </li>
+        <li>
+          <p>Yeni dizinin boyutu özgün diziden büyük olamaz, genellikle daha küçüktür</p>
+        </li>
+      </ul>
+      <hr />
+      <p><strong>Diziler üzerinde seçme yaparken <code>each</code> değil <code>select</code> tercih edin</strong></p>
+      <ul>
+        <li>
+          <p><code>Enumerable</code> modülünü de barındıran Standart kitaplığı iyi tanıyın</p>
+        </li>
+        <li>
+          <p>Her iş için en uygun çözümü kullanın</p>
+        </li>
+        <li>
+          <p>Aksi halde kendi “kötü” çözümünüzü geliştirme tehlikesi söz konusu</p>
+        </li>
+      </ul>
+      <hr />
+      <p>İlişkili metot: <code>reject</code></p>
+      <p><code>ruby
+          [1, 2, 3, 4, 5].reject { |num|  num.even? } #=&gt; [1, 3, 5]
+        </code></p>
+      <hr />
+      <p>İlişkili metot: <code>find</code></p>
+      <p><code>ruby
+          [1, 2, 3, 4, 5].find { |num|  num.even? } #=&gt; 2
+        </code></p>
+      <ul>
+        <li>
+          <p>Bu metotun daima tek bir değer döndüğüne dikkat edin (“find” yapamamışsa <code>nil</code>)</p>
+        </li>
+        <li>
+          <p>Amacınız koşul sağlandığında devam etmeden ilgili ögeyi dönmek ise daima <code>find</code> kullanın</p>
+        </li>
+        <li>
+          <p>Diğer adı: <code>detect</code></p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="eleme-map">Eşleme: <code>map</code></h3>
+      <ul>
+        <li>
+          <p><code>N</code> boyutlu bir dizideki her ögeyi, çoğunlukla o ögeyi bir işlemden geçirerek, yeni bir ögeyle eşleştiriyoruz</p>
+        </li>
+        <li>
+          <p>İşlem bir “blok”la ifade ediliyor: “blok”un (girdi olarak verilen ögeyle) ürettiği değerle eşleme yap</p>
+        </li>
+        <li>
+          <p>Eşleşen ögelerle yine aynı boyutta (<code>N</code>) yeni bir dizi oluşturuyoruz</p>
+        </li>
+      </ul>
+      <hr />
+      <p>```ruby
+        [1, 2, 3, 4, 5].map { |num|  num ** 2 } #=&gt; [1, 4, 9, 16, 25]</p>
+      <p>%w[foo bar].map { |str| str.upcase } #=&gt; [‘FOO’, ‘BAR’]
+        ```</p>
+      <ul>
+        <li><code>map</code> metotunun diğer adı: <code>collect</code></li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Eşleme işlemi yeni bir dizi üretir</p>
+        </li>
+        <li>
+          <p>Yeni dizinin boyutu özgün diziye daima eşittir (daha büyük veya küçük olamaz)</p>
+        </li>
+      </ul>
+      <hr />
+      <p><strong>Diziler üzerinde eşleme yaparken <code>each</code> değil <code>map</code> tercih edin</strong></p>
+      <ul>
+        <li>
+          <p><code>Enumerable</code> modülünü de barındıran Standart kitaplığı iyi tanıyın</p>
+        </li>
+        <li>
+          <p>Her iş için en uygun çözümü kullanın</p>
+        </li>
+        <li>
+          <p>Aksi halde kendi “kötü” çözümünüzü geliştirme tehlikesi söz konusu</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="koleksiyon-predikatrleri">Koleksiyon predikatörleri</h3>
+      <p><code>all?</code>, <code>any?</code>, <code>one?</code>, <code>none?</code></p>
+      <p><code>ruby
+          %w[ant bear cat].all?  { |word| word.length &gt;= 3 } #=&gt; true
+          %w[ant bear cat].any?  { |word| word.length &gt;= 3 } #=&gt; true
+          %w{ant bear cat}.one?  { |word| word.length == 4 } #=&gt; true
+          %w{ant bear cat}.none? { |word| word.length == 5 } #=&gt; true
+        </code></p>
+      <hr />
+      <p><strong>Diziler üzerinde mantıksal sonuç üreten bir değerlendirme yaparken <code>each</code> veya <code>select</code> değil bu metotları tercih edin</strong></p>
+      <ul>
+        <li>
+          <p><code>Enumerable</code> modülünü de barındıran Standart kitaplığı iyi tanıyın</p>
+        </li>
+        <li>
+          <p>Her iş için en uygun çözümü kullanın</p>
+        </li>
+        <li>
+          <p>Aksi halde kendi “kötü” çözümünüzü geliştirme tehlikesi söz konusu</p>
+        </li>
+      </ul>
+      <hr />
+      <p>İyi</p>
+      <p>```ruby
+        ok = original.all?  { |word| word.length &gt;= 3 }</p>
+      <p>if ok
+        …
+        end
+        ```</p>
+      <hr />
+      <p>Kötü</p>
+      <p>```ruby
+        original = %w[ant bear cat]
+        longest_than_two = original.select { |word| word.length &gt;= 3 }</p>
+      <p>if longest_than_two.length == original.length
+        …
+        end
+        ```</p>
+      <hr />
+      <p>Çirkin</p>
+      <p>```ruby
+        original = %w[ant bear cat]</p>
+      <p>ok = true
+        original.each do |word|
+        if word.length &lt; 3
+        ok = false
+        break
+        end
+        end</p>
+      <p>if ok
+        …
+        end
+        ```</p>
+      <hr />
+      <h3 id="sralama-sort">Sıralama: <code>sort</code></h3>
+      <ul>
+        <li>
+          <p><code>N</code> boyutlu bir diziyi “belirli bir kurala” göre sıralıyoruz</p>
+        </li>
+        <li>
+          <p>Kural bir “blok”la ifade ediliyor: verilen öge çiftini karşılaştırarak “küçük, eşit, büyük” sonucu üret</p>
+        </li>
+        <li>
+          <p>Sıralanan yine aynu boyutta (<code>N</code>) yeni bir dizi oluşturuyoruz</p>
+        </li>
+      </ul>
+      <hr />
+      <p>```ruby
+        [1, 2, 3, 4, 5].sort { |a, b| b &lt;=&gt; a } #=&gt; [5, 4, 3, 2, 1]</p>
+      <p>%w[foo bar].sort #=&gt; [‘bar’, ‘foo’]
+        ```</p>
+      <ul>
+        <li>
+          <p>Sıralama kuralı zorunlu değil: verilmemesi halinde öntanımlı kurallar uygulanıyor</p>
+        </li>
+        <li>
+          <p>Öntanımlı kuralllar?  Dizgilerin alfabetik sıralaması, sayıların büyüklüğüne göre sıralanması</p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Sıralama işlemi yeni bir dizi üretir</p>
+        </li>
+        <li>
+          <p>Yeni dizinin boyutu özgün diziye daima eşittir (daha büyük veya küçük olamaz)</p>
+        </li>
+      </ul>
+      <hr />
+      <p><strong>Diziler üzerinde sıralama yaparken <code>each</code> değil <code>sort</code> tercih edin</strong></p>
+      <ul>
+        <li>
+          <p><code>Enumerable</code> modülünü de barındıran Standart kitaplığı iyi tanıyın</p>
+        </li>
+        <li>
+          <p>Her iş için en uygun çözümü kullanın</p>
+        </li>
+        <li>
+          <p>Aksi halde kendi “kötü” çözümünüzü geliştirme tehlikesi söz konusu</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="karlatrma-ilemi">Karşılaştırma işlemi</h3>
+      <ul>
+        <li>
+          <p>Sıralama yaparken her seferinde iki ögeyi karşılaştırıyoruz: ör. <code>a</code> ve <code>b</code></p>
+        </li>
+        <li>
+          <p>İşlem başarımını eniyileştirmek için öge çiftlerinin nasıl seçileceği önemli bir “algoritmik problem”</p>
+        </li>
+        <li>
+          <p>Buna “sıralama algoritması” diyoruz</p>
+        </li>
+      </ul>
+      <hr />
+      <ul>
+        <li>
+          <p>Literatürde “quick, merge, heap, shell, bubble” sort gibi iyi bilinen bazı algoritmalar var</p>
+        </li>
+        <li>
+          <p>Standart kitaplıktaki metotları kullanarak sıralama yaparken “sıralama algoritması”yla ilgilenmiyoruz</p>
+        </li>
+        <li>
+          <p>Bu bir gerçekleme detayı: Ruby sizin için en uygun (optimum) veya ona yakın algoritmayı seçiyor</p>
+        </li>
+        <li>
+          <p>Bizim ilgilendiğimiz kraşılaştırma işlemi; ki çoğu durumda onu bile vermemiz gerekmiyor</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Karşılaştırma işlemi 3 ihtimallı bir bilgiyi üretmeli: “küçüktür”, “eşittir”, “büyüktür”</p>
+      <ul>
+        <li>
+          <p>“Küçüktür”: negatif bir sayı, çoğunlukla <code>-1</code></p>
+        </li>
+        <li>
+          <p>“Eşittir”: <code>0</code></p>
+        </li>
+        <li>
+          <p>“Büyüktür”: pozitif bir sayı, çoğunlukla <code>1</code></p>
+        </li>
+      </ul>
+      <hr />
+      <p><code>ruby
+          [1, 2, 3, 4, 5].sort do |a, b|
+          if b &lt; a
+          -1 # herhangi bir negatif değer de olabilir
+          elsif b &gt; a
+          1 # herhangi bir pozitif değer de olabilir
+          else
+          0
+          end
+          end #=&gt; [5, 4, 3, 2, 1]
+        </code></p>
+      <p>Örnekte dizideki öge çiftinin <code>a, b</code> sırasıyla verildiğine fakat karşılaştırmanın <code>b, a</code> sırasıyla yapıldığına dikkat
+        edin: “Ters sıralama”</p>
+      <hr />
+      <h3 id="spaceship-ileci"><code>&lt;=&gt;</code>: “Spaceship” işleci</h3>
+      <ul>
+        <li>
+          <p>Örnekteki karşılaştırmayı her seferinde yapmanız gerekmiyor</p>
+        </li>
+        <li>
+          <p><code>&lt;</code>, <code>&gt;</code> ve <code>==</code> karşılaştırmaları ilkel nesnelerin zaten cevap verdiği metotlar (bu bilgi nesne de zaten var)</p>
+        </li>
+        <li>
+          <p>O halde örnekteki karşılaştırmaları <code>&lt;=&gt;</code> isimli özel bir metotta toplayabiliriz</p>
+        </li>
+      </ul>
+      <p>(Dikkatli bakılırsa cepheden bir tür “uzay gemisi” görülebilir)</p>
+      <hr />
+      <p><code>ruby
+          def &lt;=&gt;(other)
+          if self &gt; other
+          1 # herhangi bir negatif değer de olabilir
+          elsif self &lt; other
+          1 # herhangi bir pozitif değer de olabilir
+          else
+          0
+          end
+          end
+        </code></p>
+      <hr />
+      <ul>
+        <li>
+          <p>Böyle bir <code>&lt;=&gt;</code> metotu <code>Integer</code>, <code>String</code> gibi ilkel veri türü nesnelerine ekleyebiliriz</p>
+        </li>
+        <li>
+          <p>Bu yapıldığında <code>sort</code> metotuna karşılaştırma işlemi vermek bile gerekmez</p>
+        </li>
+        <li>
+          <p>Neden?  Ruby “türdeş” dizide dolaşırken ilgili türün <code>&lt;=&gt;</code> metotunu uyarır</p>
+        </li>
+      </ul>
+      <hr />
+      <p><code>sort</code> metotunu genellikle hiç bir blok tanımlamadan kullanıyoruz</p>
+      <ul>
+        <li>
+          <p>Öntanımlı davranışın var olmadığı veya uygun olmadığı durumlarda bir blok lullanıyoruz</p>
+        </li>
+        <li>
+          <p>Fakat çoğu durumda ilgili nesneye ait sınıfta özel bir <code>&lt;=&gt;</code> metotu yazmak daha doğru</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Bir diziyi ters sıralamak için her seferinde önceki örneklerdeki gibi mi kod yazacağız?</p>
+      <p><code>ruby
+          [1, 2, 3, 4, 5].sort.reverse #=&gt; [5, 4, 3, 2, 1]
+        </code></p>
+      <ul>
+        <li>
+          <p>Önce sırala, sonra tersle</p>
+        </li>
+        <li>
+          <p>Dikkat!  Sadece <code>reverse</code> diziyi sıralamadan tersler</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Bir dizgi dizisini dizgi uzunluklarına göre sıralamak istersek?</p>
+      <p>İlişkili metot: <code>sort_by</code></p>
+      <p><code>ruby
+          %w[apple pear fig].sort_by { |word| word.length }  #=&gt; ['fig', 'pear', 'apple']
+        </code></p>
+      <ul>
+        <li>
+          <p>Karşılaştırma işlemini ögelerin kendisiyle değil bir özelliği üzerinden yapıyoruz</p>
+        </li>
+        <li>
+          <p>“Blok” nesnenin kendisinden bu özelliğe ait değeri üretiyor</p>
+        </li>
+        <li>
+          <p>Öyle ki karşılaştırma bu değerlere ait öntanımlı <code>&lt;=&gt;</code> işleciyle gerçekleşiyor</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="nlemli-metotlar">Ünlemli metotlar</h3>
+      <p>Verilen koleksiyonla eş boyutta bir koleksiyon üreten metotları ele alalım: <code>map</code>, <code>sort</code>, <code>reverse</code></p>
+      <ul>
+        <li>
+          <p>Bu metotlar her seferinde yeni bir dizi üretiyor</p>
+        </li>
+        <li>
+          <p>Örneğin bellekte büyük yer kaplayan 100,000 ögeli bir diziyi sıraladığımızda bellekte bir o kadar yer işgal eden yeni
+            bir dizi üretiyoruz</p>
+        </li>
+        <li>
+          <p>Sıralanmamış özgün diziye sonraki aşamalarda çoğunlukla ihtiyacımız yok</p>
+        </li>
+        <li>
+          <p>Bellekten tasarruf için yerinde sıralasak?  Yani sıralanmış dizi eskisine ayrılan bellek alanına kayıtlansa?</p>
+        </li>
+      </ul>
+      <hr />
+      <p><code>ruby
+          &gt; a = [1, 2, 3, 4, 5] #=&gt; [1, 2, 3, 4, 5]
+          &gt; b = a.reverse       #=&gt; [5, 4, 3, 2, 1]
+          &gt; a                   #=&gt; [1, 2, 3, 4, 5]
+        </code></p>
+      <p>yerine</p>
+      <p><code>ruby
+          &gt; a = [1, 2, 3, 4, 5]
+          &gt; a.reverse! #=&gt; [5, 4, 3, 2, 1]
+          &gt; a          #=&gt; [5, 4, 3, 2, 1]
+        </code></p>
+      <hr />
+      <p>Tek yapmamız gereken metotu sonunda <code>!</code> olan çeşidiyle değiştirmek</p>
+      <p><code>ruby
+          &gt; a = [1, 2, 3, 4, 5]
+          &gt; a.reverse!
+          &gt; a #=&gt; [5, 4, 3, 2, 1]
+          &gt; a.sort!
+          &gt; a #=&gt; [1, 2, 3, 4, 5]
+          &gt; a.map! { |i| i ** i }
+          &gt; a #=&gt; [1, 4, 9, 16, 25]
+        </code></p>
+      <hr />
+      <p><strong>Ters sıralamada daima ünlemli metotları kullanın</strong></p>
+      <p>İyi</p>
+      <p><code>ruby
+          a.sort!.reverse!
+        </code></p>
+      <p>Kötü</p>
+      <p><code>ruby
+          a.sort.reverse
+          # veya
+          a.sort.reverse!
+        </code></p>
+      <hr />
+      <ul>
+        <li>
+          <p>Ruby’de sonunda <code>?</code> karakteri bulunan metotları görmüştük</p>
+        </li>
+        <li>
+          <p><code>?</code> “doğru mu, değil mi?”yi çağrıştırıyordu</p>
+        </li>
+        <li>
+          <p>Sondaki <code>!</code> ise genel olarak “dikkatli ol, bu metotun bir yan etkisi var” mesajını iletiyor</p>
+        </li>
+        <li>
+          <p>Örneklerdeki yan etki?  Özgün dizinin artık yok olması, değişime uğraması</p>
+        </li>
+        <li>
+          <p>Bu yan etki bazen istemediğiniz bir şey olabilir</p>
+        </li>
+        <li>
+          <p>Örneğin: “Sıralanmamış diziye de ihtiyacım var; isteğe göre farklı kurallarla birden fazla sıralama yapmam gerekiyor”</p>
+        </li>
+      </ul>
+      <hr />
+      <p><strong>Bu bir konvansiyon</strong></p>
+      <ul>
+        <li>
+          <p>Her metotun ünlemli bir karşılığı yok, sadece anlamlı durumlarda var</p>
+        </li>
+        <li>
+          <p>Sona <code>!</code> koyduğunuzda sihirli bir şey olmuyor, <strong>bu sadece bir konvansiyon</strong></p>
+        </li>
+        <li>
+          <p>Bu konvansiyon, (daima zor olan) isimlendirmelerde kullanacağınız bir enstrüman</p>
+        </li>
+        <li>
+          <p>Mevcut bir ismi “recycle” ederek yeniden kullanabiliyorsunuz, üstelik daha anlamlı bir seçenek olarak</p>
+        </li>
+        <li>
+          <p>Ünlemli metotu, eğer bu anlamlıysa, siz gerçekleyeceksiniz</p>
+        </li>
+        <li>
+          <p>Bunu yaparken “dikkat, yan etkisi var” semantiğine sadık kalın</p>
+        </li>
+      </ul>
+      <hr />
+      <h3 id="standart-kitaplk">Standart kitaplık</h3>
+      <p>Standart kitaplık bir hazine</p>
+      <ul>
+        <li>
+          <p>Kıymetli pek çok mücevher (metot) var</p>
+        </li>
+        <li>
+          <p>Bunları tanıyın (aksi halde ne olacağını biliyorsunuz)</p>
+        </li>
+      </ul>
+      <hr />
+      <p>Diğer “sayılabilirler” metotları</p>
+      <ul>
+        <li>
+          <p><code>max</code>, <code>min</code>, <code>max_by</code>, <code>min_by</code>, <code>sum</code></p>
+        </li>
+        <li>
+          <p><code>uniq</code>, <code>zip</code>, <code>tally</code></p>
+        </li>
+      </ul>
+      <hr />
+      <p>Diğer dizi metotları</p>
+      <ul>
+        <li>
+          <p><code>compact</code>, <code>flatten</code></p>
+        </li>
+        <li>
+          <p><code>sample</code>, <code>rotate</code></p>
+        </li>
+        <li>
+          <p><code>permutation</code>, <code>combination</code></p>
+        </li>
+        <li>
+          <p><code>product</code>, <code>transpose</code></p>
+        </li>
+        <li>
+          <p><code>intersection</code>, <code>union</code>, <code>difference</code></p>
         </li>
       </ul>
     </div>
